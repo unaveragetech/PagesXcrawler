@@ -42,6 +42,7 @@ jobs:
 
       - name: Run crawler
         run: |
+          echo "Running crawler with URL: $URL and Depth: $DEPTH"
           python crawler.py "$URL" "$DEPTH"
 
       - name: Update HTML page
