@@ -50,9 +50,11 @@ jobs:
           python scripts/update_html.py
 
       - name: Commit results
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "github-actions@github.com"
           git add data/results.json data/results.csv index.html
           git commit -m "Update results" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+          git push origin HEAD:${{ github.ref }}  # Push to the same branch as the workflow runs on
