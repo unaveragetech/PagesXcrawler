@@ -9,3 +9,9 @@ To use the system, create a new issue in the format:
 ```
 https://example.com:2
 ```
+The system will automatically run the crawler and update the results.
+
+To run the web crawler manually for testing, you can execute:
+```bash
+python crawler.py https://example.com 2
+```
