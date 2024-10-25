@@ -58,3 +58,7 @@ jobs:
           git add data/results.json data/results.csv index.html
           git commit -m "Update results" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      - name: Debug PAT
+        run: |
+          echo "Debugging: My PAT is set."
