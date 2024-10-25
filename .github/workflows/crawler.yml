@@ -1,0 +1,48 @@
+# This is the GitHub Actions workflow configuration file.
+# It defines the process that runs whenever an issue is opened.
+# The workflow includes steps for checking out the code, setting up Python,
+# installing dependencies, running the crawler, committing results,
+# and updating the HTML page to reflect the latest data.
+
+name: Web Crawler
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Run crawler
+        run: |
+          issue_title="${{ github.event.issue.title }}"
+          url=$(echo "$issue_title" | cut -d':' -f1)
+          depth=$(echo "$issue_title" | cut -d':' -f2)
+          python crawler.py "$url" "$depth"
+
+      - name: Update HTML page
+        run: |
+          python scripts/update_html.py
+
+      - name: Commit results
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git add data/results.json data/results.csv index.html
+          git commit -m "Update results" || echo "No changes to commit"
+          git push
