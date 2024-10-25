@@ -55,4 +55,4 @@ jobs:
           git config --local user.email "github-actions@github.com"
           git add data/results.json data/results.csv index.html
           git commit -m "Update results" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
