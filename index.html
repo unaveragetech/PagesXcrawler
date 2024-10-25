@@ -1,0 +1,28 @@
+<!-- This is the main HTML file served by GitHub Pages.
+     It fetches and displays the results from the crawler in both JSON and CSV formats.
+     The data is presented in a user-friendly format using JavaScript for dynamic loading. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Crawler Results</title>
+</head>
+<body>
+    <h1>Web Crawler Results</h1>
+    <div id="results"></div>
+    <script>
+        fetch('data/results.json')
+            .then(response => response.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                data.forEach(result => {
+                    const div = document.createElement('div');
+                    div.textContent = `URL: ${result.url}, Depth: ${result.depth}`;
+                    resultsDiv.appendChild(div);
+                });
+            });
+    </script>
+</body>
+</html>
