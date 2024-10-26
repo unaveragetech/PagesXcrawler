@@ -16,28 +16,28 @@ This repository contains a fully automated web crawler powered by GitHub Actions
 
 ## Find the Results Here
 ---
-[Check jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)
+[Check deployment jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)
 ---
 ---
 
-[Last run](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)
+[Last run results](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)
 
 ---
 ---
-[run status](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv)
+[All run history](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv)
 
 your run will be the last row of the file with the issue number ,url ,depth, and status.
 ---
 ---
 
-[see and refresh main results in browser](https://unaveragetech.github.io/PagesXcrawler/)
+[Pages hosted chart of results ](https://unaveragetech.github.io/PagesXcrawler/)
 ---
 
 ## How It Works
 
 ### 1. Issue Creation
 
-To initiate a crawl, users must create a new issue in the format:
+To initiate a crawl, users must create a new issue in the format where the site example.com is the starting point and the integer is the depth:
 
 ```
 https://example.com:2
@@ -56,7 +56,7 @@ Once the issue is submitted, the system automatically triggers the web crawler:
 ### 3. Results Storage
 
 - **CSV**: This format is easily viewable from GitHub and suitable for spreadsheet applications.
-- **JSON**: This format is utilized to dynamically load results into the HTML page hosted at [https://unaveragetech.github.io/PagesXcrawler/](https://unaveragetech.github.io/PagesXcrawler/).
+- **JSON**: This format is utilized to dynamically load results into the HTML page hosted at: [Main chart](https://unaveragetech.github.io/PagesXcrawler/).
 
 ### 4. Reloading the Page
 
@@ -70,7 +70,7 @@ Users can overwrite the results of the last crawl by posting a new issue. The sy
 
 - **Submission Order**: Ensure you follow the correct issue submission format (`url:depth`) for the crawler to function correctly.
   
-- **Crawling Depth**: Keep in mind that deeper depths may lead to longer processing times, as the crawler retrieves more data.
+- **Crawling Depth**: Keep in mind that deeper depths may lead to longer processing times, as the crawler retrieves more data.but the crawling is done in a beefy code space so it is very snappy 
 
 ## Setting Up for Private Use
 
@@ -101,15 +101,15 @@ To enable GitHub Actions in your private repository:
 For the crawler to function properly, you need to set up any required secrets (like Personal Access Tokens) in your repository:
 
 - Go to "Settings" > "Secrets and variables" > "Actions."
-- Click on "New repository secret" and add your secrets (e.g., `MY_PAT`).
+- Click on "New repository secret" and add your secrets (named, `MY_PAT`). this secret should have all needed read and write scopes
 
 ### 5. Update the `_config.yml`
 
-- Ensure the `_config.yml` file reflects your own repository settings and URLs as needed.
+- Ensure the `_config.yml` file reflects your own repository settings and URLs as needed.-this is used to mitigate jekyll issues and is not needed but must be present even if its empty
 
 ### 6. Test the System
 
-- Create a test issue in the format `url:depth` to verify that everything is functioning as expected.
+- Create a test issue in the format `url:depth` to verify that everything is functioning as expected.-if yes the system will run and as the repo owner youll seeb bots actions and when the issue closes. if not youll get a notification of either a 128 104 or 404 error these all come from irregular perms or missing perms fir the token 
 
 ## Additional Features
 
