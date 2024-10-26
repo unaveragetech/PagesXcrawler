@@ -33,9 +33,12 @@ jobs:
         id: extract
         run: |
           issue_title="${{ github.event.issue.title }}"
+          issue_number="${{ github.event.issue.number }}"
           if [[ "$issue_title" =~ ^(https?://[^\s]+):([0-9]+)$ ]]; then
               echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
               echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+              echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
+              echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
           else
               echo "Error: Issue title must be in the format 'url:depth'"
               exit 1
@@ -56,11 +59,11 @@ jobs:
 
           # Check if the CSV file exists, create it if not
           if [ ! -f "$CSV_FILE" ]; then
-              echo "Issue,Status" > "$CSV_FILE"
+              echo "Issue Number,Issue Title,Status" > "$CSV_FILE"
           fi
 
-          # Log the issue title as 'In Progress'
-          echo "$issue_title,In Progress" >> "$CSV_FILE"
+          # Log the issue title and number with status 'Completed'
+          echo "${{ env.ISSUE_NUMBER }},${{ env.ISSUE_TITLE }},Completed" >> "$CSV_FILE"
 
       - name: Close the issue
         env:
