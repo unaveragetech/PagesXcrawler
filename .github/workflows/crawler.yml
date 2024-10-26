@@ -2,7 +2,8 @@
 # It defines the process that runs whenever an issue is opened.
 # The workflow includes steps for checking out the code, setting up Python,
 # installing dependencies, running the crawler, committing results,
-# and updating the HTML page to reflect the latest data.
+# updating the HTML page to reflect the latest data, logging issue status,
+# and closing the issue.
 
 name: Web Crawler
 
@@ -58,6 +59,30 @@ jobs:
           git add data/results.json data/results.csv index.html
           git commit -m "Update results" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      - name: Log issue status
+        run: |
+          CSV_FILE="data/issues_status.csv"
+
+          # Check if the CSV file exists, create if not
+          if [ ! -f "$CSV_FILE" ]; then
+              echo "Issue,Status" > "$CSV_FILE"
+          fi
+
+          # Log the completed issue
+          echo "$issue_title,Completed" >> "$CSV_FILE"
+
+      - name: Close the issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ISSUE_NUMBER="${{ github.event.issue.number }}"  # Get the issue number directly
+          echo "Closing issue #$ISSUE_NUMBER"
+          curl -X PATCH \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER \
+            -d '{"state": "closed"}'
 
       - name: Debug PAT
         run: |
