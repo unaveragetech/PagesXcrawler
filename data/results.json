@@ -1,42 +1,746 @@
 [
     {
-        "url": "https://www.netflix.com",
+        "url": "https://www.youtube.com",
         "depth": 0
     },
     {
-        "url": "https://www.netflix.com/login",
+        "url": "https://www.youtube.com/",
         "depth": 1
     },
     {
-        "url": "https://www.netflix.com/",
+        "url": "https://www.youtube.com/about/",
         "depth": 2
     },
     {
-        "url": "https://www.netflix.com/youraccount",
+        "url": "https://www.youtube.com/about/#content",
         "depth": 3
     },
     {
-        "url": "https://www.netflix.com/LoginHelp",
-        "depth": 4
-    },
-    {
-        "url": "https://www.netflix.com/dnsspi",
-        "depth": 4
-    },
-    {
-        "url": "https://www.netflix.com/redeem",
+        "url": "https://www.youtube.com/howyoutubeworks/",
         "depth": 3
     },
     {
-        "url": "https://www.netflix.com/gift-cards",
-        "depth": 4
+        "url": "https://www.youtube.com/creators/",
+        "depth": 3
     },
     {
-        "url": "https://www.netflix.com/watch",
-        "depth": 4
+        "url": "https://www.youtube.com/trends/",
+        "depth": 3
     },
     {
-        "url": "https://www.netflix.com/browse/genre/839338",
-        "depth": 4
+        "url": "https://www.youtube.com/jobs/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/kids/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/musicpremium",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/channel/UCqVDpXKLmKeBU_yyt_QkItQ",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/creators/podcasts/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/premium/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/ads/youtube-select/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/ads/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/yt/family/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/creatorresearch/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/nextup/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/creators-for-change/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/csai-match/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/policies/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/copyright/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/brand-resources/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/terms",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/press/",
+        "depth": 2
+    },
+    {
+        "url": "https://www.youtube.com/about/press/#jump-content",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/news-and-events",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/creator-and-artist-stories",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/culture-and-trends",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/inside-youtube",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/madeonyoutube",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=creators",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=youtube-trending",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=youtube-yoodles",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=culture-and-trends",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=learning-and-education",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=youtube-creation",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=youtube-growth",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=artists",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=youtube-health",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=ytpress-made-on-youtube",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=gaming",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=youtube-shopping",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=policy",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=products-and-features",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/search/?domain=youtube&tags=topics-youtube-work-diaries",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/user/YouTube",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/user/creatoracademy",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/channel/UCGg-UqjRgzhYDPJMr-9HXCg",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/user/YouTubeHelp",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/@YouTubeLiaison",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/press",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/space/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/policies/#community-guidelines",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/copyright/#support-and-troubleshooting",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/about/brand-resources/#logos-icons-colors",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/contact_us/",
+        "depth": 2
+    },
+    {
+        "url": "https://www.youtube.com/yt/about",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/community_guidelines",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/yt/jobs",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/press",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/yt/creators/get-started.html",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/advertising_overview",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/contentid",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/yt/dev",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy",
+        "depth": 2
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/terms?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/faq?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy/frameworks?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy/key-terms?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy/google-partners?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy/archive?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#intro",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#infocollect",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#whycollect",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#infochoices",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#infosharing",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#infosecurity",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#infodelete",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#inforetaining",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#enforcement",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#about",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#products",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy/key-terms?hl=en#key-terms",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-useful-ads",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-people-online",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-unique-id",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-device",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-personal-info",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-phone-number",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-payment-info",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-devices",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-ip",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-referrer-url",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-android-device",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-content-views",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-voice-audio-information",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-activity-on-third-party",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-chrome-sync",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-calls-messages",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-sensor-data",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-activity-on-services",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-places-you-label",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-near-device",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/location-data?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-sources",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-against-abuse",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-ad-services",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-cookies",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-pixel",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-browser-storage",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-application-data-cache",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-server-logs",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-deliver-services",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-ensure-working",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-make-improvements",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-customized-search",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-personalized-ads",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-sensitive-categories",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-link-info",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-safety-reliability",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-the-public",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-detect-abuse",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-algorithm",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-combine-info",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-other-sites",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/product-privacy?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/partner-sites?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/partner-sites?hl=en&hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/feed/history/search_history?utm_source=pp&hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/feed/history?utm_source=pp&hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-delete-specific",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-rely-on-cookies",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-sensitive-info",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-affiliates",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-legal",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-our-users",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-info",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-trends",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-specific-partners",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/ads?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/retention?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-servers",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-us-state-privacy-laws",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/anonymization?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy/ccpa-report?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy?hl=en#footnote-physical-or-mental-health",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/cookies?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/t/technologies/cookies?hl=en#types-of-cookies",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen",
+        "depth": 2
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen#content",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/fighting-misinformation/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/curbing-extremist-content/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/supporting-political-integrity/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/preventing-bias/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/youth-principles/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/fostering-child-safety/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/protecting-user-data/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/safeguarding-copyright/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/sharing-revenue/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/promoting-digital-wellbeing/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/responsible-ai/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/search/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/recommendations/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/news-information/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/health-information/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/monetization/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/live/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/privacy/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/ad-settings/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/parental-controls/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/autoplay/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/overview/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/community-guidelines/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/copyright/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/monetization-policies/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/legal-removals/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/progress-impact/responsibility/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/progress-impact/impact/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/resources/brand-resources/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/ads/how-it-works/set-up-a-campaign/youtube-select/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/new",
+        "depth": 2
     }
 ]
