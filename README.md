@@ -13,6 +13,10 @@ This repository contains a fully automated web crawler powered by GitHub Actions
 [Last run](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)
 
 ---
+---
+
+[see and refresh main results in browser](https://unaveragetech.github.io/PagesXcrawler/)
+---
 
 ## How It Works
 
