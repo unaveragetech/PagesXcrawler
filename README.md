@@ -6,6 +6,7 @@ This repository contains a fully automated web crawler powered by GitHub Actions
 ## Find the Results Here
 
 [View Results](https://unaveragetech.github.io/PagesXcrawler/)
+[Check jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)
 
 ## How It Works
 
