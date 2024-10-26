@@ -13,6 +13,11 @@ This repository contains a fully automated web crawler powered by GitHub Actions
 
 ---
 ---
+[run status](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv)
+
+your run will be the last row of the file with the issue number ,url ,depth, and status.
+---
+---
 
 [see and refresh main results in browser](https://unaveragetech.github.io/PagesXcrawler/)
 ---
