@@ -1,6 +1,42 @@
 [
     {
-        "url": "https://chatgpt.com",
+        "url": "https://www.netflix.com",
         "depth": 0
+    },
+    {
+        "url": "https://www.netflix.com/login",
+        "depth": 1
+    },
+    {
+        "url": "https://www.netflix.com/",
+        "depth": 2
+    },
+    {
+        "url": "https://www.netflix.com/LoginHelp",
+        "depth": 2
+    },
+    {
+        "url": "https://www.netflix.com/dnsspi",
+        "depth": 2
+    },
+    {
+        "url": "https://www.netflix.com/youraccount",
+        "depth": 1
+    },
+    {
+        "url": "https://www.netflix.com/redeem",
+        "depth": 1
+    },
+    {
+        "url": "https://www.netflix.com/gift-cards",
+        "depth": 2
+    },
+    {
+        "url": "https://www.netflix.com/watch",
+        "depth": 2
+    },
+    {
+        "url": "https://www.netflix.com/browse/genre/839338",
+        "depth": 2
     }
 ]
