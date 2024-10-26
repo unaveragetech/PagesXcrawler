@@ -8,10 +8,11 @@ This repository contains a fully automated web crawler powered by GitHub Actions
 [View Results](https://unaveragetech.github.io/PagesXcrawler/)
 [Check jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)
 
-~~~
+---
 
 [Last run](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)
-~~~
+
+---
 
 ## How It Works
 
