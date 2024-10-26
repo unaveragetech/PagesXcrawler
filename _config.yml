@@ -7,14 +7,14 @@ url: https://yourusername.github.io/your-repo-name  # Replace with your GitHub P
 
 # Author settings
 author:
-  name: jesse winghart
-  email: https://formsubmit.co/el/sumuhu 
+  name: Jesse Winghart
+  email: formsubmit.co/el/sumuhu  # Email should not include a URL
 
 # Social media links
 social:
- # twitter: https://twitter.com/yourprofile
- # github: https://github.com/yourusername
- # linkedin: https://linkedin.com/in/yourprofile
+  twitter: https://twitter.com/yourprofile  # Uncomment and replace
+  github: https://github.com/yourusername  # Uncomment and replace
+  linkedin: https://linkedin.com/in/yourprofile  # Uncomment and replace
 
 # Build settings
 theme: minima  # Change to your preferred theme
@@ -50,7 +50,7 @@ kramdown:
 seo:
   enable: true  # Enable SEO features
   meta_description: "Explore the capabilities of our advanced web crawler, designed to automate the process of extracting data from websites. This project showcases dynamic data retrieval, link analysis, and user-friendly visualization of crawled results. Ideal for developers, researchers, and data enthusiasts looking to enhance their web scraping skills. Hosted on GitHub Pages, it provides a seamless experience with easily accessible data in both JSON and CSV formats."
-  keywords: web crawler, GitHub Pages, data visualization, project showcase
+  keywords: "web crawler, GitHub Pages, data visualization, project showcase"  # Added quotes
 
 # Custom settings
 custom:
@@ -61,6 +61,6 @@ google_analytics: UA-XXXXXXXXX-X  # Replace with your Google Analytics tracking 
 
 # Deployment settings
 # Uncomment the following line if you want to automatically deploy to GitHub Pages
- auto_deploy: true
+auto_deploy: true
 
 # Additional settings can be added here as needed
