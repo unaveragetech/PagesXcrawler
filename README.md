@@ -4,10 +4,9 @@
 This repository contains a fully automated web crawler powered by GitHub Actions. The crawler retrieves links from specified URLs based on user-defined depth and displays the results on a GitHub Pages site. 
 
 ## Find the Results Here
-
-[View Results](https://unaveragetech.github.io/PagesXcrawler/)
+---
 [Check jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)
-
+---
 ---
 
 [Last run](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)
