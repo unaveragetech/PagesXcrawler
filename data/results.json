@@ -12,31 +12,31 @@
         "depth": 2
     },
     {
+        "url": "https://www.netflix.com/youraccount",
+        "depth": 3
+    },
+    {
         "url": "https://www.netflix.com/LoginHelp",
-        "depth": 2
+        "depth": 4
     },
     {
         "url": "https://www.netflix.com/dnsspi",
-        "depth": 2
-    },
-    {
-        "url": "https://www.netflix.com/youraccount",
-        "depth": 1
+        "depth": 4
     },
     {
         "url": "https://www.netflix.com/redeem",
-        "depth": 1
+        "depth": 3
     },
     {
         "url": "https://www.netflix.com/gift-cards",
-        "depth": 2
+        "depth": 4
     },
     {
         "url": "https://www.netflix.com/watch",
-        "depth": 2
+        "depth": 4
     },
     {
         "url": "https://www.netflix.com/browse/genre/839338",
-        "depth": 2
+        "depth": 4
     }
 ]
