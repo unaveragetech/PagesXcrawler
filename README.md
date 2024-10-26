@@ -1,6 +1,12 @@
 [Docs](Documentation.md)
 
 ---
+[Find a site to crawl](https://theuselessweb.com)
+you must copy the link from the site.
+and add your depth 
+---
+sitelink:depth(integer)
+---
 [Enter a site to crawl](https://github.com/unaveragetech/PagesXcrawler/issues/new)
 
 ---
