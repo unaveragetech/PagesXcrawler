@@ -34,9 +34,9 @@ jobs:
         run: |
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
-          if [[ "$issue_title" =~ ^(https?://[^\s:]+(:[0-9]+)?)(:[0-9]+)$ ]]; then
-              echo "URL=${BASH_REMATCH[1]}${BASH_REMATCH[3]}" >> $GITHUB_ENV
-              echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+          if [[ "$issue_title" =~ ^(https?://[^\s:]+(:[0-9]+)?)(:([0-9]+))?$ ]]; then
+              echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+              echo "DEPTH=${BASH_REMATCH[4]}" >> $GITHUB_ENV
               echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
               echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
           else
