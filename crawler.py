@@ -46,12 +46,24 @@ def save_results(results):
         writer.writeheader()
         writer.writerows(results)
 
+def parse_url_with_depth(url_with_depth):
+    # Separate the URL and depth from the format 'https://example.com:depth'
+    if ':' in url_with_depth:
+        url, depth_str = url_with_depth.rsplit(':', 1)
+        try:
+            depth = int(depth_str)
+        except ValueError:
+            print("Invalid depth provided. Defaulting to depth 1.")
+            depth = 1
+        return url, depth
+    return url_with_depth, 1  # Default depth to 1 if not specified
+
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) != 3:
-        print("Usage: python crawler.py <url> <depth>")
+    if len(sys.argv) != 2:
+        print("Usage: python crawler.py <url:depth>")
     else:
-        url = sys.argv[1]
-        depth = int(sys.argv[2])
+        url_with_depth = sys.argv[1]
+        url, depth = parse_url_with_depth(url_with_depth)
         results = crawl(url, depth)
         save_results(results)
