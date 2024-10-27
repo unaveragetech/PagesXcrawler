@@ -1,842 +1,302 @@
 [
     {
-        "url": "https://minewind.com",
+        "url": "https://www.google.com",
         "depth": 0
     },
     {
-        "url": "https://minewind.com#mobile-menu",
+        "url": "https://www.google.com/imghp?hl=en&tab=wi",
         "depth": 1
     },
     {
-        "url": "https://minewind.com/category/server-updates/",
+        "url": "https://www.google.com/webhp?tab=iw",
         "depth": 2
     },
     {
-        "url": "https://minewind.com/category/server-updates/#mobile-menu",
+        "url": "https://www.google.com/intl/en/about/products?tab=wh",
         "depth": 3
     },
     {
-        "url": "https://minewind.com/about",
-        "depth": 4
+        "url": "http://www.google.com/history/optout?hl=en",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/about#mobile-menu",
-        "depth": 5
+        "url": "https://www.google.com/preferences?hl=en",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote/",
-        "depth": 6
+        "url": "https://www.google.com/advanced_search?hl=en&authuser=0",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote/#mobile-menu",
-        "depth": 7
+        "url": "https://www.google.com/intl/en/ads/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/",
-        "depth": 8
+        "url": "https://www.google.com/services/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/intl/en/about.html",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/policies/privacy/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/feedback",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/policies/terms/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/bug-report-form/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/about/products?tab=ih",
+        "depth": 2
     },
     {
-        "url": "https://minewind.com/report/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/about/products?tab=ih#page-content",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/october-2024-changelog/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/paradox/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/products/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/september-2024-changelog/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/commitments/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/august-2024-changelog/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/stories/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/new-spawn-regen/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/belonging/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/july-2024-changelog/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/about/products?tab=ih#all-products",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-1",
-        "depth": 8
+        "url": "https://www.google.com/intl/en/belonging/in-products/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-1#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/intl/en/belonging/in-products",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-2",
-        "depth": 8
+        "url": "https://www.google.com/calendar/about/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-2#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/chrome/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-3",
-        "depth": 8
+        "url": "https://www.google.com/chromebook/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-3#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/docs/about/?utm_source=gaboutpage&utm_medium=docslink&utm_campaign=gabout",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-4",
-        "depth": 8
+        "url": "https://www.google.com/drive/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-4#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/earth/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-5",
-        "depth": 8
+        "url": "https://www.google.com/finance",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-5#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/flights",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-6",
-        "depth": 8
+        "url": "https://www.google.com/forms/about/?utm_source=gaboutpage&utm_medium=formslink&utm_campaign=gabout",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-6#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/alerts",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-7",
-        "depth": 8
+        "url": "https://www.google.com/cast/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-7#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/fonts",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-8",
-        "depth": 8
+        "url": "https://www.google.com/inputtools/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote-8#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/maps/about/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/ideas",
-        "depth": 8
+        "url": "https://www.google.com/photos/about",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/ideas#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/keep/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/",
-        "depth": 6
+        "url": "https://www.google.com/search/about/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#mobile-menu",
-        "depth": 7
+        "url": "https://www.google.com/sheets/about/?utm_source=gaboutpage&utm_medium=sheetslink&utm_campaign=gabout",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-1",
-        "depth": 8
+        "url": "https://www.google.com/slides/about/?utm_source=gaboutpage&utm_medium=slideslink&utm_campaign=gabout",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-2",
-        "depth": 9
+        "url": "https://www.google.com/travel/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-3",
-        "depth": 10
+        "url": "https://www.google.com/admob/?utm_source=internal&utm_medium=et&utm_term=goo.gl%2FPZaclC&utm_content=midpage&utm_campaign=googlehome%26producticon",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-4",
-        "depth": 10
+        "url": "https://www.google.com/adsense/start/?utm_source=internal&utm_medium=et&utm_campaign=app_switcher_ev_mr&utm_content=learn_more",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-5",
-        "depth": 10
+        "url": "https://www.google.com/analytics/?utm_medium=referral-internal&utm_source=google-products&utm_campaign=product-cross-promo&utm_content=analytics-card",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-6",
-        "depth": 10
+        "url": "https://www.google.com/business/?gmbsrc=ww-ww-et-gs-z-gmb-s-z-h~pro-z-u&ppsrc=GMBB0&utm_campaign=ww-ww-et-gs-z-gmb-s-z-h~pro-z-u&utm_source=gmb&utm_medium=et",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-7",
-        "depth": 10
+        "url": "https://www.google.com/retail/shopping-campaigns/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-8",
-        "depth": 10
+        "url": "https://www.google.com/trends/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-9",
-        "depth": 10
+        "url": "https://www.google.com/webdesigner/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-10",
-        "depth": 10
+        "url": "https://www.google.com/retail/solutions/manufacturer-center/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-11",
-        "depth": 10
+        "url": "https://www.google.com/retail/merchant-center/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-12",
-        "depth": 10
+        "url": "https://www.google.com/webmasters/tools/home?hl=en",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-13",
-        "depth": 10
+        "url": "https://www.google.com/retail/local-inventory-ads/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-14",
-        "depth": 10
+        "url": "https://www.google.com/tagmanager/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-15",
-        "depth": 10
+        "url": "https://www.google.com/intl/es_us/products/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-16",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/contact-google/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/lagfix",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/locations/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-17",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/brand-resource-center/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/degg-for-friend/",
-        "depth": 10
+        "url": "https://www.google.com/chrome/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-18",
-        "depth": 10
+        "url": "https://www.google.com/gmail/about/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/error",
-        "depth": 10
+        "url": "https://www.google.com/maps/about/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/rules",
-        "depth": 6
+        "url": "https://www.google.com/photos/about/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/rules#mobile-menu",
-        "depth": 7
+        "url": "https://www.google.com/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/warden",
-        "depth": 8
+        "url": "https://www.google.com/intl/en/products/#all-products",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/warden#mobile-menu",
-        "depth": 9
+        "url": "https://www.google.com/accessibility/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/rules/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/public-sector/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/ban-appeal-form/",
-        "depth": 10
+        "url": "https://www.google.com/intl/en/human-rights/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/bugs",
-        "depth": 6
+        "url": "https://www.google.com/intl/en/community-guidelines/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/bugs#mobile-menu",
-        "depth": 7
+        "url": "https://www.google.com/intl/en/how-our-business-works/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/dimensional-midas/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/extended-workforce/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/dimensional-midas/#mobile-menu",
-        "depth": 5
+        "url": "https://www.google.com/advanced_image_search?hl=en&authuser=0",
+        "depth": 2
     },
     {
-        "url": "https://minewind.com/chaos",
-        "depth": 6
+        "url": "https://www.google.com/webhp?hl=en&tab=ii",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/chaos#mobile-menu",
-        "depth": 7
+        "url": "https://www.google.com/url?q=https://support.google.com/websearch/%3Fp%3Dws_images_SERP%26hl%3Den%26fg%3D1&opi=89978449&sa=U&ved=0ahUKEwihkdTYqK-JAxXnmO4BHULqLVsQ8KwCCAE&usg=AOvVaw3TDSTZiuzdq_CN31njV4iV",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/lag",
-        "depth": 8
+        "url": "https://www.google.com/url?q=https://policies.google.com/privacy%3Fhl%3Den%26fg%3D1&opi=89978449&sa=U&ved=0ahUKEwihkdTYqK-JAxXnmO4BHULqLVsQ8awCCAI&usg=AOvVaw1ER7wnKdxX1AzLyP9badoV",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/lag#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/bug",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/bug#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/vote",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/vote#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/store",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/store?currency=AUD",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/store?currency=BRL",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/store?currency=CAD",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/store?currency=DKK",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=EUR",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=NOK",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=NZD",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=PLN",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=GBP",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=SEK",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?currency=USD",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/345185",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/345183",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/417572",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/1301633",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/land-claim",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/premium",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/ender-tabs",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/support/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/store?lang=en",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/terms/impressum",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/terms/checkout",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/terms/privacy",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/through-the-veil/",
-        "depth": 4
-    },
-    {
-        "url": "https://minewind.com/through-the-veil/#mobile-menu",
-        "depth": 5
-    },
-    {
-        "url": "https://minewind.com/chaos-expansion/",
-        "depth": 4
-    },
-    {
-        "url": "https://minewind.com/chaos-expansion/#mobile-menu",
-        "depth": 5
-    },
-    {
-        "url": "https://minewind.com/open-party/",
-        "depth": 4
-    },
-    {
-        "url": "https://minewind.com/open-party/#mobile-menu",
-        "depth": 5
-    },
-    {
-        "url": "https://minewind.com/chat-control/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/chat-control/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/chat-filter/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/chat-filter/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/chat-level/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/chat-level/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/premium/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/premium/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/summer-cleaning/",
-        "depth": 4
-    },
-    {
-        "url": "https://minewind.com/summer-cleaning/#mobile-menu",
-        "depth": 5
-    },
-    {
-        "url": "https://minewind.com/cherry-blossoms/",
-        "depth": 4
-    },
-    {
-        "url": "https://minewind.com/cherry-blossoms/#mobile-menu",
-        "depth": 5
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/2/",
-        "depth": 4
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/2/#mobile-menu",
-        "depth": 5
-    },
-    {
-        "url": "https://minewind.com/chaos/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/chaos/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/demonic-winter/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/demonic-winter/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/magic-monsters/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/magic-monsters/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/land-claiming/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/land-claiming/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/minigames/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/minigames/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-1",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-2",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-3",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-4",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-5",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-6",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-7",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-8",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-9",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-10",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-7653bd73eb59fced5a5d95177126372f-11",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-1",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-2",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-3",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-4",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-5",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-6",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-7",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-8",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-9",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-10",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-11",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-12",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-13",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-14",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/mythical-builds/#acc-tab-accordion-8c9888b5771ceecb9bf8c8e570fc79b1-15",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/wild-update/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/wild-update/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/minecraft-combat-update/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/minecraft-combat-update/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/glamour/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/glamour/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/world-recycling/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/world-recycling/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/chill-update/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/chill-update/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/3/",
-        "depth": 6
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/3/#mobile-menu",
-        "depth": 7
-    },
-    {
-        "url": "https://minewind.com/summoners-labyrinth/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/summoners-labyrinth/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/trado/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/trado/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/beef-event/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/beef-event/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/category/events/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/caves-cliffs-part-2/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/caves-cliffs-part-2/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/winter-cleaning/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/winter-cleaning/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/multispawn/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/abyssal/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/abyssal/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/caves-and-cliffs-part-1/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/caves-and-cliffs-part-1/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/attack-on-giant/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/attack-on-giant/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/spanker/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/spanker/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/snovasion/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/snovasion/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/4/",
-        "depth": 8
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/4/#mobile-menu",
-        "depth": 9
-    },
-    {
-        "url": "https://minewind.com/next-generation/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/nether-update/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/hardware-upgrade/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/bees/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/fox-hunt/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/battle/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/fishing-event/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/village-pillage/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/seasonal-overhaul/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/dolphins-n-stuff/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/trailer-production/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/profiles/",
-        "depth": 10
-    },
-    {
-        "url": "https://minewind.com/category/server-updates/page/5/",
-        "depth": 10
+        "url": "https://www.google.com/url?q=https://policies.google.com/terms%3Fhl%3Den%26fg%3D1&opi=89978449&sa=U&ved=0ahUKEwihkdTYqK-JAxXnmO4BHULqLVsQ8qwCCAM&usg=AOvVaw2XmLOzoiUIoT9hAa3tILxS",
+        "depth": 3
     }
 ]
