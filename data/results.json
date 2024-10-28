@@ -1,6 +1,546 @@
 [
     {
-        "url": "https://puginarug.com",
+        "url": "https://www.youtube.com/watch?v=SX3x9pVSf-w",
         "depth": 0
+    },
+    {
+        "url": "https://www.youtube.com/",
+        "depth": 1
+    },
+    {
+        "url": "https://www.youtube.com/about/",
+        "depth": 2
+    },
+    {
+        "url": "https://www.youtube.com/about/#content",
+        "depth": 3
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/",
+        "depth": 4
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/#content",
+        "depth": 5
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/#content",
+        "depth": 7
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/",
+        "depth": 8
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#content",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/fighting-misinformation/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/curbing-extremist-content/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/supporting-political-integrity/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/preventing-bias/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/youth-principles/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/fostering-child-safety/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/protecting-user-data/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/safeguarding-copyright/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/sharing-revenue/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/promoting-digital-wellbeing/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/responsible-ai/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/search/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/recommendations/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/news-information/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/health-information/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/monetization/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/product-features/live/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/privacy/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/ad-settings/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/parental-controls/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/user-settings/autoplay/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/overview/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/community-guidelines/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/copyright/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/monetization-policies/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/policies/legal-removals/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/progress-impact/responsibility/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/progress-impact/impact/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/resources/brand-resources/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#hate-versus-harassment",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#harmful-conspiracy-theories",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#enforcing-policies",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#objective-enforcement",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#policy-exceptions",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#repeated-harassment",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#creator-tools",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/standing-up-to-hate/#supporting-black-communities",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/channel/UCBR8-60-B28hp2BmDPdntcQ",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=_CV4DOdeFxU&feature=youtu.be",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/channel/UCvtO-Hj_GczqSNY6X8yVn8g",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/johnlegend",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/user/TreySongzVideos",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/channel/UCegHjh6aGovyBmA7c7pZoiA",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/jobs/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/trends/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/kids/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/musicpremium",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/channel/UCqVDpXKLmKeBU_yyt_QkItQ",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/creators/podcasts/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/premium/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/ads/how-it-works/set-up-a-campaign/youtube-select/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/ads/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/yt/family/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/creatorresearch/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/creators/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/nextup/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/creators-for-change/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/csai-match/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/about/policies/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/about/copyright/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/about/brand-resources/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/t/terms",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/#remove",
+        "depth": 8
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/#reduce",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/#raise",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks/our-commitments/managing-harmful-content/#reward",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/ads/youtube-select/",
+        "depth": 4
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/",
+        "depth": 5
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/#content",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/",
+        "depth": 7
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/#content",
+        "depth": 8
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/youtube-for-small-business/",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/youtube-for-small-business/#content",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/create-a-video-ad/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/set-up-a-campaign/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/set-up-a-campaign/audience/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/set-up-a-campaign/budget/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/how-it-works/measure-your-results/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/news-and-inspiration/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/resources/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/resources/creative-resources/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/resources/creator-promotions/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/resources/measurement-tools/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/resources/best-practices/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/resources/success-stories/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/en_us/ads/faqs/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/create_channel?action_create_new_channel_redirect=true",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/ads/youtube-select/#content",
+        "depth": 5
+    },
+    {
+        "url": "https://www.youtube.com/kids",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/",
+        "depth": 7
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/safer-experience/",
+        "depth": 8
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/parent-resources/",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/familyfriendly-videos/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/fun-everyscreen/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/premium/kids",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/watch?time_continue=1&v=eVYsgC7-6ZM&feature=emb_logo",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/about/press/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/t/contact_us/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/t/privacy",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/new",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/kids/parent-resources/",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/kids/safer-experience/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/kids/familyfriendly-videos/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/kids/fun-everyscreen/",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/#intro",
+        "depth": 8
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/#safer-experience",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/#resources",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/#videos",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/intl/ALL_us/kids/#download",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/kids#intro",
+        "depth": 7
+    },
+    {
+        "url": "https://www.youtube.com/kids#safer-experience",
+        "depth": 8
+    },
+    {
+        "url": "https://www.youtube.com/kids#resources",
+        "depth": 9
+    },
+    {
+        "url": "https://www.youtube.com/kids#videos",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/kids#download",
+        "depth": 10
+    },
+    {
+        "url": "https://www.youtube.com/youtubeoriginals",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7VSUdUp5RRH5jKtxXUeBdom",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7WAwxfdi2NtRs9meGmlsoLX",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7WiO2s8_T_z9HoPg5o1XLX7",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7XrWNS0F8cRNxnV2wBSRw3e",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7V4d1XP5bwcFXu6GGSEQOWZ",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7WBthJXJ2Kvddzp9So9aVE1",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7Vg8a1_em_oYGbpRlZ7hfHk",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7UMJ5iZ7PVNndARaErNJhu4",
+        "depth": 6
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PL9Xlh2Jq9l7Ve7FQJeEJoCCxyEyb6UELn",
+        "depth": 6
     }
 ]
