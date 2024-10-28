@@ -34,9 +34,7 @@ jobs:
         run: |
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
-          
-          # Updated regular expression to capture URL and depth
-          if [[ "$issue_title" =~ ^(https?://[^:]+):([0-9]+)$ ]]; then
+          if [[ "$issue_title" =~ ^(https?://[^\s]+):([0-9]+)$ ]]; then
               echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
               echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
               echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
@@ -88,3 +86,7 @@ jobs:
           git add data/results.json data/results.csv data/issues_status.csv index.html
           git commit -m "Update results and log issues" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      - name: Debug PAT
+        run: |
+          echo "Debugging: My PAT is set."
