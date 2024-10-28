@@ -34,13 +34,15 @@ jobs:
         run: |
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
-          if [[ "$issue_title" =~ ^(https?://[^\s]+):([0-9]+)$ ]]; then
+
+          # Regex to match any URL followed by a colon and depth in parentheses
+          if [[ "$issue_title" =~ ^(https?://[^\s:]+(:[0-9]+)?(/[^\s]*)?)(:depth\(([0-9]+)\))$ ]]; then
               echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-              echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+              echo "DEPTH=${BASH_REMATCH[5]}" >> $GITHUB_ENV
               echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
               echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
           else
-              echo "Error: Issue title must be in the format 'url:depth'"
+              echo "Error: Issue title must be in the format 'url:depth(number)'"
               exit 1
           fi
 
@@ -69,7 +71,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ISSUE_NUMBER="${{ github.event.issue.number }}"  # Get the issue number directly
+          ISSUE_NUMBER="${{ github.event.issue.number }}"
           echo "Closing issue #$ISSUE_NUMBER"
           curl -X PATCH \
             -H "Authorization: token $GITHUB_TOKEN" \
