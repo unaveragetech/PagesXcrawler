@@ -18,18 +18,24 @@ def crawl(url, depth):
             return
         visited.add(url)
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=5)  # Set a timeout for requests
+            response.raise_for_status()  # Raise an error for bad responses
             soup = BeautifulSoup(response.text, 'html.parser')
             results.append({'url': url, 'depth': current_depth})
             for link in soup.find_all('a', href=True):
                 next_url = urljoin(url, link['href'])
-                if urlparse(next_url).netloc == urlparse(url).netloc:  # Stay on the same domain
+                if is_valid_url(next_url) and urlparse(next_url).netloc == urlparse(url).netloc:  # Stay on the same domain
                     _crawl(next_url, current_depth + 1)
-        except requests.RequestException:
-            pass  # Handle any connection errors silently
+        except requests.RequestException as e:
+            print(f"Request failed for {url}: {e}")  # Log the error
 
     _crawl(url, 0)
     return results
+
+def is_valid_url(url):
+    """Check if the URL is valid and well-formed."""
+    parsed = urlparse(url)
+    return bool(parsed.scheme) and bool(parsed.netloc)
 
 def save_results(results):
     # Save results to JSON
@@ -46,24 +52,24 @@ def save_results(results):
         writer.writeheader()
         writer.writerows(results)
 
-def parse_url_with_depth(url_with_depth):
-    # Separate the URL and depth from the format 'https://example.com:depth'
-    if ':' in url_with_depth:
-        url, depth_str = url_with_depth.rsplit(':', 1)
-        try:
-            depth = int(depth_str)
-        except ValueError:
-            print("Invalid depth provided. Defaulting to depth 1.")
-            depth = 1
-        return url, depth
-    return url_with_depth, 1  # Default depth to 1 if not specified
-
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) != 2:
-        print("Usage: python crawler.py <url:depth>")
-    else:
-        url_with_depth = sys.argv[1]
-        url, depth = parse_url_with_depth(url_with_depth)
-        results = crawl(url, depth)
-        save_results(results)
+    if len(sys.argv) != 3:
+        print("Usage: python crawler.py <url> <depth>")
+        sys.exit(1)
+
+    url = sys.argv[1]
+    depth = sys.argv[2]
+
+    if not depth.isdigit() or int(depth) < 0:
+        print("Depth must be a non-negative integer.")
+        sys.exit(1)
+
+    depth = int(depth)
+
+    if not is_valid_url(url):
+        print("Error: Invalid URL format.")
+        sys.exit(1)
+
+    results = crawl(url, depth)
+    save_results(results)
