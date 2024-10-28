@@ -1,102 +1,238 @@
 [
     {
-        "url": "https://minewind.com",
+        "url": "https://www.google.com",
         "depth": 0
     },
     {
-        "url": "https://minewind.com#mobile-menu",
+        "url": "https://www.google.com/imghp?hl=en&tab=wi",
         "depth": 1
     },
     {
-        "url": "https://minewind.com/category/server-updates/",
+        "url": "https://www.google.com/webhp?tab=iw",
         "depth": 2
     },
     {
-        "url": "https://minewind.com/category/server-updates/#mobile-menu",
+        "url": "https://www.google.com/intl/en/about/products?tab=wh",
         "depth": 3
     },
     {
-        "url": "https://minewind.com/about",
-        "depth": 4
+        "url": "http://www.google.com/history/optout?hl=en",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/vote/",
-        "depth": 4
+        "url": "https://www.google.com/preferences?hl=en",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/",
-        "depth": 4
+        "url": "https://www.google.com/advanced_search?hl=en&authuser=0",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/faq",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/ads/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/feedback",
-        "depth": 4
+        "url": "https://www.google.com/services/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/bug-report-form/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/about.html",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/report/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/policies/privacy/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/october-2024-changelog/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/policies/terms/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/paradox/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/about/products?tab=ih",
+        "depth": 2
     },
     {
-        "url": "https://minewind.com/september-2024-changelog/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/about/products?tab=ih#page-content",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/august-2024-changelog/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/new-spawn-regen/",
-        "depth": 4
+        "url": "https://www.google.com/intl/en/about/products?tab=ih#all-products",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/july-2024-changelog/",
-        "depth": 4
+        "url": "https://www.google.com/calendar/about/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/dimensional-midas/",
-        "depth": 4
+        "url": "https://www.google.com/chrome/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/through-the-veil/",
-        "depth": 4
+        "url": "https://www.google.com/chromebook/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/chaos-expansion/",
-        "depth": 4
+        "url": "https://www.google.com/docs/about/?utm_source=gaboutpage&utm_medium=docslink&utm_campaign=gabout",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/open-party/",
-        "depth": 4
+        "url": "https://www.google.com/drive/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/summer-cleaning/",
-        "depth": 4
+        "url": "https://www.google.com/earth/",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/cherry-blossoms/",
-        "depth": 4
+        "url": "https://www.google.com/finance",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/category/server-updates/page/2/",
-        "depth": 4
+        "url": "https://www.google.com/flights",
+        "depth": 3
     },
     {
-        "url": "https://minewind.com/category/server-updates/page/5/",
-        "depth": 4
+        "url": "https://www.google.com/forms/about/?utm_source=gaboutpage&utm_medium=formslink&utm_campaign=gabout",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/alerts",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/cast/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/fonts",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/inputtools/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/maps/about/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/photos/about",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/keep/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/search/about/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/sheets/about/?utm_source=gaboutpage&utm_medium=sheetslink&utm_campaign=gabout",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/slides/about/?utm_source=gaboutpage&utm_medium=slideslink&utm_campaign=gabout",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/travel/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/admob/?utm_source=internal&utm_medium=et&utm_term=goo.gl%2FPZaclC&utm_content=midpage&utm_campaign=googlehome%26producticon",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/adsense/start/?utm_source=internal&utm_medium=et&utm_campaign=app_switcher_ev_mr&utm_content=learn_more",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/analytics/?utm_medium=referral-internal&utm_source=google-products&utm_campaign=product-cross-promo&utm_content=analytics-card",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/business/?gmbsrc=ww-ww-et-gs-z-gmb-s-z-h~pro-z-u&ppsrc=GMBB0&utm_campaign=ww-ww-et-gs-z-gmb-s-z-h~pro-z-u&utm_source=gmb&utm_medium=et",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/retail/shopping-campaigns/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/trends/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/webdesigner/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/retail/solutions/manufacturer-center/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/retail/merchant-center/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/webmasters/tools/home?hl=en",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/retail/local-inventory-ads/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/tagmanager/",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/chrome/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/gmail/about/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/maps/about/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/photos/about/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/accessibility/?utm_source=about&utm_medium=referral&utm_campaign=footer-link",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/advanced_image_search?hl=en&authuser=0",
+        "depth": 2
+    },
+    {
+        "url": "https://www.google.com/webhp?hl=en&tab=ii",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/url?q=https://support.google.com/websearch/%3Fp%3Dws_images_SERP%26hl%3Den%26fg%3D1&opi=89978449&sa=U&ved=0ahUKEwjF4KrAnrKJAxXpBdsEHUYtLIsQ8KwCCAE&usg=AOvVaw0_3SoZ4JeP2glkeviDbLbk",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/url?q=https://policies.google.com/privacy%3Fhl%3Den%26fg%3D1&opi=89978449&sa=U&ved=0ahUKEwjF4KrAnrKJAxXpBdsEHUYtLIsQ8awCCAI&usg=AOvVaw2AdkP1QFxzrDWctNknkEy-",
+        "depth": 3
+    },
+    {
+        "url": "https://www.google.com/url?q=https://policies.google.com/terms%3Fhl%3Den%26fg%3D1&opi=89978449&sa=U&ved=0ahUKEwjF4KrAnrKJAxXpBdsEHUYtLIsQ8qwCCAM&usg=AOvVaw1ZdPEeWSFr9OFk8pGnWrjD",
+        "depth": 3
     }
 ]
