@@ -40,7 +40,7 @@ your run will be the last row of the file with the issue number ,url ,depth, and
 To initiate a crawl, users must create a new issue in the format where the site example.com is the starting point and the integer is the depth:
 
 ```
-https://example.com:2
+https://example.com:depth(2)
 ```
 
 - **URL**: The webpage you want to crawl.
@@ -68,7 +68,7 @@ Users can overwrite the results of the last crawl by posting a new issue. The sy
 
 ## Important Considerations
 
-- **Submission Order**: Ensure you follow the correct issue submission format (`url:depth`) for the crawler to function correctly.
+- **Submission Order**: Ensure you follow the correct issue submission format (`url:depth(int)`) for the crawler to function correctly.
   
 - **Crawling Depth**: Keep in mind that deeper depths may lead to longer processing times, as the crawler retrieves more data.but the crawling is done in a beefy code space so it is very snappy 
 
