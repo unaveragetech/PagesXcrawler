@@ -29,20 +29,33 @@ def update_html():
         html_file.write('<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
         html_file.write('<title>Web Crawler Results</title>\n')
         html_file.write('<style>\n')
-        html_file.write('body { font-family: Arial, sans-serif; margin: 20px; }\n')
+        html_file.write('body { font-family: Arial, sans-serif; margin: 0; display: flex; }\n')
+        html_file.write('.sidebar { width: 250px; background-color: #f4f4f4; padding: 20px; overflow-y: auto; height: 100vh; }\n')
+        html_file.write('.content { flex: 1; padding: 20px; }\n')
         html_file.write('h1 { color: #333; }\n')
-        html_file.write('.results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }\n')
-        html_file.write('.result-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9; }\n')
-        html_file.write('.result-card h3 { font-size: 18px; }\n')
+        html_file.write('.results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }\n')
+        html_file.write('.result-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #ffffff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }\n')
+        html_file.write('.result-card h3 { font-size: 18px; color: #007BFF; }\n')
         html_file.write('.result-card p { margin: 5px 0; font-size: 14px; }\n')
         html_file.write('.url { font-weight: bold; color: #007BFF; }\n')
+        html_file.write('.sidebar ul { list-style-type: none; padding: 0; }\n')
+        html_file.write('.sidebar ul li { margin: 10px 0; }\n')
+        html_file.write('.sidebar a { text-decoration: none; color: #007BFF; }\n')
         html_file.write('</style>\n')
         html_file.write('</head>\n<body>\n')
-        html_file.write('<h1>Web Crawler Results</h1>\n')
+        html_file.write('<div class="sidebar">\n<h2>Navigation</h2>\n<ul>\n')
+
+        # Create a list of links for each URL
+        for index, result in enumerate(results):
+            url = result.get("url", "N/A")
+            html_file.write(f'<li><a href="#result-{index}">{url}</a></li>\n')
+
+        html_file.write('</ul>\n</div>\n')
+        html_file.write('<div class="content">\n<h1 id="results">Web Crawler Results</h1>\n')
         
         if results:
             html_file.write('<div class="results-container">\n')
-            for result in results:
+            for index, result in enumerate(results):
                 url = result.get("url", "N/A")
                 depth = result.get("depth", "N/A")
                 title = result.get("title", "N/A")
@@ -56,7 +69,7 @@ def update_html():
                 h2_tags = ', '.join(result.get("h2_tags", []))
 
                 html_file.write(
-                    f'<div class="result-card">'
+                    f'<div class="result-card" id="result-{index}">'
                     f'<h3 class="url">{url}</h3>'
                     f'<p><strong>Depth:</strong> {depth}</p>'
                     f'<p><strong>Title:</strong> {title}</p>'
@@ -75,7 +88,7 @@ def update_html():
             html_file.write('<p>No crawl results available at the moment.</p>\n')
 
         # Footer and closing tags
-        html_file.write('</body>\n</html>')
+        html_file.write('</div>\n</body>\n</html>')
 
 if __name__ == "__main__":
     update_html()
