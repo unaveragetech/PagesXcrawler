@@ -1,0 +1,33 @@
+name: Deployment and Actions Counter
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  count-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup data directory and counters file if not exists
+        run: |
+          mkdir -p data
+          if [ ! -f data/counters.json ]; then
+            echo '{"deployments": 70, "actions": 0}' > data/counters.json
+          fi
+
+      - name: Increment counters
+        run: |
+          jq '.deployments += 1 | .actions += 1' data/counters.json > temp.json && mv temp.json data/counters.json
+
+      - name: Commit updated counters
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions Bot"
+          git add data/counters.json
+          git commit -m "Update counters for deployments and actions"
+          git push
