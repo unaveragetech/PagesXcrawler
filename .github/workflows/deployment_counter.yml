@@ -17,17 +17,26 @@ jobs:
         run: |
           mkdir -p data
           if [ ! -f data/counters.json ]; then
-            echo '{"deployments": 70, "actions": 0}' > data/counters.json
+            echo '{"schemaVersion": 1, "label": "Deployments", "message": "70", "color": "blue"}' > data/counters.json
+            echo '{"schemaVersion": 1, "label": "Actions", "message": "0", "color": "green"}' > data/actions_counter.json
           fi
 
-      - name: Increment counters
+      - name: Increment deployment count
         run: |
-          jq '.deployments += 1 | .actions += 1' data/counters.json > temp.json && mv temp.json data/counters.json
+          current_deployments=$(jq '.message | tonumber' data/counters.json)
+          new_deployments=$((current_deployments + 1))
+          jq --arg new_msg "$new_deployments" '.message = $new_msg' data/counters.json > temp.json && mv temp.json data/counters.json
+
+      - name: Increment action count
+        run: |
+          current_actions=$(jq '.message | tonumber' data/actions_counter.json)
+          new_actions=$((current_actions + 1))
+          jq --arg new_msg "$new_actions" '.message = $new_msg' data/actions_counter.json > temp.json && mv temp.json data/actions_counter.json
 
       - name: Commit updated counters
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "GitHub Actions Bot"
-          git add data/counters.json
+          git add data/counters.json data/actions_counter.json
           git commit -m "Update counters for deployments and actions"
           git push
