@@ -31,9 +31,11 @@ def update_html():
         html_file.write('<style>\n')
         html_file.write('body { font-family: Arial, sans-serif; margin: 20px; }\n')
         html_file.write('h1 { color: #333; }\n')
-        html_file.write('#results-table { width: 100%; border-collapse: collapse; }\n')
+        html_file.write('#results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }\n')
         html_file.write('th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }\n')
         html_file.write('th { background-color: #f4f4f4; }\n')
+        html_file.write('tr:nth-child(even) { background-color: #f9f9f9; }\n')
+        html_file.write('.url { max-width: 300px; word-wrap: break-word; }\n')
         html_file.write('</style>\n')
         html_file.write('</head>\n<body>\n')
         html_file.write('<h1>Web Crawler Results</h1>\n')
@@ -41,16 +43,35 @@ def update_html():
         if results:
             # Create table to display results
             html_file.write('<table id="results-table">\n')
-            html_file.write('<tr><th>URL</th><th>Depth</th><th>Title</th><th>Status</th><th>Date Crawled</th></tr>\n')
+            html_file.write(
+                '<tr><th>URL</th><th>Depth</th><th>Title</th><th>Meta Description</th>'
+                '<th>Internal Links</th><th>External Links</th><th>Word Count</th><th>Status</th><th>Date Crawled</th></tr>\n'
+            )
             
             for result in results:
                 url = result.get("url", "N/A")
                 depth = result.get("depth", "N/A")
                 title = result.get("title", "N/A")
+                meta_description = result.get("meta_description", "N/A")
+                internal_link_count = result.get("internal_link_count", "0")
+                external_link_count = result.get("external_link_count", "0")
+                word_count = result.get("word_count", "0")
                 status = result.get("status", "Pending")
                 date_crawled = result.get("date_crawled", "N/A")
 
-                html_file.write(f'<tr><td>{url}</td><td>{depth}</td><td>{title}</td><td>{status}</td><td>{date_crawled}</td></tr>\n')
+                html_file.write(
+                    f'<tr>'
+                    f'<td class="url">{url}</td>'
+                    f'<td>{depth}</td>'
+                    f'<td>{title}</td>'
+                    f'<td>{meta_description}</td>'
+                    f'<td>{internal_link_count}</td>'
+                    f'<td>{external_link_count}</td>'
+                    f'<td>{word_count}</td>'
+                    f'<td>{status}</td>'
+                    f'<td>{date_crawled}</td>'
+                    f'</tr>\n'
+                )
             
             html_file.write('</table>\n')
         else:
