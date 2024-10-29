@@ -70,7 +70,11 @@ To replace the results of your last crawl, submit a new issue with the same form
 
 - **Submission Format**: Adhere to the correct issue submission format (`url:depth(int)`) for proper functionality.
 - **Crawling Depth**: Deeper depths may require longer processing times, as the crawler fetches more data. However, it operates in a powerful environment, ensuring responsiveness.
+```
+Using the URL https://github.com/unaveragetech and a specified depth of 3, the web crawler performed its operations, which included crawling the website and executing the necessary deployment processes. The total time taken for this task was approximately 2 minutes.
 
+Out of this total duration, the crawling process itself took around 1 minute and 27 seconds. The remaining time was utilized for deployment checks, ensuring that all relevant data was accurately processed and deployed. This breakdown highlights the efficiency of the crawler while also emphasizing the importance of thorough checks in the deployment phase.
+```
 ## Setting Up for Private Use
 
 If you want to use this system privately after forking the repository, follow these steps:
