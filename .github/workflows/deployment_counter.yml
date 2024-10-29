@@ -1,6 +1,10 @@
 name: Deployment and Actions Counter
 
 on:
+  issues:
+    types: [opened]
+
+on:
   push:
     branches:
       - main
