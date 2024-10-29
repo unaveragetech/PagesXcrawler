@@ -365,7 +365,7 @@
     },
     {
         "url": "https://github.com/",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub \u00b7 Build and ship software on a single, collaborative platform \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -489,7 +489,7 @@
     },
     {
         "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Funaveragetech",
-        "depth": 2,
+        "depth": 1,
         "title": "Sign in to GitHub \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -520,7 +520,7 @@
     },
     {
         "url": "https://github.com/features/copilot",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Copilot \u00b7 Your AI pair programmer \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -738,7 +738,7 @@
     },
     {
         "url": "https://github.com/features/security",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Security \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -882,7 +882,7 @@
     },
     {
         "url": "https://github.com/features/actions",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Actions \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1015,7 +1015,7 @@
     },
     {
         "url": "https://github.com/features/codespaces",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Codespaces \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1148,7 +1148,7 @@
     },
     {
         "url": "https://github.com/features/issues",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Issues \u00b7 Project planning for developers \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1281,7 +1281,7 @@
     },
     {
         "url": "https://github.com/features/code-review",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Code Review \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1414,7 +1414,7 @@
     },
     {
         "url": "https://github.com/features/discussions",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Discussions \u00b7 Developer Collaboration & Communication Tool \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1547,7 +1547,7 @@
     },
     {
         "url": "https://github.com/features/code-search",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Code Search \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1680,7 +1680,7 @@
     },
     {
         "url": "https://github.com/features",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Features \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -1813,7 +1813,7 @@
     },
     {
         "url": "https://github.com/enterprise",
-        "depth": 2,
+        "depth": 1,
         "title": "The AI Powered Developer Platform. \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -2007,7 +2007,7 @@
     },
     {
         "url": "https://github.com/team",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub for teams \u00b7 Build like the best teams on the planet \u00b7 GitHub",
         "meta_description": "With CI/CD, Dependabot, and the world\u2019s largest developer community, GitHub gives your team everything they need to ship better software faster.",
         "meta_keywords": "",
@@ -2162,7 +2162,7 @@
     },
     {
         "url": "https://github.com/enterprise/startups",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub for Startups: Build your startup on GitHub \u00b7 GitHub",
         "meta_description": "Go from idea to IPO on the world\u2019s best software development platform with free&nbsp;access to GitHub Enterprise",
         "meta_keywords": "",
@@ -2319,7 +2319,7 @@
     },
     {
         "url": "https://github.com/solutions/use-case/devsecops",
-        "depth": 2,
+        "depth": 1,
         "title": "Enterprise AppSec with GitHub Advanced Security \u00b7 GitHub",
         "meta_description": "With comprehensive security tools built into the developer workflow, you can build, secure, and ship all in one place.",
         "meta_keywords": "",
@@ -2459,7 +2459,7 @@
     },
     {
         "url": "https://github.com/solutions/use-case/devops",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub DevOps: The unified platform for your DevOps lifecycle \u00b7 GitHub",
         "meta_description": "Build, scale, and deliver more secure software with GitHub's unified AI-powered developer platform.",
         "meta_keywords": "",
@@ -2600,7 +2600,7 @@
     },
     {
         "url": "https://github.com/solutions/use-case/ci-cd",
-        "depth": 2,
+        "depth": 1,
         "title": "A Complete CI/CD Solution | GitHub \u00b7 GitHub",
         "meta_description": "Build, test, and deploy software with simple and secure enterprise CI/CD, all on the complete development platform.\n\n",
         "meta_keywords": "",
@@ -2737,7 +2737,7 @@
     },
     {
         "url": "https://github.com/solutions/use-case",
-        "depth": 2,
+        "depth": 1,
         "title": "Solutions | Use case \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -2874,7 +2874,7 @@
     },
     {
         "url": "https://github.com/solutions/industry/healthcare",
-        "depth": 2,
+        "depth": 1,
         "title": "Healthcare solutions \u00b7 GitHub",
         "meta_description": "By incorporating AI into developer workflows, you can build secure patient care solutions at scale.\n\n",
         "meta_keywords": "",
@@ -3018,7 +3018,7 @@
     },
     {
         "url": "https://github.com/solutions/industry/financial-services",
-        "depth": 2,
+        "depth": 1,
         "title": "Financial services solutions \u00b7 GitHub",
         "meta_description": "By embedding AI into developer workflows, you can accelerate secure financial innovation at scale.",
         "meta_keywords": "",
@@ -3158,7 +3158,7 @@
     },
     {
         "url": "https://github.com/solutions/industry/manufacturing",
-        "depth": 2,
+        "depth": 1,
         "title": "Manufacturing Solutions \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -3295,7 +3295,7 @@
     },
     {
         "url": "https://github.com/solutions/industry/government",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Solutions | Government \u00b7 GitHub",
         "meta_description": "With seamless collaboration and robust compliance, GitHub helps government agencies build and innovate securely on a single, AI-powered platform.",
         "meta_keywords": "",
@@ -3434,7 +3434,7 @@
     },
     {
         "url": "https://github.com/solutions/industry",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Solutions | Industry \u00b7 GitHub",
         "meta_description": "Discover how GitHub\u2019s industry solutions can help you improve efficiency, reduce costs, and capture new market opportunities.",
         "meta_keywords": "",
@@ -3572,7 +3572,7 @@
     },
     {
         "url": "https://github.com/solutions",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Solutions \u00b7 GitHub",
         "meta_description": "GitHub empowers your team to deliver software faster and more efficiently, while maintaining robust security and compliance.",
         "meta_keywords": "",
@@ -3720,7 +3720,7 @@
     },
     {
         "url": "https://github.com/resources/articles/ai",
-        "depth": 2,
+        "depth": 1,
         "title": "AI \u00b7 GitHub",
         "meta_description": "Gallery of articles for the topic AI",
         "meta_keywords": "",
@@ -3854,7 +3854,7 @@
     },
     {
         "url": "https://github.com/resources/articles/devops",
-        "depth": 2,
+        "depth": 1,
         "title": "DevOps \u00b7 GitHub",
         "meta_description": "Gallery of articles for the topic DevOps",
         "meta_keywords": "",
@@ -4000,7 +4000,7 @@
     },
     {
         "url": "https://github.com/resources/articles/security",
-        "depth": 2,
+        "depth": 1,
         "title": "Security \u00b7 GitHub",
         "meta_description": "Gallery of articles for the topic Security",
         "meta_keywords": "",
@@ -4146,7 +4146,7 @@
     },
     {
         "url": "https://github.com/resources/articles/software-development",
-        "depth": 2,
+        "depth": 1,
         "title": "Software Development \u00b7 GitHub",
         "meta_description": "Gallery of articles for the topic Software Development",
         "meta_keywords": "",
@@ -4292,7 +4292,7 @@
     },
     {
         "url": "https://github.com/resources/articles",
-        "depth": 2,
+        "depth": 1,
         "title": "All Topics \u00b7 GitHub",
         "meta_description": "Gallery of articles for the topic All Topics",
         "meta_keywords": "",
@@ -4440,7 +4440,7 @@
     },
     {
         "url": "https://github.com/customer-stories",
-        "depth": 2,
+        "depth": 1,
         "title": "Customer stories \u00b7 GitHub",
         "meta_description": "With collaborative project management, flexible security options, and easy admin, thousands of organizations are using GitHub and GitHub Enterprise to build better software. Hear what a few of them have to say.",
         "meta_keywords": "",
@@ -4680,7 +4680,7 @@
     },
     {
         "url": "https://github.com/sponsors",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Sponsors \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -4825,7 +4825,7 @@
     },
     {
         "url": "https://github.com/readme",
-        "depth": 2,
+        "depth": 1,
         "title": "The ReadME Project \u00b7\u00a0Meet the people behind the projects you love \u00b7 GitHub",
         "meta_description": "",
         "meta_keywords": "",
@@ -5022,13 +5022,13 @@
     },
     {
         "url": "https://github.com/topics",
-        "depth": 2,
+        "depth": 1,
         "title": "Topics on GitHub \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
         "internal_link_count": 157,
         "external_link_count": 13,
-        "word_count": 767,
+        "word_count": 782,
         "h1_tags": [
             "Search code, repositories, users, issues, pull requests...",
             "Provide feedback",
@@ -5042,7 +5042,7 @@
             "Popular topics",
             "Footer"
         ],
-        "main_word_count": 342,
+        "main_word_count": 357,
         "image_count": 25,
         "link_texts": [
             "Skip to content",
@@ -5105,9 +5105,9 @@
             "Collections",
             "Events",
             "GitHub Sponsors",
-            "GitGit is the most widely used version control system.",
-            "JavaScriptJavaScript (JS) is a lightweight interpreted programming language with first-class functions.",
-            "PostgreSQLPostgreSQL is an open source database system.",
+            "PICO-8PICO-8 is a fantasy console for making, sharing and playing tiny games and other computer programs in Lua.",
+            "SpaceVimSpaceVim is a community-driven distribution of the vim editor that allows managing your plugins in layers.",
+            "MongoDBMongoDB is an open source NoSQL document-oriented database.",
             "#",
             "3D3D refers to the use of three-dimensional graphics, modeling, and animation in various industries.",
             "Star",
@@ -5219,7 +5219,7 @@
     },
     {
         "url": "https://github.com/trending",
-        "depth": 2,
+        "depth": 1,
         "title": "Trending  repositories on GitHub today \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -6251,7 +6251,7 @@
             "This month",
             "Star",
             "meta-llama /llama-recipes",
-            "14,101",
+            "14,104",
             "2,076",
             "",
             "",
@@ -6260,7 +6260,7 @@
             "",
             "Star",
             "open-mmlab /Amphion",
-            "5,781",
+            "5,782",
             "447",
             "",
             "",
@@ -6269,7 +6269,7 @@
             "",
             "Star",
             "soimort /you-get",
-            "52,463",
+            "52,466",
             "9,532",
             "",
             "",
@@ -6278,7 +6278,7 @@
             "",
             "Star",
             "stanford-oval /storm",
-            "12,717",
+            "12,718",
             "1,164",
             "",
             "",
@@ -6288,7 +6288,7 @@
             "Sponsor",
             "Star",
             "lobehub /lobe-chat",
-            "43,811",
+            "43,812",
             "9,820",
             "",
             "",
@@ -6307,7 +6307,7 @@
             "",
             "Star",
             "anthropics /courses",
-            "6,622",
+            "6,623",
             "514",
             "",
             "",
@@ -6325,7 +6325,7 @@
             "",
             "Star",
             "flutter /flutter",
-            "165,901",
+            "165,902",
             "27,397",
             "",
             "",
@@ -6334,7 +6334,7 @@
             "",
             "Star",
             "naver /mast3r",
-            "1,177",
+            "1,178",
             "89",
             "",
             "",
@@ -6342,7 +6342,7 @@
             "",
             "Star",
             "Marker-Inc-Korea /AutoRAG",
-            "2,154",
+            "2,155",
             "167",
             "",
             "",
@@ -6379,7 +6379,7 @@
     },
     {
         "url": "https://github.com/collections",
-        "depth": 2,
+        "depth": 1,
         "title": "Collections \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -6480,8 +6480,8 @@
             "Collections",
             "Events",
             "GitHub Sponsors",
-            "Learn to CodeResources to help people learn to code",
             "#Game EnginesFrameworks for building games across multiple platforms.",
+            "Learn to CodeResources to help people learn to code",
             "Made in BrazilOpen source projects built in or receiving significant contributions from Brazil :brazil:",
             "How to choose (and contribute to) your first open source project",
             "Clean code linters",
@@ -6514,7 +6514,7 @@
     },
     {
         "url": "https://github.com/enterprise/advanced-security",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub \u00b7 Enterprise Application Security \u00b7 GitHub \u00b7 GitHub",
         "meta_description": "Discover application security testing features from GitHub like code scanning, secret scanning, and automated dependency insights for vulnerability detection.",
         "meta_keywords": "",
@@ -6702,7 +6702,7 @@
     },
     {
         "url": "https://github.com/features/copilot#enterprise",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Copilot \u00b7 Your AI pair programmer \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -6920,7 +6920,7 @@
     },
     {
         "url": "https://github.com/premium-support",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Premium Support \u00b7 GitHub",
         "meta_description": "Get expert help for Enterprise Cloud and Enterprise\u2014any hour your team needs it.",
         "meta_keywords": "",
@@ -7075,7 +7075,7 @@
     },
     {
         "url": "https://github.com/pricing",
-        "depth": 2,
+        "depth": 1,
         "title": "Pricing \u00b7 Plans for every developer \u00b7 GitHub",
         "meta_description": "Whether you're starting an open source project or choosing new tools for your team, we\u2019ve got you covered.",
         "meta_keywords": "",
@@ -7310,7 +7310,7 @@
     },
     {
         "url": "https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E&source=header",
-        "depth": 2,
+        "depth": 1,
         "title": "Join GitHub \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -7346,7 +7346,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=repositories",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (unaveragetech) / Repositories \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -7514,7 +7514,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=projects",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Projects \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -7651,7 +7651,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=packages",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Packages \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -7792,7 +7792,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=stars",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Starred \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -7941,8 +7941,8 @@
             "129",
             "29",
             "kolbytn /mindcraft",
-            "1,648",
-            "208",
+            "1,649",
+            "209",
             "unaveragetech /Grokem",
             "1",
             "unaveragetech /IPC_fork",
@@ -7968,7 +7968,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=followers",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Followers \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -8105,7 +8105,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=following",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Following \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -8236,7 +8236,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?tab=achievements",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Achievements \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -8365,7 +8365,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?achievement=yolo&tab=achievements",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Achievements \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -8494,7 +8494,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?achievement=quickdraw&tab=achievements",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Achievements \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -8623,7 +8623,7 @@
     },
     {
         "url": "https://github.com/unaveragetech?achievement=pull-shark&tab=achievements",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) / Achievements \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -8752,7 +8752,7 @@
     },
     {
         "url": "https://github.com/contact/report-abuse?report=unaveragetech+%28user%29",
-        "depth": 2,
+        "depth": 1,
         "title": "Sign in for Software Support and Product Help - GitHub Support",
         "meta_description": "Access your support options and sign in to your account for GitHub software support and product assistance. Get the help you need from our dedicated support team.",
         "meta_keywords": "",
@@ -8781,7 +8781,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/unaveragetech",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/unaveragetech: Config files for my GitHub profile.",
         "meta_description": "Config files for my GitHub profile. Contribute to unaveragetech/unaveragetech development by creating an account on GitHub.",
         "meta_keywords": "",
@@ -8962,7 +8962,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-hi-im-jesse-winghart",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -9144,7 +9144,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#contact-me",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -9326,7 +9326,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#github-code-spaces-saves-so-much-time",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -9508,7 +9508,7 @@
     },
     {
         "url": "https://github.com/codespaces/",
-        "depth": 2,
+        "depth": 1,
         "title": "Sign in to GitHub \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -9539,7 +9539,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#visitor-count-and-profile-views",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -9721,7 +9721,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#github-stats",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -9903,7 +9903,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#featured-project-autonomie",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -10085,7 +10085,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/autonomie",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/Autonomie: Todo",
         "meta_description": "Todo. Contribute to unaveragetech/Autonomie development by creating an account on GitHub.",
         "meta_keywords": "",
@@ -10238,7 +10238,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-license-badge",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -10420,7 +10420,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-interests",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -10602,7 +10602,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-currently-learning",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -10784,7 +10784,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#\ufe0f-collaboration-opportunities",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -10966,7 +10966,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-how-to-reach-me",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -11148,7 +11148,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-pronouns",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -11330,7 +11330,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#-fun-fact",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -11512,7 +11512,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#family-and-tech-a-balancing-act",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -11694,7 +11694,7 @@
     },
     {
         "url": "https://github.com/unaveragetech#the-digital-parent",
-        "depth": 2,
+        "depth": 1,
         "title": "unaveragetech (jesse winghart) \u00b7 GitHub",
         "meta_description": "Really love making stuff that no one needs . unaveragetech has 58 repositories available. Follow their code on GitHub.",
         "meta_keywords": "",
@@ -11876,7 +11876,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/flask-container-management",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/flask-container-management: python_sandbox",
         "meta_description": "python_sandbox. Contribute to unaveragetech/flask-container-management development by creating an account on GitHub.",
         "meta_keywords": "",
@@ -12057,7 +12057,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/Hashem",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/Hashem: The Hash Rate Test Script evaluates your system's performance by simulating hash calculations. It provides real-time feedback with a progress bar and animation, collects detailed system metrics, and displays organized results for comprehensive insights. Perfect for developers and tech enthusiasts!",
         "meta_description": "The Hash Rate Test Script evaluates your system's performance by simulating hash calculations. It provides real-time feedback with a progress bar and animation, collects detailed system metrics, and displays organized results for comprehensive insights. Perfect for developers and tech enthusiasts! - unaveragetech/Hashem",
         "meta_keywords": "",
@@ -12209,7 +12209,7 @@
     },
     {
         "url": "https://github.com/Nbtguyoriginal/Hashem",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - Nbtguyoriginal/Hashem: The Hash Rate Test Script evaluates your system's performance by simulating hash calculations. It provides real-time feedback with a progress bar and animation, collects detailed system metrics, and displays organized results for comprehensive insights. Perfect for developers and tech enthusiasts!",
         "meta_description": "The Hash Rate Test Script evaluates your system's performance by simulating hash calculations. It provides real-time feedback with a progress bar and animation, collects detailed system metrics, and displays organized results for comprehensive insights. Perfect for developers and tech enthusiasts! - Nbtguyoriginal/Hashem",
         "meta_keywords": "",
@@ -12360,7 +12360,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/Pybonce",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/Pybonce: A python Agent used to Direct Python user into new and better code practices -Using open ai and some intresting parsing i thought of while high XD-",
         "meta_description": "A python Agent used to Direct Python user into new and better code practices -Using open ai and some intresting parsing i thought of while high XD- - unaveragetech/Pybonce",
         "meta_keywords": "",
@@ -12550,7 +12550,7 @@
     },
     {
         "url": "https://github.com/Nbtguyoriginal/Pybonce",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - Nbtguyoriginal/Pybonce: A python Agent used to Direct Python user into new and better code practices -Using open ai and some intresting parsing i thought of while high XD-",
         "meta_description": "A python Agent used to Direct Python user into new and better code practices -Using open ai and some intresting parsing i thought of while high XD- - Nbtguyoriginal/Pybonce",
         "meta_keywords": "",
@@ -12745,7 +12745,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/Release-Ledupey",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/Release-Ledupey: Ledupey is a query tool built for finding and exploring reported Minecraft dupes on github based on the server your on or the plugins you know",
         "meta_description": "Ledupey is a query tool built for finding and exploring reported Minecraft dupes on github based on the server your on or the plugins you know - unaveragetech/Release-Ledupey",
         "meta_keywords": "",
@@ -12930,7 +12930,7 @@
     },
     {
         "url": "https://github.com/Nbtguyoriginal/Release-Ledupey",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - Nbtguyoriginal/Release-Ledupey: Ledupey is a query tool built for finding and exploring reported Minecraft dupes on github based on the server your on or the plugins you know",
         "meta_description": "Ledupey is a query tool built for finding and exploring reported Minecraft dupes on github based on the server your on or the plugins you know - Nbtguyoriginal/Release-Ledupey",
         "meta_keywords": "",
@@ -13096,7 +13096,7 @@
     },
     {
         "url": "https://github.com/unaveragetech/Pipin",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub - unaveragetech/Pipin: Not pipin from LOTR more like were gonna pip in the req.txt easy as that",
         "meta_description": "Not pipin from LOTR more like were gonna pip in the req.txt easy as that  - GitHub - unaveragetech/Pipin: Not pipin from LOTR more like were gonna pip in the req.txt easy as that",
         "meta_keywords": "",
@@ -13271,7 +13271,7 @@
     },
     {
         "url": "https://github.com/contact",
-        "depth": 2,
+        "depth": 1,
         "title": "Sign in for Software Support and Product Help - GitHub Support",
         "meta_description": "Access your support options and sign in to your account for GitHub software support and product assistance. Get the help you need from our dedicated support team.",
         "meta_keywords": "",
@@ -13300,7 +13300,7 @@
     },
     {
         "url": "https://github.com",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub \u00b7 Build and ship software on a single, collaborative platform \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
@@ -13424,7 +13424,7 @@
     },
     {
         "url": "https://github.com/security",
-        "depth": 2,
+        "depth": 1,
         "title": "GitHub Security \u00b7 GitHub",
         "meta_description": "GitHub is where people build software. More than 100 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
         "meta_keywords": "",
