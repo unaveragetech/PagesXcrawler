@@ -31,57 +31,46 @@ def update_html():
         html_file.write('<style>\n')
         html_file.write('body { font-family: Arial, sans-serif; margin: 20px; }\n')
         html_file.write('h1 { color: #333; }\n')
-        html_file.write('#results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }\n')
-        html_file.write('th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }\n')
-        html_file.write('th { background-color: #f4f4f4; }\n')
-        html_file.write('tr:nth-child(even) { background-color: #f9f9f9; }\n')
-        html_file.write('.url { max-width: 300px; word-wrap: break-word; }\n')
+        html_file.write('.results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }\n')
+        html_file.write('.result-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9; }\n')
+        html_file.write('.result-card h3 { font-size: 18px; }\n')
+        html_file.write('.result-card p { margin: 5px 0; font-size: 14px; }\n')
+        html_file.write('.url { font-weight: bold; color: #007BFF; }\n')
         html_file.write('</style>\n')
         html_file.write('</head>\n<body>\n')
         html_file.write('<h1>Web Crawler Results</h1>\n')
         
         if results:
-            # Create table to display results
-            html_file.write('<table id="results-table">\n')
-            html_file.write(
-                '<tr><th>URL</th><th>Depth</th><th>Title</th><th>Meta Description</th>'
-                '<th>Meta Keywords</th><th>H1 Tags</th><th>H2 Tags</th>'
-                '<th>Internal Links</th><th>External Links</th><th>Word Count</th>'
-                '<th>Image Count</th><th>Link Texts</th></tr>\n'
-            )
-            
+            html_file.write('<div class="results-container">\n')
             for result in results:
                 url = result.get("url", "N/A")
                 depth = result.get("depth", "N/A")
                 title = result.get("title", "N/A")
                 meta_description = result.get("meta_description", "N/A")
                 meta_keywords = result.get("meta_keywords", "N/A")
-                h1_tags = ', '.join(result.get("h1_tags", []))
-                h2_tags = ', '.join(result.get("h2_tags", []))
                 internal_link_count = result.get("internal_link_count", "0")
                 external_link_count = result.get("external_link_count", "0")
                 word_count = result.get("word_count", "0")
                 image_count = result.get("image_count", "0")
-                link_texts = ', '.join(result.get("link_texts", []))
+                h1_tags = ', '.join(result.get("h1_tags", []))
+                h2_tags = ', '.join(result.get("h2_tags", []))
 
                 html_file.write(
-                    f'<tr>'
-                    f'<td class="url">{url}</td>'
-                    f'<td>{depth}</td>'
-                    f'<td>{title}</td>'
-                    f'<td>{meta_description}</td>'
-                    f'<td>{meta_keywords}</td>'
-                    f'<td>{h1_tags}</td>'
-                    f'<td>{h2_tags}</td>'
-                    f'<td>{internal_link_count}</td>'
-                    f'<td>{external_link_count}</td>'
-                    f'<td>{word_count}</td>'
-                    f'<td>{image_count}</td>'
-                    f'<td>{link_texts}</td>'
-                    f'</tr>\n'
+                    f'<div class="result-card">'
+                    f'<h3 class="url">{url}</h3>'
+                    f'<p><strong>Depth:</strong> {depth}</p>'
+                    f'<p><strong>Title:</strong> {title}</p>'
+                    f'<p><strong>Meta Description:</strong> {meta_description}</p>'
+                    f'<p><strong>Meta Keywords:</strong> {meta_keywords}</p>'
+                    f'<p><strong>H1 Tags:</strong> {h1_tags}</p>'
+                    f'<p><strong>H2 Tags:</strong> {h2_tags}</p>'
+                    f'<p><strong>Internal Links:</strong> {internal_link_count}</p>'
+                    f'<p><strong>External Links:</strong> {external_link_count}</p>'
+                    f'<p><strong>Word Count:</strong> {word_count}</p>'
+                    f'<p><strong>Image Count:</strong> {image_count}</p>'
+                    f'</div>\n'
                 )
-            
-            html_file.write('</table>\n')
+            html_file.write('</div>\n')
         else:
             html_file.write('<p>No crawl results available at the moment.</p>\n')
 
