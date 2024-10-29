@@ -13,27 +13,24 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Setup data directory and counters files if not exist
-        run: |
-          mkdir -p data
-          if [ ! -f data/deployments.json ]; then
-            echo '{"schemaVersion": 1, "label": "Deployments", "message": "70", "color": "blue"}' > data/deployments.json
-          fi
-          if [ ! -f data/actions.json ]; then
-            echo '{"schemaVersion": 1, "label": "Actions", "message": "0", "color": "green"}' > data/actions.json
-          fi
+      - name: Setup data directory
+        run: mkdir -p data
 
-      - name: Increment deployment count
+      - name: Fetch deployment count
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          current_deployments=$(jq '.message | tonumber' data/deployments.json)
-          new_deployments=$((current_deployments + 1))
-          jq --arg new_msg "$new_deployments" '.message = $new_msg' data/deployments.json > temp.json && mv temp.json data/deployments.json
+          deployments_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/unaveragetech/PagesXcrawler/deployments" | jq 'length')
+          echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
 
-      - name: Increment action count
+      - name: Fetch workflow run count
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          current_actions=$(jq '.message | tonumber' data/actions.json)
-          new_actions=$((current_actions + 1))
-          jq --arg new_msg "$new_actions" '.message = $new_msg' data/actions.json > temp.json && mv temp.json data/actions.json
+          actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=1" | jq '.total_count')
+          echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
 
       - name: Commit updated counters
         run: |
