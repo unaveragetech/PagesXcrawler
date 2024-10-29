@@ -7,193 +7,37 @@
 <style>
 body { font-family: Arial, sans-serif; margin: 20px; }
 h1 { color: #333; }
-#results-table { width: 100%; border-collapse: collapse; }
+#results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
 th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
 th { background-color: #f4f4f4; }
+tr:nth-child(even) { background-color: #f9f9f9; }
+.url { max-width: 300px; word-wrap: break-word; }
 </style>
 </head>
 <body>
 <h1>Web Crawler Results</h1>
 <table id="results-table">
-<tr><th>URL</th><th>Depth</th><th>Title</th><th>Status</th><th>Date Crawled</th></tr>
-<tr><td>https://minewind.com</td><td>0</td><td>Minewind | Best Minecraft Server 2024</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com#mobile-menu</td><td>1</td><td>Minewind | Best Minecraft Server 2024</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/about</td><td>2</td><td>About | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/about#mobile-menu</td><td>3</td><td>About | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote/</td><td>4</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote/#mobile-menu</td><td>5</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/</td><td>5</td><td>Minewind | Best Minecraft Server 2024</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/feedback</td><td>5</td><td>Feedback | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bug-report-form/</td><td>5</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/report/</td><td>5</td><td>Report a Player | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-1</td><td>5</td><td>Vote #1 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-2</td><td>5</td><td>Vote #2 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-3</td><td>5</td><td>Vote #3 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-4</td><td>5</td><td>Vote #4 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-5</td><td>5</td><td>Vote #5 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-6</td><td>5</td><td>Vote #6 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-7</td><td>5</td><td>Vote #7 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-8</td><td>5</td><td>Vote #8 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/ideas</td><td>5</td><td>Feedback | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/</td><td>4</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#mobile-menu</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-1</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-2</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-3</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-4</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-5</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-6</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-7</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-8</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-9</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-10</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-11</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-12</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-13</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-14</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-15</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-16</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/lagfix</td><td>5</td><td>LagFix | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-17</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/degg-for-friend/</td><td>5</td><td>Degg For Friend | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-18</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/error</td><td>5</td><td>Error | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/rules</td><td>4</td><td>Rules | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/rules#mobile-menu</td><td>5</td><td>Rules | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/warden</td><td>5</td><td>Cheater Spanker | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bugs</td><td>4</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bugs#mobile-menu</td><td>5</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/october-2024-changelog/</td><td>2</td><td>October 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/october-2024-changelog/#mobile-menu</td><td>3</td><td>October 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/paradox/</td><td>2</td><td>Paradox Midas | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/paradox/#mobile-menu</td><td>3</td><td>Paradox Midas | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote</td><td>4</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote#mobile-menu</td><td>5</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store</td><td>4</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=AUD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=BRL</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=CAD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=DKK</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=EUR</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=NOK</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=NZD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=PLN</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=GBP</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=SEK</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=USD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/support/</td><td>5</td><td>Support | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?lang=en</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/terms/checkout</td><td>5</td><td>checkout – Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/terms/privacy</td><td>5</td><td>Privacy | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/september-2024-changelog/</td><td>2</td><td>September 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/september-2024-changelog/#mobile-menu</td><td>3</td><td>September 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/august-2024-changelog/</td><td>2</td><td>August 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/august-2024-changelog/#mobile-menu</td><td>3</td><td>August 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/open-party/</td><td>4</td><td>Open Party | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/open-party/#mobile-menu</td><td>5</td><td>Open Party | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/chat-control/</td><td>5</td><td>Chat Control | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/chat-filter/</td><td>5</td><td>Chat Filter | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/premium/</td><td>5</td><td>Premium Colors | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/chaos</td><td>5</td><td>Chaos | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bug</td><td>5</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/glamour/</td><td>4</td><td>Glamour | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/glamour/#mobile-menu</td><td>5</td><td>Glamour | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/new-spawn-regen/</td><td>2</td><td>New Spawn Regen | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/new-spawn-regen/#mobile-menu</td><td>3</td><td>New Spawn Regen | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/july-2024-changelog/</td><td>2</td><td>July 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/july-2024-changelog/#mobile-menu</td><td>3</td><td>July 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/clans</td><td>4</td><td>Clans | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/clans#mobile-menu</td><td>5</td><td>Clans | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com</td><td>0</td><td>Minewind | Best Minecraft Server 2024</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com#mobile-menu</td><td>1</td><td>Minewind | Best Minecraft Server 2024</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/about</td><td>2</td><td>About | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/about#mobile-menu</td><td>3</td><td>About | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote/</td><td>4</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote/#mobile-menu</td><td>5</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/</td><td>5</td><td>Minewind | Best Minecraft Server 2024</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/feedback</td><td>5</td><td>Feedback | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bug-report-form/</td><td>5</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/report/</td><td>5</td><td>Report a Player | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-1</td><td>5</td><td>Vote #1 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-2</td><td>5</td><td>Vote #2 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-3</td><td>5</td><td>Vote #3 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-4</td><td>5</td><td>Vote #4 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-5</td><td>5</td><td>Vote #5 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-6</td><td>5</td><td>Vote #6 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-7</td><td>5</td><td>Vote #7 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote-8</td><td>5</td><td>Vote #8 | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/ideas</td><td>5</td><td>Feedback | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/</td><td>4</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#mobile-menu</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-1</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-2</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-3</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-4</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-5</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-6</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-7</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-8</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-9</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-10</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-11</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-12</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-13</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-14</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-15</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-16</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/lagfix</td><td>5</td><td>LagFix | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-17</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/degg-for-friend/</td><td>5</td><td>Degg For Friend | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-18</td><td>5</td><td>FAQ | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/error</td><td>5</td><td>Error | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/rules</td><td>4</td><td>Rules | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/rules#mobile-menu</td><td>5</td><td>Rules | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/warden</td><td>5</td><td>Cheater Spanker | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bugs</td><td>4</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bugs#mobile-menu</td><td>5</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/october-2024-changelog/</td><td>2</td><td>October 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/october-2024-changelog/#mobile-menu</td><td>3</td><td>October 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/paradox/</td><td>2</td><td>Paradox Midas | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/paradox/#mobile-menu</td><td>3</td><td>Paradox Midas | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote</td><td>4</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/vote#mobile-menu</td><td>5</td><td>Voting Rewards | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store</td><td>4</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=AUD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=BRL</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=CAD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=DKK</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=EUR</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=NOK</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=NZD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=PLN</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=GBP</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=SEK</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?currency=USD</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/support/</td><td>5</td><td>Support | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/store?lang=en</td><td>5</td><td>Minewind Store | Welcome</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/terms/checkout</td><td>5</td><td>checkout – Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/terms/privacy</td><td>5</td><td>Privacy | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/september-2024-changelog/</td><td>2</td><td>September 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/september-2024-changelog/#mobile-menu</td><td>3</td><td>September 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/august-2024-changelog/</td><td>2</td><td>August 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/august-2024-changelog/#mobile-menu</td><td>3</td><td>August 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/open-party/</td><td>4</td><td>Open Party | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/open-party/#mobile-menu</td><td>5</td><td>Open Party | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/chat-control/</td><td>5</td><td>Chat Control | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/chat-filter/</td><td>5</td><td>Chat Filter | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/premium/</td><td>5</td><td>Premium Colors | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/chaos</td><td>5</td><td>Chaos | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/bug</td><td>5</td><td>Report a bug | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/glamour/</td><td>4</td><td>Glamour | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/glamour/#mobile-menu</td><td>5</td><td>Glamour | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/new-spawn-regen/</td><td>2</td><td>New Spawn Regen | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/new-spawn-regen/#mobile-menu</td><td>3</td><td>New Spawn Regen | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/july-2024-changelog/</td><td>2</td><td>July 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/july-2024-changelog/#mobile-menu</td><td>3</td><td>July 2024 Changelog | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/clans</td><td>4</td><td>Clans | Minewind</td><td>Pending</td><td>N/A</td></tr>
-<tr><td>https://minewind.com/clans#mobile-menu</td><td>5</td><td>Clans | Minewind</td><td>Pending</td><td>N/A</td></tr>
+<tr><th>URL</th><th>Depth</th><th>Title</th><th>Meta Description</th><th>Internal Links</th><th>External Links</th><th>Word Count</th><th>Status</th><th>Date Crawled</th></tr>
+<tr><td class="url">https://www.netflix.com</td><td>0</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>8</td><td>13</td><td>472</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/login</td><td>1</td><td>Netflix</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>5</td><td>9</td><td>88</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/</td><td>2</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>8</td><td>13</td><td>472</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/youraccount</td><td>3</td><td>Netflix</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>5</td><td>9</td><td>88</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/LoginHelp</td><td>4</td><td>Netflix</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>5</td><td>9</td><td>108</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/dnsspi</td><td>4</td><td>Do Not Sell or Share My Personal Information | Netflix Help Center</td><td></td><td>11</td><td>7</td><td>813</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/redeem</td><td>3</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>9</td><td>17</td><td>112</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/gift-cards</td><td>4</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>9</td><td>19</td><td>140</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/watch</td><td>4</td><td>Netflix Supported Devices | Watch Netflix on your TV, phone, or computer | Netflix Help Center</td><td>Netflix is available on most TVs, streaming players, phones, tablets, game consoles, and computers. Read the article to learn more.</td><td>20</td><td>33</td><td>462</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/browse/genre/839338</td><td>4</td><td>Only on Netflix | Netflix Official Site</td><td>Netflix is the home of amazing original programming that you can’t find anywhere else. Movies, TV shows, specials and more, all tailored specifically to you.</td><td>614</td><td>14</td><td>1354</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com</td><td>0</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>8</td><td>13</td><td>472</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/login</td><td>1</td><td>Netflix</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>5</td><td>9</td><td>88</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/</td><td>2</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>8</td><td>13</td><td>472</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/youraccount</td><td>3</td><td>Netflix</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>5</td><td>9</td><td>88</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/LoginHelp</td><td>4</td><td>Netflix</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>5</td><td>9</td><td>108</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/dnsspi</td><td>4</td><td>Do Not Sell or Share My Personal Information | Netflix Help Center</td><td></td><td>11</td><td>7</td><td>813</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/redeem</td><td>3</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>9</td><td>17</td><td>112</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/gift-cards</td><td>4</td><td>Netflix - Watch TV Shows Online, Watch Movies Online</td><td>Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.</td><td>9</td><td>19</td><td>140</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/watch</td><td>4</td><td>Netflix Supported Devices | Watch Netflix on your TV, phone, or computer | Netflix Help Center</td><td>Netflix is available on most TVs, streaming players, phones, tablets, game consoles, and computers. Read the article to learn more.</td><td>20</td><td>33</td><td>462</td><td>Pending</td><td>N/A</td></tr>
+<tr><td class="url">https://www.netflix.com/browse/genre/839338</td><td>4</td><td>Only on Netflix | Netflix Official Site</td><td>Netflix is the home of amazing original programming that you can’t find anywhere else. Movies, TV shows, specials and more, all tailored specifically to you.</td><td>614</td><td>14</td><td>1354</td><td>Pending</td><td>N/A</td></tr>
 </table>
 </body>
 </html>

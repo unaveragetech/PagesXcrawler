@@ -1,803 +1,92 @@
 [
     {
-        "url": "https://minewind.com",
+        "url": "https://www.netflix.com",
         "depth": 0,
-        "title": "Minewind | Best Minecraft Server 2024",
-        "meta_description": "Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown.",
-        "internal_link_count": 48,
-        "external_link_count": 2,
-        "word_count": 178
+        "title": "Netflix - Watch TV Shows Online, Watch Movies Online",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 8,
+        "external_link_count": 13,
+        "word_count": 472
     },
     {
-        "url": "https://minewind.com#mobile-menu",
+        "url": "https://www.netflix.com/login",
         "depth": 1,
-        "title": "Minewind | Best Minecraft Server 2024",
-        "meta_description": "Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown.",
-        "internal_link_count": 48,
-        "external_link_count": 2,
-        "word_count": 178
+        "title": "Netflix",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 5,
+        "external_link_count": 9,
+        "word_count": 88
     },
     {
-        "url": "https://minewind.com/about",
+        "url": "https://www.netflix.com/",
         "depth": 2,
-        "title": "About | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 164
+        "title": "Netflix - Watch TV Shows Online, Watch Movies Online",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 8,
+        "external_link_count": 13,
+        "word_count": 472
     },
     {
-        "url": "https://minewind.com/about#mobile-menu",
+        "url": "https://www.netflix.com/youraccount",
         "depth": 3,
-        "title": "About | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 164
+        "title": "Netflix",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 5,
+        "external_link_count": 9,
+        "word_count": 88
     },
     {
-        "url": "https://minewind.com/vote/",
+        "url": "https://www.netflix.com/LoginHelp",
         "depth": 4,
-        "title": "Voting Rewards | Minewind",
+        "title": "Netflix",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 5,
+        "external_link_count": 9,
+        "word_count": 108
+    },
+    {
+        "url": "https://www.netflix.com/dnsspi",
+        "depth": 4,
+        "title": "Do Not Sell or Share My Personal Information | Netflix Help Center",
         "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
+        "internal_link_count": 11,
+        "external_link_count": 7,
+        "word_count": 813
+    },
+    {
+        "url": "https://www.netflix.com/redeem",
+        "depth": 3,
+        "title": "Netflix - Watch TV Shows Online, Watch Movies Online",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 9,
+        "external_link_count": 17,
+        "word_count": 112
+    },
+    {
+        "url": "https://www.netflix.com/gift-cards",
+        "depth": 4,
+        "title": "Netflix - Watch TV Shows Online, Watch Movies Online",
+        "meta_description": "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+        "internal_link_count": 9,
+        "external_link_count": 19,
         "word_count": 140
     },
     {
-        "url": "https://minewind.com/vote/#mobile-menu",
-        "depth": 5,
-        "title": "Voting Rewards | Minewind",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 140
-    },
-    {
-        "url": "https://minewind.com/",
-        "depth": 5,
-        "title": "Minewind | Best Minecraft Server 2024",
-        "meta_description": "Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown.",
-        "internal_link_count": 48,
-        "external_link_count": 2,
-        "word_count": 178
-    },
-    {
-        "url": "https://minewind.com/faq",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/feedback",
-        "depth": 5,
-        "title": "Feedback | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 89
-    },
-    {
-        "url": "https://minewind.com/bug-report-form/",
-        "depth": 5,
-        "title": "Report a bug | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 77
-    },
-    {
-        "url": "https://minewind.com/report/",
-        "depth": 5,
-        "title": "Report a Player | Minewind",
-        "meta_description": "",
+        "url": "https://www.netflix.com/watch",
+        "depth": 4,
+        "title": "Netflix Supported Devices | Watch Netflix on your TV, phone, or computer | Netflix Help Center",
+        "meta_description": "Netflix is available on most TVs, streaming players, phones, tablets, game consoles, and computers. Read the article to learn more.",
         "internal_link_count": 20,
-        "external_link_count": 2,
-        "word_count": 110
+        "external_link_count": 33,
+        "word_count": 462
     },
     {
-        "url": "https://minewind.com/vote-1",
-        "depth": 5,
-        "title": "Vote #1 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 73
-    },
-    {
-        "url": "https://minewind.com/vote-2",
-        "depth": 5,
-        "title": "Vote #2 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 65
-    },
-    {
-        "url": "https://minewind.com/vote-3",
-        "depth": 5,
-        "title": "Vote #3 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 62
-    },
-    {
-        "url": "https://minewind.com/vote-4",
-        "depth": 5,
-        "title": "Vote #4 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 79
-    },
-    {
-        "url": "https://minewind.com/vote-5",
-        "depth": 5,
-        "title": "Vote #5 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 79
-    },
-    {
-        "url": "https://minewind.com/vote-6",
-        "depth": 5,
-        "title": "Vote #6 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 79
-    },
-    {
-        "url": "https://minewind.com/vote-7",
-        "depth": 5,
-        "title": "Vote #7 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 92
-    },
-    {
-        "url": "https://minewind.com/vote-8",
-        "depth": 5,
-        "title": "Vote #8 | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 79
-    },
-    {
-        "url": "https://minewind.com/ideas",
-        "depth": 5,
-        "title": "Feedback | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 89
-    },
-    {
-        "url": "https://minewind.com/faq/",
+        "url": "https://www.netflix.com/browse/genre/839338",
         "depth": 4,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#mobile-menu",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-1",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-2",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-3",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-4",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-5",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-6",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-7",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-8",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-9",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-10",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-11",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-12",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-13",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-14",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-15",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-16",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/lagfix",
-        "depth": 5,
-        "title": "LagFix | Minewind",
-        "meta_description": "",
-        "internal_link_count": 20,
-        "external_link_count": 5,
-        "word_count": 290
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-17",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/degg-for-friend/",
-        "depth": 5,
-        "title": "Degg For Friend | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 137
-    },
-    {
-        "url": "https://minewind.com/faq/#acc-tab-accordion-39629358bc02d00bbf64344c1eb34137-18",
-        "depth": 5,
-        "title": "FAQ | Minewind",
-        "meta_description": "",
-        "internal_link_count": 41,
-        "external_link_count": 3,
-        "word_count": 503
-    },
-    {
-        "url": "https://minewind.com/error",
-        "depth": 5,
-        "title": "Error | Minewind",
-        "meta_description": "",
-        "internal_link_count": 19,
-        "external_link_count": 2,
-        "word_count": 109
-    },
-    {
-        "url": "https://minewind.com/rules",
-        "depth": 4,
-        "title": "Rules | Minewind",
-        "meta_description": "",
-        "internal_link_count": 20,
-        "external_link_count": 2,
-        "word_count": 92
-    },
-    {
-        "url": "https://minewind.com/rules#mobile-menu",
-        "depth": 5,
-        "title": "Rules | Minewind",
-        "meta_description": "",
-        "internal_link_count": 20,
-        "external_link_count": 2,
-        "word_count": 92
-    },
-    {
-        "url": "https://minewind.com/warden",
-        "depth": 5,
-        "title": "Cheater Spanker | Minewind",
-        "meta_description": "",
-        "internal_link_count": 24,
-        "external_link_count": 2,
-        "word_count": 179
-    },
-    {
-        "url": "https://minewind.com/bugs",
-        "depth": 4,
-        "title": "Report a bug | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 77
-    },
-    {
-        "url": "https://minewind.com/bugs#mobile-menu",
-        "depth": 5,
-        "title": "Report a bug | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 77
-    },
-    {
-        "url": "https://minewind.com/october-2024-changelog/",
-        "depth": 2,
-        "title": "October 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 265
-    },
-    {
-        "url": "https://minewind.com/october-2024-changelog/#mobile-menu",
-        "depth": 3,
-        "title": "October 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 265
-    },
-    {
-        "url": "https://minewind.com/paradox/",
-        "depth": 2,
-        "title": "Paradox Midas | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 181
-    },
-    {
-        "url": "https://minewind.com/paradox/#mobile-menu",
-        "depth": 3,
-        "title": "Paradox Midas | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 181
-    },
-    {
-        "url": "https://minewind.com/vote",
-        "depth": 4,
-        "title": "Voting Rewards | Minewind",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 140
-    },
-    {
-        "url": "https://minewind.com/vote#mobile-menu",
-        "depth": 5,
-        "title": "Voting Rewards | Minewind",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 140
-    },
-    {
-        "url": "https://minewind.com/store",
-        "depth": 4,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=AUD",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=BRL",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=CAD",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=DKK",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=EUR",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=NOK",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=NZD",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=PLN",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=GBP",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=SEK",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/store?currency=USD",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/support/",
-        "depth": 5,
-        "title": "Support | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 58
-    },
-    {
-        "url": "https://minewind.com/store?lang=en",
-        "depth": 5,
-        "title": "Minewind Store | Welcome",
-        "meta_description": "",
-        "internal_link_count": 28,
-        "external_link_count": 2,
-        "word_count": 91
-    },
-    {
-        "url": "https://minewind.com/terms/checkout",
-        "depth": 5,
-        "title": "checkout \u2013 Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 3,
-        "word_count": 54
-    },
-    {
-        "url": "https://minewind.com/terms/privacy",
-        "depth": 5,
-        "title": "Privacy | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 4,
-        "word_count": 571
-    },
-    {
-        "url": "https://minewind.com/september-2024-changelog/",
-        "depth": 2,
-        "title": "September 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 345
-    },
-    {
-        "url": "https://minewind.com/september-2024-changelog/#mobile-menu",
-        "depth": 3,
-        "title": "September 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 23,
-        "external_link_count": 2,
-        "word_count": 345
-    },
-    {
-        "url": "https://minewind.com/august-2024-changelog/",
-        "depth": 2,
-        "title": "August 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 26,
-        "external_link_count": 2,
-        "word_count": 305
-    },
-    {
-        "url": "https://minewind.com/august-2024-changelog/#mobile-menu",
-        "depth": 3,
-        "title": "August 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 26,
-        "external_link_count": 2,
-        "word_count": 305
-    },
-    {
-        "url": "https://minewind.com/open-party/",
-        "depth": 4,
-        "title": "Open Party | Minewind",
-        "meta_description": "",
-        "internal_link_count": 30,
-        "external_link_count": 6,
-        "word_count": 1105
-    },
-    {
-        "url": "https://minewind.com/open-party/#mobile-menu",
-        "depth": 5,
-        "title": "Open Party | Minewind",
-        "meta_description": "",
-        "internal_link_count": 30,
-        "external_link_count": 6,
-        "word_count": 1105
-    },
-    {
-        "url": "https://minewind.com/chat-control/",
-        "depth": 5,
-        "title": "Chat Control | Minewind",
-        "meta_description": "",
-        "internal_link_count": 19,
-        "external_link_count": 2,
-        "word_count": 136
-    },
-    {
-        "url": "https://minewind.com/chat-filter/",
-        "depth": 5,
-        "title": "Chat Filter | Minewind",
-        "meta_description": "",
-        "internal_link_count": 20,
-        "external_link_count": 2,
-        "word_count": 93
-    },
-    {
-        "url": "https://minewind.com/premium/",
-        "depth": 5,
-        "title": "Premium Colors | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 4,
-        "word_count": 117
-    },
-    {
-        "url": "https://minewind.com/chaos",
-        "depth": 5,
-        "title": "Chaos | Minewind",
-        "meta_description": "",
-        "internal_link_count": 26,
-        "external_link_count": 5,
-        "word_count": 616
-    },
-    {
-        "url": "https://minewind.com/bug",
-        "depth": 5,
-        "title": "Report a bug | Minewind",
-        "meta_description": "",
-        "internal_link_count": 18,
-        "external_link_count": 2,
-        "word_count": 77
-    },
-    {
-        "url": "https://minewind.com/glamour/",
-        "depth": 4,
-        "title": "Glamour | Minewind",
-        "meta_description": "",
-        "internal_link_count": 19,
-        "external_link_count": 2,
-        "word_count": 170
-    },
-    {
-        "url": "https://minewind.com/glamour/#mobile-menu",
-        "depth": 5,
-        "title": "Glamour | Minewind",
-        "meta_description": "",
-        "internal_link_count": 19,
-        "external_link_count": 2,
-        "word_count": 170
-    },
-    {
-        "url": "https://minewind.com/new-spawn-regen/",
-        "depth": 2,
-        "title": "New Spawn Regen | Minewind",
-        "meta_description": "",
-        "internal_link_count": 21,
-        "external_link_count": 2,
-        "word_count": 173
-    },
-    {
-        "url": "https://minewind.com/new-spawn-regen/#mobile-menu",
-        "depth": 3,
-        "title": "New Spawn Regen | Minewind",
-        "meta_description": "",
-        "internal_link_count": 21,
-        "external_link_count": 2,
-        "word_count": 173
-    },
-    {
-        "url": "https://minewind.com/july-2024-changelog/",
-        "depth": 2,
-        "title": "July 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 27,
-        "external_link_count": 2,
-        "word_count": 425
-    },
-    {
-        "url": "https://minewind.com/july-2024-changelog/#mobile-menu",
-        "depth": 3,
-        "title": "July 2024 Changelog | Minewind",
-        "meta_description": "",
-        "internal_link_count": 27,
-        "external_link_count": 2,
-        "word_count": 425
-    },
-    {
-        "url": "https://minewind.com/clans",
-        "depth": 4,
-        "title": "Clans | Minewind",
-        "meta_description": "",
-        "internal_link_count": 20,
-        "external_link_count": 2,
-        "word_count": 284
-    },
-    {
-        "url": "https://minewind.com/clans#mobile-menu",
-        "depth": 5,
-        "title": "Clans | Minewind",
-        "meta_description": "",
-        "internal_link_count": 20,
-        "external_link_count": 2,
-        "word_count": 284
+        "title": "Only on Netflix | Netflix Official Site",
+        "meta_description": "Netflix is the home of amazing original programming that you can\u2019t find anywhere else. Movies, TV shows, specials and more, all tailored specifically to you.",
+        "internal_link_count": 614,
+        "external_link_count": 14,
+        "word_count": 1354
     }
 ]
