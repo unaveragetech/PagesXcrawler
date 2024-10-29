@@ -26,18 +26,25 @@ jobs:
             "https://api.github.com/repos/unaveragetech/PagesXcrawler/deployments" | jq 'length')
           echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
 
-      - name: Fetch workflow run count
+      - name: Fetch workflow run counts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs" | jq '.total_count')
+          actions_response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs")
+          
+          actions_count=$(echo "$actions_response" | jq '.total_count')
+          successful_actions_count=$(echo "$actions_response" | jq '[.workflow_runs[] | select(.conclusion == "success")] | length')
+          failed_actions_count=$(echo "$actions_response" | jq '[.workflow_runs[] | select(.conclusion == "failure")] | length')
+
           echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
+          echo '{"schemaVersion": 1, "label": "Successful Actions", "message": "'"$successful_actions_count"'", "color": "brightgreen"}' > data/successful_actions.json
+          echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions_count"'", "color": "red"}' > data/failed_actions.json
 
       - name: Commit updated counters
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "GitHub Actions Bot"
-          git add data/deployments.json data/actions.json
+          git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json
           git commit -m "Update counters for deployments and actions"
           git push
