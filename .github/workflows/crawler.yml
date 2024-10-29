@@ -37,7 +37,7 @@ jobs:
           issue_number="${{ github.event.issue.number }}"
 
           # Regex to match any URL followed by a colon and depth in parentheses
-           if [[ "$issue_title" =~ ^([a-zA-Z0-9._-]+(:[0-9]+)?(/[^\s]*)?)(:depth\(([0-9]+)\))$ ]]; then
+           if [[ "$issue_title" =~ ^(https?://[^\s:]+(:[0-9]+)?(/[^\s]*)?)(:depth\(([0-9]+)\))$ ]]; then
               echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
               echo "DEPTH=${BASH_REMATCH[5]}" >> $GITHUB_ENV
               echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
