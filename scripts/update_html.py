@@ -51,7 +51,7 @@ def update_html():
             html_file.write(f'<li><a href="#result-{index}">{url}</a></li>\n')
 
         html_file.write('</ul>\n</div>\n')
-        html_file.write('<div class="content">\n<h1 id="results">Web Crawler Results</h1>\n')
+        html_file.write('<div class="content">\n<h1 id="results">🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 Results</h1>\n')
         
         if results:
             html_file.write('<div class="results-container">\n')
