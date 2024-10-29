@@ -17,6 +17,8 @@ jobs:
 
       - name: Setup data directory
         run: mkdir -p data
+          git pull origin main || echo "No changes to pull"
+
 
       - name: Fetch deployment count
         env:
