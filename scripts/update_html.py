@@ -45,7 +45,9 @@ def update_html():
             html_file.write('<table id="results-table">\n')
             html_file.write(
                 '<tr><th>URL</th><th>Depth</th><th>Title</th><th>Meta Description</th>'
-                '<th>Internal Links</th><th>External Links</th><th>Word Count</th><th>Status</th><th>Date Crawled</th></tr>\n'
+                '<th>Meta Keywords</th><th>H1 Tags</th><th>H2 Tags</th>'
+                '<th>Internal Links</th><th>External Links</th><th>Word Count</th>'
+                '<th>Image Count</th><th>Link Texts</th></tr>\n'
             )
             
             for result in results:
@@ -53,11 +55,14 @@ def update_html():
                 depth = result.get("depth", "N/A")
                 title = result.get("title", "N/A")
                 meta_description = result.get("meta_description", "N/A")
+                meta_keywords = result.get("meta_keywords", "N/A")
+                h1_tags = ', '.join(result.get("h1_tags", []))
+                h2_tags = ', '.join(result.get("h2_tags", []))
                 internal_link_count = result.get("internal_link_count", "0")
                 external_link_count = result.get("external_link_count", "0")
                 word_count = result.get("word_count", "0")
-                status = result.get("status", "Pending")
-                date_crawled = result.get("date_crawled", "N/A")
+                image_count = result.get("image_count", "0")
+                link_texts = ', '.join(result.get("link_texts", []))
 
                 html_file.write(
                     f'<tr>'
@@ -65,11 +70,14 @@ def update_html():
                     f'<td>{depth}</td>'
                     f'<td>{title}</td>'
                     f'<td>{meta_description}</td>'
+                    f'<td>{meta_keywords}</td>'
+                    f'<td>{h1_tags}</td>'
+                    f'<td>{h2_tags}</td>'
                     f'<td>{internal_link_count}</td>'
                     f'<td>{external_link_count}</td>'
                     f'<td>{word_count}</td>'
-                    f'<td>{status}</td>'
-                    f'<td>{date_crawled}</td>'
+                    f'<td>{image_count}</td>'
+                    f'<td>{link_texts}</td>'
                     f'</tr>\n'
                 )
             
