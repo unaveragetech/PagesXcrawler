@@ -1,88 +1,73 @@
-[Docs](Documentation.md)
 
----
-[Find a site to crawl](https://theuselessweb.com)
-you must copy the link from the site.
-and add your depth 
----
-sitelink:depth(integer)
----
-[Enter a site to crawl](https://github.com/unaveragetech/PagesXcrawler/issues/new)
+# PagesXcrawler - Web Crawler System
 
----
-# Web Crawler System Hosted on GitHub Pages
+Welcome to the PagesXcrawler repository! This documentation outlines how to use our automated web crawler, powered by GitHub Actions, which retrieves links from specified websites based on user-defined depth and displays the results on a GitHub Pages site.
 
-This repository contains a fully automated web crawler powered by GitHub Actions. The crawler retrieves links from specified URLs based on user-defined depth and displays the results on a GitHub Pages site. 
+## Quick Links
 
-## Find the Results Here
----
-[Check deployment jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)
----
----
-
-[Last run results](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)
-
----
----
-[All run history](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv)
-
-your run will be the last row of the file with the issue number ,url ,depth, and status.
----
----
-
-[Pages hosted chart of results ](https://unaveragetech.github.io/PagesXcrawler/)
----
+- **[Documentation](Documentation.md)**
+- **[Find a Site to Crawl](https://theuselessweb.com)**: Copy the link from the site and specify the crawl depth.
+- **[Create a Crawl Issue](https://github.com/unaveragetech/PagesXcrawler/issues/new)**: Submit a new issue to start crawling.
+- **[Check Deployment Jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)**
+- **[View Last Run Results](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)**
+- **[Access All Run History](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv)**: Your latest run will be recorded at the bottom of the file, including the issue number, URL, depth, and status.
+- **[View Results Chart](https://unaveragetech.github.io/PagesXcrawler/)**
 
 ## How It Works
 
 ### 1. Issue Creation
 
-To initiate a crawl, users must create a new issue in the format where the site example.com is the starting point and the integer is the depth:
+To start a crawl, create a new issue using the following format:
 
 ```
-https://example.com:depth(2)
+url:depth(int)
 ```
 
-- **URL**: The webpage you want to crawl.
-- **Depth**: The number of levels the crawler should follow links from the initial URL. For example, a depth of `2` means it will retrieve links from the initial page and the pages linked from there.
+For example:
+
+```
+https://puginarug.com:depth(3)
+```
+
+- **url**: The URL of the webpage you wish to crawl.
+- **depth**: The number of link levels to follow from the initial URL. In the example above, a depth of `3` means the crawler will retrieve links from the starting page and from pages linked up to three levels deep.
 
 ### 2. Crawling Process
 
-Once the issue is submitted, the system automatically triggers the web crawler:
+After submitting your issue, the crawler is automatically triggered:
 
-- The crawler fetches links according to the specified depth.
-- Results are stored in both JSON and CSV formats within the `data` directory.
+- It fetches links based on your specified depth.
+- The results are saved in both JSON and CSV formats within the `data` directory.
 
 ### 3. Results Storage
 
-- **CSV**: This format is easily viewable from GitHub and suitable for spreadsheet applications.
-- **JSON**: This format is utilized to dynamically load results into the HTML page hosted at: [Main chart](https://unaveragetech.github.io/PagesXcrawler/).
+- **CSV Format**: Easily viewable on GitHub and compatible with spreadsheet applications.
+- **JSON Format**: Used to dynamically load results into the HTML page at the [Main Chart](https://unaveragetech.github.io/PagesXcrawler/).
 
 ### 4. Reloading the Page
 
-If the page does not load after deployment, simply refresh the page to see the latest results.
+If the page does not display the latest results after deployment, simply refresh the page.
 
 ### 5. Overwriting Previous Fetches
 
-Users can overwrite the results of the last crawl by posting a new issue. The system will replace the previous data with the latest crawl results.
+To replace the results of your last crawl, submit a new issue with the same format. The system will update the previous data with the latest crawl results.
 
 ## Important Considerations
 
-- **Submission Order**: Ensure you follow the correct issue submission format (`url:depth(int)`) for the crawler to function correctly.
-  
-- **Crawling Depth**: Keep in mind that deeper depths may lead to longer processing times, as the crawler retrieves more data.but the crawling is done in a beefy code space so it is very snappy 
+- **Submission Format**: Adhere to the correct issue submission format (`url:depth(int)`) for proper functionality.
+- **Crawling Depth**: Deeper depths may require longer processing times, as the crawler fetches more data. However, it operates in a powerful environment, ensuring responsiveness.
 
 ## Setting Up for Private Use
 
-If you wish to use this system privately after forking the repository, follow these key steps:
+If you want to use this system privately after forking the repository, follow these steps:
 
 ### 1. Fork the Repository
 
-- Go to the repository on GitHub and click the "Fork" button in the upper right corner.
+Click the "Fork" button in the upper right corner of the GitHub repository page.
 
 ### 2. Clone Your Fork
 
-- Clone your forked repository to your local machine:
+Clone your forked repository to your local machine:
 
 ```bash
 git clone https://github.com/yourusername/PagesXcrawler.git
@@ -90,33 +75,32 @@ git clone https://github.com/yourusername/PagesXcrawler.git
 
 ### 3. Configure GitHub Actions
 
-To enable GitHub Actions in your private repository:
+Enable GitHub Actions in your private repository:
 
-- Navigate to the "Settings" tab of your repository.
-- Under the "Actions" section, select "General."
-- Ensure that actions are enabled for your repository.
+- Go to the "Settings" tab.
+- Under "Actions," select "General."
+- Make sure actions are enabled.
 
 ### 4. Set Up Secrets
 
-For the crawler to function properly, you need to set up any required secrets (like Personal Access Tokens) in your repository:
+For proper functionality, set up any required secrets (like Personal Access Tokens):
 
-- Go to "Settings" > "Secrets and variables" > "Actions."
-- Click on "New repository secret" and add your secrets (named, `MY_PAT`). this secret should have all needed read and write scopes
+- Navigate to "Settings" > "Secrets and variables" > "Actions."
+- Click "New repository secret" and add your secrets (name it `MY_PAT`), ensuring it has the necessary read and write scopes.
 
 ### 5. Update the `_config.yml`
 
-- Ensure the `_config.yml` file reflects your own repository settings and URLs as needed.-this is used to mitigate jekyll issues and is not needed but must be present even if its empty
+Ensure the `_config.yml` file is configured to your repository settings and URLs. Although this file helps mitigate Jekyll issues, it can be left empty if not needed.
 
 ### 6. Test the System
 
-- Create a test issue in the format `url:depth` to verify that everything is functioning as expected.-if yes the system will run and as the repo owner youll seeb bots actions and when the issue closes. if not youll get a notification of either a 128 104 or 404 error these all come from irregular perms or missing perms fir the token 
+Create a test issue in the format `url:depth` to verify that everything works correctly. If successful, you’ll see the bot’s actions, and the issue will close. If there’s an error (like 128, 104, or 404), it typically indicates permission issues with the token.
 
 ## Additional Features
 
-- **Automation**: The system automates the data retrieval process, allowing users to focus on analysis rather than manual fetching.
-  
-- **Customization**: Developers can modify the crawler's behavior and settings according to specific requirements.
+- **Automation**: Automates data retrieval, allowing users to focus on analysis instead of manual fetching.
+- **Customization**: Developers can adjust the crawler’s behavior and settings based on specific needs.
 
 ## Conclusion
 
-This web crawler system provides a robust solution for retrieving and visualizing web data effortlessly. If you have any questions, suggestions, or issues, feel free to create a new issue in the repository!
+The PagesXcrawler system offers an efficient solution for retrieving and visualizing web data with ease. If you have any questions, suggestions, or issues, don’t hesitate to create a new issue in the repository!
