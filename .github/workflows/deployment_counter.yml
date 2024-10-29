@@ -47,4 +47,5 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json
           git commit -m "Update counters for deployments and actions"
+          git pull
           git push
