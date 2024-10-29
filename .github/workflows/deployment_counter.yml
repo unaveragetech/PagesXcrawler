@@ -43,9 +43,14 @@ jobs:
 
       - name: Commit updated counters
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          
+          # Pull the latest changes from the remote branch
+          git pull origin main || echo "No changes to pull"
+
           git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json
-          git commit -m "Update counters for deployments and actions"
-          git pull
-          git push
+          git commit -m "Update counters for deployments and actions" || echo "No changes to commit"
+
+          # Push changes to the remote branch
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/unaveragetech/PagesXcrawler HEAD:main
