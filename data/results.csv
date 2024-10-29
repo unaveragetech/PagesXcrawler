@@ -1,11 +1,49 @@
 url,depth,title,meta_description,internal_link_count,external_link_count,word_count
-https://www.netflix.com,0,"Netflix - Watch TV Shows Online, Watch Movies Online","Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",8,13,472
-https://www.netflix.com/login,1,Netflix,"Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",5,9,88
-https://www.netflix.com/,2,"Netflix - Watch TV Shows Online, Watch Movies Online","Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",8,13,472
-https://www.netflix.com/youraccount,3,Netflix,"Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",5,9,88
-https://www.netflix.com/LoginHelp,4,Netflix,"Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",5,9,108
-https://www.netflix.com/dnsspi,4,Do Not Sell or Share My Personal Information | Netflix Help Center,,11,7,813
-https://www.netflix.com/redeem,3,"Netflix - Watch TV Shows Online, Watch Movies Online","Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",9,17,112
-https://www.netflix.com/gift-cards,4,"Netflix - Watch TV Shows Online, Watch Movies Online","Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",9,19,140
-https://www.netflix.com/watch,4,"Netflix Supported Devices | Watch Netflix on your TV, phone, or computer | Netflix Help Center","Netflix is available on most TVs, streaming players, phones, tablets, game consoles, and computers. Read the article to learn more.",20,33,462
-https://www.netflix.com/browse/genre/839338,4,Only on Netflix | Netflix Official Site,"Netflix is the home of amazing original programming that you can’t find anywhere else. Movies, TV shows, specials and more, all tailored specifically to you.",614,14,1354
+https://meteorclient.com,0,Meteor Client,,13,4,88
+https://meteorclient.com/,1,Meteor Client,,13,4,88
+https://meteorclient.com/faq,2,Meteor Client,,29,10,609
+https://meteorclient.com/github,3,Meteor Development · GitHub,Based minecraft utility mod and others. Meteor Development has 20 repositories available. Follow their code on GitHub.,122,34,653
+https://meteorclient.com/github#start-of-content,4,Meteor Development · GitHub,Based minecraft utility mod and others. Meteor Development has 20 repositories available. Follow their code on GitHub.,122,34,653
+https://meteorclient.com/login?return_to=https%3A%2F%2Fgithub.com%2FMeteorDevelopment,5,Meteor Client,,6,0,21
+https://meteorclient.com/register,6,Meteor Client,,6,0,20
+https://meteorclient.com/login,7,Meteor Client,,6,0,21
+https://meteorclient.com/forgotPassword,8,Meteor Client,,5,0,11
+https://meteorclient.com/MeteorDevelopment,5,Meteor Client,,5,0,9
+https://meteorclient.com/solutions,5,Meteor Client,,5,0,9
+https://meteorclient.com/sponsors,5,Meteor Client,,5,0,9
+https://meteorclient.com/enterprise,5,Meteor Client,,5,0,9
+https://meteorclient.com/premium-support,5,Meteor Client,,5,0,9
+https://meteorclient.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Corg-login%3E&source=header,5,Meteor Client,,5,0,9
+https://meteorclient.com/arlomcwalter,5,Meteor Client,,5,0,9
+https://meteorclient.com/MineGame159,5,Meteor Client,,5,0,9
+https://meteorclient.com/faq#how-do-i-install-meteor?,3,Meteor Client,,29,10,609
+https://meteorclient.com/download,4,No Title,,0,0,152391
+https://meteorclient.com/download?devBuild=latest,4,No Title,,0,0,152288
+https://meteorclient.com/discord,4,Meteor,Meteor is an open source Fabric Utility Mod for anarchy servers. | 50684 members,0,0,1
+https://meteorclient.com/faq/installation,4,Meteor Client,,23,5,476
+https://meteorclient.com/faq/installation#downloading,5,Meteor Client,,23,5,476
+https://meteorclient.com/faq/installation#installing,6,Meteor Client,,23,5,476
+https://meteorclient.com/faq/installation#prerequisites,7,Meteor Client,,23,5,476
+https://meteorclient.com/faq/installation#unsafe-cracked-launchers,8,Meteor Client,,23,5,476
+https://meteorclient.com/faq/installation#minecraft-launcher,9,Meteor Client,,23,5,476
+https://meteorclient.com/faq/installation#prismlauncher/multimc,10,Meteor Client,,23,5,476
+https://meteorclient.com/faq/old-versions,10,Meteor Client,,18,5,563
+https://meteorclient.com/faq/getting-log,10,Meteor Client,,27,1,250
+https://meteorclient.com/faq/addon-template,10,Meteor Client,,19,23,898
+https://meteorclient.com/faq/starscript,10,Meteor Client,,34,3,604
+https://meteorclient.com/faq/notebot,10,Meteor Client,,18,2,195
+https://meteorclient.com/faq/swarm,10,Meteor Client,,17,0,302
+https://meteorclient.com/faq#how-do-i-use-meteor-on-older-minecraft-versions?,4,Meteor Client,,29,10,609
+https://meteorclient.com/faq#how-do-i-open-the-gui?,5,Meteor Client,,29,10,609
+https://meteorclient.com/faq#how-do-i-use-the-hud?,6,Meteor Client,,29,10,609
+https://meteorclient.com/faq#how-do-i-import-and-export-configs?,7,Meteor Client,,29,10,609
+https://meteorclient.com/faq#how-to-use-meteor-with-optifine?,8,Meteor Client,,29,10,609
+https://meteorclient.com/faq#how-do-i-use-baritone-with-meteor?,9,Meteor Client,,29,10,609
+https://meteorclient.com/faq#using-baritone,10,Meteor Client,,29,10,609
+https://meteorclient.com/faq#why-can%E2%80%99t-i-talk-in-the-meteor-discord?,10,Meteor Client,,29,10,609
+https://meteorclient.com/account,10,Meteor Client,,5,0,6
+https://meteorclient.com/faq#how-to-use-the-proxy-system?,10,Meteor Client,,29,10,609
+https://meteorclient.com/donate,2,Meteor Client,,0,0,16
+https://meteorclient.com/api/downloadBaritone,2,No Title,,0,0,57458
+https://meteorclient.com/youtube,2,Meteor Client - YouTube,Based minecraft utility mod,6,9,16
+https://meteorclient.com/new,3,Meteor Client,,5,0,9
