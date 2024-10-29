@@ -49,8 +49,11 @@ jobs:
           # Pull the latest changes from the remote branch
           git pull origin main || echo "No changes to pull"
 
+          # Stage the changes
           git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json
+
+          # Commit the changes, avoiding failure if there's nothing to commit
           git commit -m "Update counters for deployments and actions" || echo "No changes to commit"
 
           # Push changes to the remote branch
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/unaveragetech/PagesXcrawler HEAD:main
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/unaveragetech/PagesXcrawler HEAD:main || echo "Push failed"
