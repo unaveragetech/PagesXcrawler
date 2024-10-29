@@ -3,8 +3,6 @@ name: Deployment and Actions Counter
 on:
   issues:
     types: [opened]
-
-on:
   push:
     branches:
       - main
@@ -33,7 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=1" | jq '.total_count')
+            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs" | jq '.total_count')
           echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
 
       - name: Commit updated counters
