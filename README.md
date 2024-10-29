@@ -1,12 +1,16 @@
-   '''                     
-                  o    o
-   _pagesXcrawler_ )  ( 
-{(((((((((((((((( ( o_o)  (urls)--}/
-  /\/\/\/\/\/\/\/\ `--            /
-   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+             
+  / _ \_________________/`/\+-/\'\'\
+\_\(_)/_/ pagesXcrawler -+-    -+-+-
+ _//o\\_                \'\/+-\/`/`/
+  /   \                  \/-+--\/`/ 
+
+
 - Web Crawler System -
 
-'''
+
 ![Deployments](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/deployments.json)
 ![Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions.json)
 
