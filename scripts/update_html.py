@@ -27,7 +27,7 @@ def update_html():
     with open('index.html', 'w') as html_file:
         html_file.write('<!DOCTYPE html>\n<html lang="en">\n<head>\n')
         html_file.write('<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
-        html_file.write('<title>Web Crawler Results</title>\n')
+        html_file.write('<title>🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 ٩ʕ◕౪◕ʔو.url  ٩ʕ◕౪◕ʔو hmm. --Web Crawler System--</title>\n')
         html_file.write('<style>\n')
         html_file.write('body { font-family: Arial, sans-serif; margin: 0; display: flex; }\n')
         html_file.write('.sidebar { width: 250px; background-color: #f4f4f4; padding: 20px; overflow-y: auto; height: 100vh; }\n')
