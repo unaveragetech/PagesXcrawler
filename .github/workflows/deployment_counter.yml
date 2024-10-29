@@ -13,30 +13,32 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Setup data directory and counters file if not exists
+      - name: Setup data directory and counters files if not exist
         run: |
           mkdir -p data
-          if [ ! -f data/counters.json ]; then
-            echo '{"schemaVersion": 1, "label": "Deployments", "message": "70", "color": "blue"}' > data/counters.json
-            echo '{"schemaVersion": 1, "label": "Actions", "message": "0", "color": "green"}' > data/actions_counter.json
+          if [ ! -f data/deployments.json ]; then
+            echo '{"schemaVersion": 1, "label": "Deployments", "message": "70", "color": "blue"}' > data/deployments.json
+          fi
+          if [ ! -f data/actions.json ]; then
+            echo '{"schemaVersion": 1, "label": "Actions", "message": "0", "color": "green"}' > data/actions.json
           fi
 
       - name: Increment deployment count
         run: |
-          current_deployments=$(jq '.message | tonumber' data/counters.json)
+          current_deployments=$(jq '.message | tonumber' data/deployments.json)
           new_deployments=$((current_deployments + 1))
-          jq --arg new_msg "$new_deployments" '.message = $new_msg' data/counters.json > temp.json && mv temp.json data/counters.json
+          jq --arg new_msg "$new_deployments" '.message = $new_msg' data/deployments.json > temp.json && mv temp.json data/deployments.json
 
       - name: Increment action count
         run: |
-          current_actions=$(jq '.message | tonumber' data/actions_counter.json)
+          current_actions=$(jq '.message | tonumber' data/actions.json)
           new_actions=$((current_actions + 1))
-          jq --arg new_msg "$new_actions" '.message = $new_msg' data/actions_counter.json > temp.json && mv temp.json data/actions_counter.json
+          jq --arg new_msg "$new_actions" '.message = $new_msg' data/actions.json > temp.json && mv temp.json data/actions.json
 
       - name: Commit updated counters
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "GitHub Actions Bot"
-          git add data/counters.json data/actions_counter.json
+          git add data/deployments.json data/actions.json
           git commit -m "Update counters for deployments and actions"
           git push
