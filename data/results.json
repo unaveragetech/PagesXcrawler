@@ -1,21 +1,945 @@
 [
     {
-        "url": "https://puginarug.com",
+        "url": "https://optical.toys/",
         "depth": 0,
-        "title": "The Pug In A Rug",
-        "meta_description": "Watch the Pug be in the Rug. Level up and maximize!",
+        "title": "Optical Toys | Optical Illusions and Toys",
+        "meta_description": "A collection of optical illusions and optical toys by Toms Toys",
+        "meta_keywords": "",
+        "internal_link_count": 29,
+        "external_link_count": 1,
+        "word_count": 430,
+        "h1_tags": [
+            "Optical ToysOPTICAL ILLUSIONS & BRAIN BENDING TOYS -RSS"
+        ],
+        "h2_tags": [
+            "Thatcher Effect",
+            "Disappearing Bicyclist",
+            "Concentric Spirals",
+            "Reverse Phi Rainbows",
+            "Waterfall Effect",
+            "Lilac Chaser",
+            "Schroders Stairs",
+            "Stepping Feet",
+            "RGB Color Changing Ball",
+            "Contrast Effect",
+            "Checkerboard Angles",
+            "POV Static Cube",
+            "Shifty Peaches",
+            "Motion After-Effects",
+            "Bamboozled",
+            "Spinning Duck",
+            "Dots that will quit",
+            "Dots that won't quit",
+            "Healing Grid Illusion",
+            "Won't stop movin beans",
+            "Cafe Wall Illusion",
+            "Gradient Motion",
+            "Kaleidoscope",
+            "Ouchi Illusion",
+            "Troxler Fade",
+            "Spirals but not"
+        ],
+        "main_word_count": 0,
+        "image_count": 26,
+        "link_texts": [
+            "RSS",
+            "NEW!Thatcher EffectA mysterious brain twister, the faces are wrong, but they seem so right while upside down.",
+            "POPULAR!Disappearing BicyclistOne of Sam Loyd's vanishing puzzles, and a true brain bender. It's an oldie!",
+            "NEW!Concentric SpiralsAre these concentric circles or spirals? Take a closer look.",
+            "POPULAR!Reverse Phi RainbowsDo these rainbows move across the screen, or are they sitting still?",
+            "POPULAR!Waterfall EffectWatch this artificial waterfall, and then watch the world warp around you.",
+            "POPULAR!Lilac ChaserMultiple effects all bundled in one with this trippy customer.",
+            "NEW!Schroders StairsThese illusive stairs are both upside down, and right side up!",
+            "NEW!Stepping FeetWhile you can see they're moving uniformly, your brain says they're walking.",
+            "RGB Color Changing BallThe ball stays the same color, but with a little overlay, it appears to be changing.",
+            "Contrast EffectAs the circle moves left and right, it appears that its colors are changing.",
+            "Checkerboard AnglesThis animated board will give you a headache, all straight lines, but you'll see angles.",
+            "POV Static CubeWatch the cube appear and disappear as it stops moving",
+            "Shifty PeachesTry to keep these balls in the center of your vision, impossible!",
+            "Motion After-EffectsStare at this for a while and you'll be able to transfer the effect off your screen.",
+            "BamboozledHonestly, I truly imagine this is exactly how panda's experience the world.",
+            "Spinning DuckA duck spinning in more than one direction, true brainiacs can control it.",
+            "Dots that will quitFocus on one and the rest will vanish, you can't win this one.",
+            "Dots that won't quitPretty much as vivid as it gets. A complete optical betrayal of the senses.",
+            "Healing Grid IllusionOnce again your eyes and brain deceive you with this repairing grid.",
+            "Won't stop movin beansYou're dealing with absolute classics here, your brain will bust at these sneaky beans.",
+            "Cafe Wall IllusionA real brain bender, yes the lines are straight. You'll need something straight to test.",
+            "Gradient MotionMove your head closer and further from the screen and you'll see the glow!",
+            "KaleidoscopeNot really an illusion, but it's an overload of optical, thats for sure. Drag and Drop!",
+            "Ouchi IllusionA floating disk. You can comprehend it, but you can't stop it.",
+            "Troxler FadeWatch the tomato, and see the rest of the world fade away... damn.",
+            "Spirals but notThey look like they're connected... but look closer?",
+            "toms.toys",
+            "privacy",
+            "terms"
+        ]
+    },
+    {
+        "url": "https://optical.toys/index.xml",
+        "depth": 1,
+        "title": "Optical Toys",
+        "meta_description": "",
         "meta_keywords": "",
         "internal_link_count": 0,
-        "external_link_count": 3,
-        "word_count": 29,
+        "external_link_count": 0,
+        "word_count": 2592,
         "h1_tags": [],
         "h2_tags": [],
         "main_word_count": 0,
         "image_count": 0,
+        "link_texts": []
+    },
+    {
+        "url": "https://optical.toys/thatcher-effect/",
+        "depth": 1,
+        "title": "Thatcher Effect - Optical Illusion & Explaination",
+        "meta_description": "Click Anywhere to see the faces rotate. Try not to scream. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 5,
+        "word_count": 490,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 1,
         "link_texts": [
-            "youtube",
-            "",
-            "Useless Web"
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "The Original Paper",
+            "Thatcher Effect in Monkeys",
+            "Face Blindness",
+            "Open Source Thatcher Applicator",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/disappearing-bicyclist/",
+        "depth": 2,
+        "title": "Disappearing Bicyclist - Optical Illusion & Explaination",
+        "meta_description": "Count the bicyclists, click anywhere for a small rotation, count again... WHAT! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 3,
+        "word_count": 282,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Sam Loyd Wikipedia",
+            "Sam Loyds Cyclopedia of 5000 puzzles",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/concentric-spirals/",
+        "depth": 3,
+        "title": "Concentric Spirals - Optical Illusion & Explaination",
+        "meta_description": "Concentric circles with a little twist, or is this a large spiral? - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 5,
+        "word_count": 469,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Fraser Spiral",
+            "Akiyoshi\u2019s Page showing the effect",
+            "Spirals but not spirals",
+            "Akiyoshi slowly breaking down the effect",
+            "Fraser illusion without local cues?",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/reverse-phi-effect/",
+        "depth": 4,
+        "title": "Reverse Phi Rainbows - Optical Illusion & Explaination",
+        "meta_description": "Something is amiss, are they moving or not? How can this be. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 581,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "@Jagarikin",
+            "video",
+            "Reversed Phi",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/no-spirals-spirals/",
+        "depth": 4,
+        "title": "Spirals but not - Optical Illusion & Explaination",
+        "meta_description": "Here it feels like you're looking at spirals, but you're not, they're just circles... tricky! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 331,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Dr. Baingio Pinna\u2019s Paper",
+            "A much better explaination than I could do",
+            "Pinna\u2019s other illusions",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys",
+        "depth": 4,
+        "title": "Optical Toys | Optical Illusions and Toys",
+        "meta_description": "A collection of optical illusions and optical toys by Toms Toys",
+        "meta_keywords": "",
+        "internal_link_count": 29,
+        "external_link_count": 1,
+        "word_count": 430,
+        "h1_tags": [
+            "Optical ToysOPTICAL ILLUSIONS & BRAIN BENDING TOYS -RSS"
+        ],
+        "h2_tags": [
+            "Thatcher Effect",
+            "Disappearing Bicyclist",
+            "Concentric Spirals",
+            "Reverse Phi Rainbows",
+            "Waterfall Effect",
+            "Lilac Chaser",
+            "Schroders Stairs",
+            "Stepping Feet",
+            "RGB Color Changing Ball",
+            "Contrast Effect",
+            "Checkerboard Angles",
+            "POV Static Cube",
+            "Shifty Peaches",
+            "Motion After-Effects",
+            "Bamboozled",
+            "Spinning Duck",
+            "Dots that will quit",
+            "Dots that won't quit",
+            "Healing Grid Illusion",
+            "Won't stop movin beans",
+            "Cafe Wall Illusion",
+            "Gradient Motion",
+            "Kaleidoscope",
+            "Ouchi Illusion",
+            "Troxler Fade",
+            "Spirals but not"
+        ],
+        "main_word_count": 0,
+        "image_count": 26,
+        "link_texts": [
+            "RSS",
+            "NEW!Thatcher EffectA mysterious brain twister, the faces are wrong, but they seem so right while upside down.",
+            "POPULAR!Disappearing BicyclistOne of Sam Loyd's vanishing puzzles, and a true brain bender. It's an oldie!",
+            "NEW!Concentric SpiralsAre these concentric circles or spirals? Take a closer look.",
+            "POPULAR!Reverse Phi RainbowsDo these rainbows move across the screen, or are they sitting still?",
+            "POPULAR!Waterfall EffectWatch this artificial waterfall, and then watch the world warp around you.",
+            "POPULAR!Lilac ChaserMultiple effects all bundled in one with this trippy customer.",
+            "NEW!Schroders StairsThese illusive stairs are both upside down, and right side up!",
+            "NEW!Stepping FeetWhile you can see they're moving uniformly, your brain says they're walking.",
+            "RGB Color Changing BallThe ball stays the same color, but with a little overlay, it appears to be changing.",
+            "Contrast EffectAs the circle moves left and right, it appears that its colors are changing.",
+            "Checkerboard AnglesThis animated board will give you a headache, all straight lines, but you'll see angles.",
+            "POV Static CubeWatch the cube appear and disappear as it stops moving",
+            "Shifty PeachesTry to keep these balls in the center of your vision, impossible!",
+            "Motion After-EffectsStare at this for a while and you'll be able to transfer the effect off your screen.",
+            "BamboozledHonestly, I truly imagine this is exactly how panda's experience the world.",
+            "Spinning DuckA duck spinning in more than one direction, true brainiacs can control it.",
+            "Dots that will quitFocus on one and the rest will vanish, you can't win this one.",
+            "Dots that won't quitPretty much as vivid as it gets. A complete optical betrayal of the senses.",
+            "Healing Grid IllusionOnce again your eyes and brain deceive you with this repairing grid.",
+            "Won't stop movin beansYou're dealing with absolute classics here, your brain will bust at these sneaky beans.",
+            "Cafe Wall IllusionA real brain bender, yes the lines are straight. You'll need something straight to test.",
+            "Gradient MotionMove your head closer and further from the screen and you'll see the glow!",
+            "KaleidoscopeNot really an illusion, but it's an overload of optical, thats for sure. Drag and Drop!",
+            "Ouchi IllusionA floating disk. You can comprehend it, but you can't stop it.",
+            "Troxler FadeWatch the tomato, and see the rest of the world fade away... damn.",
+            "Spirals but notThey look like they're connected... but look closer?",
+            "toms.toys",
+            "privacy",
+            "terms"
+        ]
+    },
+    {
+        "url": "https://optical.toys/waterfall-effect/",
+        "depth": 1,
+        "title": "Waterfall Effect - Optical Illusion & Explaination",
+        "meta_description": "Stare at the center of this effect for 20-30 seconds and then look at something else, you'll see the effect transfer. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 2,
+        "word_count": 310,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "optical toy",
+            "Aristotle on Dreams",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/lilac-chaser/",
+        "depth": 2,
+        "title": "Lilac Chaser - Optical Illusion & Explaination",
+        "meta_description": "Stare directly into the dot at the center of the circle, firstly you'll notice that the area where the circle is missing will turn into a green circle (what!?) and eventually, you'll only be able to see that single circle. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 2,
+        "word_count": 333,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "The Lilac Chaser Wiki",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/schroders-stairs/",
+        "depth": 3,
+        "title": "Schroders Stairs - Optical Illusion & Explaination",
+        "meta_description": "Which side is the front? Stare at either side and imagine \"Front\" or \"Back\" for 5-10 seconds, and you'll be able to change the orientation of the stairs! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 6,
+        "word_count": 582,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Reference to the intitial paper",
+            "Annalen der Physik",
+            "Some reading on multistable perception",
+            "The Lunar Illusion",
+            "Ascending and Descending",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/stepping-feet/",
+        "depth": 4,
+        "title": "Stepping Feet - Optical Illusion & Explaination",
+        "meta_description": "The \"walkers\" are moving in a straight line at the same speed, but appear to be stepping along. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 5,
+        "word_count": 585,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Explaining the footsteps, belly dancer, Wenceslas, and kickback illusions",
+            "Second-Order Footsteps Illusions",
+            "Perceived rate of movement depends on contrast",
+            "Moving objects appear to slow down at low contrasts",
+            "Another Interactive Example of the Contrast Effect",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/motion-aftereffect/",
+        "depth": 2,
+        "title": "Motion After-Effects - Optical Illusion & Explaination",
+        "meta_description": "Stare at this for a while and you'll be able to transfer the effect off your screen. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 3,
+        "word_count": 324,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "similar effect",
+            "A Paper",
+            "Doyle Spiral",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/bamboozled/",
+        "depth": 3,
+        "title": "Bamboozled - Optical Illusion & Explaination",
+        "meta_description": "Imagine you're a panda that's drank a little too much fermented fruit? - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 3,
+        "word_count": 323,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "The random reddit meme",
+            "A panda that has had too much milk",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/spinning-duck/",
+        "depth": 4,
+        "title": "Spinning Duck - Optical Illusion & Explaination",
+        "meta_description": "This duck is spinning left to right, or is it right to left. You can control it with your brain... it's tricky though. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 427,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "The Famous Dancer Silhouette",
+            "original duck model & code",
+            "Wikipedia article",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/rgb-color-assimilation-ball/",
+        "depth": 1,
+        "title": "RGB Color Changing Ball - Optical Illusion & Explaination",
+        "meta_description": "Click to change the layer above the ball, it never changes, but your brain will make it seem like it does. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 3,
+        "word_count": 522,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "The effect of luminance differences on color assimilation",
+            "A great writeup on the bezold effect",
+            "The contrast effect",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/contrast-effect/",
+        "depth": 2,
+        "title": "Contrast Effect - Optical Illusion & Explaination",
+        "meta_description": "As the circle moves left and right, it appears that its colors are changing... But are they? - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 470,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Contrast Effect Wikipedia",
+            "Ibn al-Haytham",
+            "Mechanisms underlying simultaneous brightness contrast: Early and innate",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/checkerboard-angles/",
+        "depth": 3,
+        "title": "Checkerboard Angles - Optical Illusion & Explaination",
+        "meta_description": "This checkered layout will trick your brain into thinking there's angles where there are none. Click anywhere to stop the animation. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 5,
+        "external_link_count": 2,
+        "word_count": 384,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Revolution Analytics",
+            "Spiral Effect",
+            "Straight Line Squares",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/persistance-of-vision-static-cube/",
+        "depth": 4,
+        "title": "POV Static Cube - Optical Illusion & Explaination",
+        "meta_description": "Click Anywhere to pause the cube. It's rotating in a static space, but you can only see it when its moving. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 453,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Video explaining Chris\u2019s discovery of the effect, and how it was built.",
+            "different levels of noise",
+            "dodecahedron",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/straight-line-squares/",
+        "depth": 4,
+        "title": "Cafe Wall Illusion - Optical Illusion & Explaination",
+        "meta_description": "Believe it or not these lines are all straight, go on get a piece of paper against them... The smaller you make the squares the more messy your perception gets. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 396,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "first paper",
+            "Richard Gregorie\u2019s",
+            "wall he first saw the illusion",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/shifty-peaches/",
+        "depth": 1,
+        "title": "Shifty Peaches - Optical Illusion & Explaination",
+        "meta_description": "Try to keep these balls in the center of your vision, they'll keep moving! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 5,
+        "external_link_count": 3,
+        "word_count": 291,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "illusory motion beans",
+            "Illusory Motion Beans",
+            "The Wikipedia Article on Illusory Motion",
+            "Akiyoshi\u2019s illusion pages",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/illusory-motion-beans/",
+        "depth": 2,
+        "title": "Won't stop movin beans - Optical Illusion & Explaination",
+        "meta_description": "I don't think you need much explaining here... why won't they stop moving! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 3,
+        "word_count": 324,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Akiyoshi\u2019s illusion pages",
+            "The Wikipedia Article on Illusory Motion",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/cafe-wall/",
+        "depth": 3,
+        "title": "Cafe Wall Illusion - Optical Illusion & Explaination",
+        "meta_description": "Believe it or not these lines are all straight, go on get a piece of paper against them... The smaller you make the squares the more messy your perception gets. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 396,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "first paper",
+            "Richard Gregorie\u2019s",
+            "wall he first saw the illusion",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/gradient-motion/",
+        "depth": 4,
+        "title": "Gradient Motion - Optical Illusion & Explaination",
+        "meta_description": "Move your head back and forward looking towards the center and you'll feel like the glow is.... well, growing! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 2,
+        "word_count": 240,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Alan Stubbs Paper",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/dots-that-will-quit/",
+        "depth": 1,
+        "title": "Dots that will quit - Optical Illusion & Explaination",
+        "meta_description": "Focus on one dot, and the rest will nope out and vanish. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 3,
+        "word_count": 297,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Troxler Fade",
+            "The paper by Ninio",
+            "A different variation on the Hermann Grid",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/dots-that-wont-quit/",
+        "depth": 2,
+        "title": "Dots that won't quit - Optical Illusion & Explaination",
+        "meta_description": "The name should be enough for you here! This is a trippy one, can you count the dots? - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 4,
+        "word_count": 376,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "A paper on the effect",
+            "Some debate about as to how/why this works at all",
+            "Hermann Grid",
+            "\u201cdots that will quit\u201d",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/healing-grid/",
+        "depth": 3,
+        "title": "Healing Grid Illusion - Optical Illusion & Explaination",
+        "meta_description": "Watch as this grid repairs itself in the corners of your vision. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 2,
+        "word_count": 379,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "A paper on the illusion",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/troxler-fade/",
+        "depth": 2,
+        "title": "Troxler Fade - Optical Illusion & Explaination",
+        "meta_description": "Stare directly into the dot at the center of the circle, your brain will decide to erase the circle itself showing only the white. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 4,
+        "external_link_count": 2,
+        "word_count": 310,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "The Wikipedia",
+            "Lilac Chaser",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/kaleidoscope/",
+        "depth": 1,
+        "title": "Kaleidoscope - Optical Illusion & Explaination",
+        "meta_description": "Not really an optical illusion, but its optical and it's cool. Drag and drop in an image! - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 3,
+        "word_count": 262,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "Teatise on the Kaleidoscope",
+            "sketches and research",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/ouchi-illusion/",
+        "depth": 2,
+        "title": "Ouchi Illusion - Optical Illusion & Explaination",
+        "meta_description": "Welp, it turns out that your brain doesn't manage well looking at different angled rectangles, and creates a floating disk. - An Optical Illusion and Explaination",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 4,
+        "word_count": 380,
+        "h1_tags": [],
+        "h2_tags": [
+            "Optical Toys",
+            "How/What?"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "Next Illusion \u203a",
+            "A paper on the effect",
+            "Source of the explaination",
+            "entire vibe",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/privacy",
+        "depth": 1,
+        "title": "Optical Toys Terms & Privacy",
+        "meta_description": "Optical Toys Terms & Privacy",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 6,
+        "word_count": 847,
+        "h1_tags": [
+            "Privacy Policy for Optical Toys"
+        ],
+        "h2_tags": [
+            "Log Files",
+            "Cookies and Web Beacons",
+            "Google DoubleClick DART Cookie",
+            "Our Advertising Partners",
+            "Privacy Policies",
+            "Third Party Privacy Policies",
+            "Children\u2019s Information",
+            "Online Privacy Policy Only",
+            "Consent"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "https://optical.toys",
+            "Privacy Policy Generator",
+            "www.website.com",
+            "https://policies.google.com/technologies/ads",
+            "https://www.playwire.com/privacy-policy",
+            "https://policies.google.com/technologies/ads",
+            "optical.toys",
+            "toms.toys"
+        ]
+    },
+    {
+        "url": "https://optical.toys/terms",
+        "depth": 1,
+        "title": "Optical Toys Terms & Privacy",
+        "meta_description": "Optical Toys Terms & Privacy",
+        "meta_keywords": "",
+        "internal_link_count": 3,
+        "external_link_count": 2,
+        "word_count": 1630,
+        "h1_tags": [
+            "Terms and Conditions",
+            "Interpretation and Definitions",
+            "Acknowledgment",
+            "Links to Other Websites",
+            "Termination",
+            "Limitation of Liability",
+            "\u201cAS IS\u201d and \u201cAS AVAILABLE\u201d Disclaimer",
+            "Governing Law",
+            "Disputes Resolution",
+            "For European Union (EU) Users",
+            "United States Legal Compliance",
+            "Severability and Waiver",
+            "Translation Interpretation",
+            "Changes to These Terms and Conditions",
+            "Contact Us"
+        ],
+        "h2_tags": [
+            "Interpretation",
+            "Definitions",
+            "Severability",
+            "Waiver"
+        ],
+        "main_word_count": 0,
+        "image_count": 0,
+        "link_texts": [
+            "Optical Toys",
+            "TermsFeed Terms and Conditions Generator",
+            "https://optical.toys",
+            "optical.toys",
+            "toms.toys"
         ]
     }
 ]
