@@ -13,33 +13,46 @@
 ![Successful Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/successful_actions.json)
 ![Failed Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/failed_actions.json)
 
-<details>
-  <summary>Actions and Deployments Chart</summary>
-  
-  ![Actions and Deployments Chart](https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions_chart.png)
-</details>
-
-Welcome to the PagesXcrawler repository! This documentation outlines how to use our automated web crawler, powered by GitHub Actions, which retrieves links from specified websites based on user-defined depth and displays the results on a GitHub Pages site.
-
 ## Quick Links
 
-<div style="display: flex; flex-direction: column; gap: 10px;">
+<table align="center">
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="Documentation.md" style="color: white; text-decoration: none; font-weight: bold;">Documentation</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="https://theuselessweb.com" style="color: white; text-decoration: none; font-weight: bold;">Find a Site to Crawl</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new" style="color: white; text-decoration: none; font-weight: bold;">Create a Crawl Issue</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="https://github.com/unaveragetech/PagesXcrawler/deployments" style="color: white; text-decoration: none; font-weight: bold;">Check Deployment Jobs</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv" style="color: white; text-decoration: none; font-weight: bold;">View Last Run Results</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv" style="color: white; text-decoration: none; font-weight: bold;">Access All Run History</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
+      <a href="https://unaveragetech.github.io/PagesXcrawler/" style="color: white; text-decoration: none; font-weight: bold;">View Results Chart</a>
+    </td>
+  </tr>
+</table>
 
-  <a href="Documentation.md" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Documentation</a>
-
-  <a href="https://theuselessweb.com" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Find a Site to Crawl</a>
-
-  <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Create a Crawl Issue</a>
-
-  <a href="https://github.com/unaveragetech/PagesXcrawler/deployments" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Check Deployment Jobs</a>
-
-  <a href="https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">View Last Run Results</a>
-
-  <a href="https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Access All Run History</a>
-
-  <a href="https://unaveragetech.github.io/PagesXcrawler/" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">View Results Chart</a>
-
-</div>
 
 
 ## How It Works
