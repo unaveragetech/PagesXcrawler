@@ -98,7 +98,7 @@ jobs:
           git commit -m "Update results and log issues" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 10: Count deployments and actions, update JSON files, and generate chart
+      # Step 10: Count deployments, actions, and generate chart
       - name: Count Deployments, Actions, and Generate Chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -134,20 +134,20 @@ jobs:
           echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions_count"'", "color": "red"}' > data/failed_actions.json
 
           # Generate a bar chart with matplotlib
-          python - << EOF
-import matplotlib.pyplot as plt
-
-labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
-values = [${deployments_count}, ${actions_count}, ${successful_actions_count}, ${failed_actions_count}]
-colors = ['blue', 'green', 'lime', 'red']
-
-plt.figure(figsize=(8, 6))
-plt.bar(labels, values, color=colors)
-plt.title('GitHub Actions and Deployments')
-plt.xlabel('Metrics')
-plt.ylabel('Count')
-plt.savefig('data/actions_chart.png')
-EOF
+          python - <<EOF
+          import matplotlib.pyplot as plt
+          
+          labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
+          values = [${deployments_count}, ${actions_count}, ${successful_actions_count}, ${failed_actions_count}]
+          colors = ['blue', 'green', 'lime', 'red']
+          
+          plt.figure(figsize=(8, 6))
+          plt.bar(labels, values, color=colors)
+          plt.title('GitHub Actions and Deployments')
+          plt.xlabel('Metrics')
+          plt.ylabel('Count')
+          plt.savefig('data/actions_chart.png')
+          EOF
 
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
