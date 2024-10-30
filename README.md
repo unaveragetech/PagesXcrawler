@@ -13,9 +13,11 @@
 ![Successful Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/successful_actions.json)
 ![Failed Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/failed_actions.json)
 
-
-![Actions and Deployments Chart](https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions_chart.png)
-
+<details>
+  <summary>Actions and Deployments Chart</summary>
+  
+  ![Actions and Deployments Chart](https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions_chart.png)
+</details>
 
 Welcome to the PagesXcrawler repository! This documentation outlines how to use our automated web crawler, powered by GitHub Actions, which retrieves links from specified websites based on user-defined depth and displays the results on a GitHub Pages site.
 
