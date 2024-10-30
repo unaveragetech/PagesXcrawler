@@ -5,8 +5,10 @@
 # installing dependencies, running the crawler, committing results,
 # updating the HTML page to reflect the latest data,
 # logging the issue status, and closing the issue.
-# It also counts deployments and actions after completing the main tasks.
+# It also counts deployments and actions after completing the main tasks
+# and generates a chart to visualize the counts.
 #🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 __action_workflow__
+
 name: Web Crawler
 
 on:
@@ -32,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install requests beautifulsoup4 matplotlib
 
       # Step 4: Extract URL and Depth from issue title
       - name: Extract URL and Depth
@@ -106,15 +108,13 @@ jobs:
           git commit -m "Update results and log issues" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 10: Count deployments and actions, update JSON files
-      - name: Count Deployments and Actions
+      # Step 10: Count deployments and actions, update JSON files, and generate chart
+      - name: Count Deployments and Actions and Generate Chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Create 'data' directory if it doesn't exist
           mkdir -p data
 
-          # Function to count all pages of a paginated GitHub API request
           count_paginated() {
             local url=$1
             local count=0
@@ -129,11 +129,7 @@ jobs:
             echo $count
           }
 
-          # Count deployments using pagination
           deployments_count=$(count_paginated "https://api.github.com/repos/unaveragetech/PagesXcrawler/deployments")
-          echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
-
-          # Count all, successful, and failed workflow runs with pagination
           actions_count=$(count_paginated "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs")
           successful_actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=100" | \
@@ -142,19 +138,36 @@ jobs:
             "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=100" | \
             jq '[.workflow_runs[] | select(.conclusion == "failure")] | length')
 
-          # Output JSON files with counter details
+          echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
           echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
           echo '{"schemaVersion": 1, "label": "Successful Actions", "message": "'"$successful_actions_count"'", "color": "brightgreen"}' > data/successful_actions.json
           echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions_count"'", "color": "red"}' > data/failed_actions.json
 
-          # Commit counters to the repository
+          # Generate a bar chart with matplotlib
+          python << EOF
+import matplotlib.pyplot as plt
+
+# Data for the chart
+labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
+values = [${deployments_count}, ${actions_count}, ${successful_actions_count}, ${failed_actions_count}]
+colors = ['blue', 'green', 'brightgreen', 'red']
+
+# Plot
+plt.figure(figsize=(8, 6))
+plt.bar(labels, values, color=colors)
+plt.title('GitHub Actions and Deployments')
+plt.xlabel('Metrics')
+plt.ylabel('Count')
+plt.savefig('data/actions_chart.png')
+EOF
+
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-          git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json
-          git commit -m "Update counters for deployments and actions" || echo "No changes to commit"
+          git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json data/actions_chart.png
+          git commit -m "Update counters and chart for deployments and actions" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 11: Debug Personal Access Token (PAT)
+      # Step 11: Debug PAT
       - name: Debug PAT
         run: |
           echo "Debugging: My PAT is set."
