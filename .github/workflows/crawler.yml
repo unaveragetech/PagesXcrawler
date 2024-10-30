@@ -114,18 +114,33 @@ jobs:
           # Create 'data' directory if it doesn't exist
           mkdir -p data
 
-          # Count deployments using GitHub API
-          deployments_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/unaveragetech/PagesXcrawler/deployments" | jq 'length')
+          # Function to count all pages of a paginated GitHub API request
+          count_paginated() {
+            local url=$1
+            local count=0
+            local page=1
+            while true; do
+              response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "${url}?per_page=100&page=${page}")
+              page_count=$(echo "$response" | jq 'length')
+              count=$((count + page_count))
+              if [ "$page_count" -lt 100 ]; then break; fi
+              page=$((page + 1))
+            done
+            echo $count
+          }
+
+          # Count deployments using pagination
+          deployments_count=$(count_paginated "https://api.github.com/repos/unaveragetech/PagesXcrawler/deployments")
           echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
 
-          # Count all, successful, and failed workflow runs
-          actions_response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs")
-          
-          actions_count=$(echo "$actions_response" | jq '.total_count')
-          successful_actions_count=$(echo "$actions_response" | jq '[.workflow_runs[] | select(.conclusion == "success")] | length')
-          failed_actions_count=$(echo "$actions_response" | jq '[.workflow_runs[] | select(.conclusion == "failure")] | length')
+          # Count all, successful, and failed workflow runs with pagination
+          actions_count=$(count_paginated "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs")
+          successful_actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=100" | \
+            jq '[.workflow_runs[] | select(.conclusion == "success")] | length')
+          failed_actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=100" | \
+            jq '[.workflow_runs[] | select(.conclusion == "failure")] | length')
 
           # Output JSON files with counter details
           echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
