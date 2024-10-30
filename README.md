@@ -23,13 +23,24 @@ Welcome to the PagesXcrawler repository! This documentation outlines how to use 
 
 ## Quick Links
 
-- **[Documentation](Documentation.md)**
-- **[Find a Site to Crawl](https://theuselessweb.com)**: Copy the link from the site and specify the crawl depth.
-- **[Create a Crawl Issue](https://github.com/unaveragetech/PagesXcrawler/issues/new)**: Submit a new issue to start crawling.
-- **[Check Deployment Jobs](https://github.com/unaveragetech/PagesXcrawler/deployments)**
-- **[View Last Run Results](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv)**
-- **[Access All Run History](https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv)**: Your latest run will be recorded at the bottom of the file, including the issue number, URL, depth, and status.
-- **[View Results Chart](https://unaveragetech.github.io/PagesXcrawler/)**
+<div style="display: flex; flex-direction: column; gap: 10px;">
+
+  <a href="Documentation.md" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Documentation</a>
+
+  <a href="https://theuselessweb.com" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Find a Site to Crawl</a>
+
+  <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Create a Crawl Issue</a>
+
+  <a href="https://github.com/unaveragetech/PagesXcrawler/deployments" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Check Deployment Jobs</a>
+
+  <a href="https://github.com/unaveragetech/PagesXcrawler/blob/main/data/results.csv" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">View Last Run Results</a>
+
+  <a href="https://github.com/unaveragetech/PagesXcrawler/blob/main/data/issues_status.csv" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">Access All Run History</a>
+
+  <a href="https://unaveragetech.github.io/PagesXcrawler/" style="text-decoration: none; color: white; background-color: #007acc; padding: 10px 15px; border: 1px solid #005fa3; border-radius: 5px; text-align: center; font-weight: bold;">View Results Chart</a>
+
+</div>
+
 
 ## How It Works
 
@@ -63,7 +74,8 @@ After submitting your issue, the crawler is automatically triggered:
 - **JSON Format**: Used to dynamically load results into the HTML page at the [Main Chart](https://unaveragetech.github.io/PagesXcrawler/).
 
 ### 4. Reloading the Page
-
+navigate here to view link cards 
+ **[View Cards](https://unaveragetech.github.io/PagesXcrawler/)**
 If the page does not display the latest results after deployment, simply refresh the page.
 
 ### 5. Overwriting Previous Fetches
