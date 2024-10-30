@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: '3.8'
 
-      # Step 3: Install dependencies required for crawling and HTML updates
+      # Step 3: Install dependencies required for crawling, HTML updates, and chart generation
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -49,12 +49,6 @@ jobs:
               echo "DEPTH=${BASH_REMATCH[5]}" >> $GITHUB_ENV
               echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
               echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
-
-              # Debugging output to verify BASH_REMATCH contents
-              echo "BASH_REMATCH content for debugging:"
-              for i in "${!BASH_REMATCH[@]}"; do
-                  echo "$i: ${BASH_REMATCH[$i]}"
-              done
           else
               echo "Error: Issue title must be in the format 'url:depth(number)'"
               exit 1
@@ -75,13 +69,9 @@ jobs:
       - name: Log issue status
         run: |
           CSV_FILE="data/issues_status.csv"
-
-          # Create CSV if it doesn't exist, and add header
           if [ ! -f "$CSV_FILE" ]; then
               echo "Issue Number,Issue Title,Status" > "$CSV_FILE"
           fi
-
-          # Append current issue details with status 'Completed'
           echo "${{ env.ISSUE_NUMBER }},${{ env.ISSUE_TITLE }},Completed" >> "$CSV_FILE"
 
       # Step 8: Close the issue programmatically using GitHub API
@@ -109,7 +99,7 @@ jobs:
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
       # Step 10: Count deployments and actions, update JSON files, and generate chart
-      - name: Count Deployments and Actions and Generate Chart
+      - name: Count Deployments, Actions, and Generate Chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -144,15 +134,13 @@ jobs:
           echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions_count"'", "color": "red"}' > data/failed_actions.json
 
           # Generate a bar chart with matplotlib
-          python << EOF
+          python - << EOF
 import matplotlib.pyplot as plt
 
-# Data for the chart
 labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
 values = [${deployments_count}, ${actions_count}, ${successful_actions_count}, ${failed_actions_count}]
-colors = ['blue', 'green', 'brightgreen', 'red']
+colors = ['blue', 'green', 'lime', 'red']
 
-# Plot
 plt.figure(figsize=(8, 6))
 plt.bar(labels, values, color=colors)
 plt.title('GitHub Actions and Deployments')
@@ -166,8 +154,3 @@ EOF
           git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json data/actions_chart.png
           git commit -m "Update counters and chart for deployments and actions" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
-
-      # Step 11: Debug PAT
-      - name: Debug PAT
-        run: |
-          echo "Debugging: My PAT is set."
