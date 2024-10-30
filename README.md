@@ -12,6 +12,11 @@
 ![Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions.json)
 ![Successful Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/successful_actions.json)
 ![Failed Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/failed_actions.json)
+<details>
+  <summary>Actions and Deployments Chart</summary>
+  
+  ![Actions and Deployments Chart](https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions_chart.png)
+</details>
 
 ## Quick Links
 
