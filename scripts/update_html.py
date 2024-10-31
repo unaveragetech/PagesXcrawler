@@ -53,8 +53,23 @@ def update_html():
         html_file.write('</ul>\n</div>\n')
         html_file.write('<div class="content">\n<h1 id="results">🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 Results</h1>\n')
         
+        # Add search bar and filters
+        html_file.write('''
+        <div>
+            <input type="text" id="searchInput" placeholder="Search by keyword..." onkeyup="filterResults()" style="padding: 5px; margin-bottom: 10px; width: 200px;">
+            <select id="filterDropdown" onchange="filterResults()" style="padding: 5px; margin-left: 10px;">
+                <option value="">Filter by depth</option>
+                <option value="1">Depth 1</option>
+                <option value="2">Depth 2</option>
+                <option value="3">Depth 3</option>
+                <!-- Add more depth options if needed -->
+            </select>
+        </div>
+        ''')
+
+        # Add results container
         if results:
-            html_file.write('<div class="results-container">\n')
+            html_file.write('<div class="results-container" id="resultsContainer">\n')
             for index, result in enumerate(results):
                 url = result.get("url", "N/A")
                 depth = result.get("depth", "N/A")
@@ -69,7 +84,7 @@ def update_html():
                 h2_tags = ', '.join(result.get("h2_tags", []))
 
                 html_file.write(
-                    f'<div class="result-card" id="result-{index}">'
+                    f'<div class="result-card" id="result-{index}" data-depth="{depth}" data-keywords="{meta_keywords}">'
                     f'<h3 class="url">{url}</h3>'
                     f'<p><strong>Depth:</strong> {depth}</p>'
                     f'<p><strong>Title:</strong> {title}</p>'
@@ -86,6 +101,31 @@ def update_html():
             html_file.write('</div>\n')
         else:
             html_file.write('<p>No crawl results available at the moment.</p>\n')
+
+        # Add JavaScript for search and filter functionality
+        html_file.write('''
+        <script>
+            function filterResults() {
+                const searchInput = document.getElementById('searchInput').value.toLowerCase();
+                const filterDropdown = document.getElementById('filterDropdown').value;
+                const resultsContainer = document.getElementById('resultsContainer');
+                const resultCards = resultsContainer.getElementsByClassName('result-card');
+
+                Array.from(resultCards).forEach(card => {
+                    const keywords = card.getAttribute('data-keywords').toLowerCase();
+                    const depth = card.getAttribute('data-depth');
+                    const matchesSearch = searchInput === '' || keywords.includes(searchInput);
+                    const matchesFilter = filterDropdown === '' || depth === filterDropdown;
+                    
+                    if (matchesSearch && matchesFilter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        </script>
+        ''')
 
         # Footer and closing tags
         html_file.write('</div>\n</body>\n</html>')
