@@ -23,17 +23,17 @@
 <table align="center">
   <tr>
     <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
-      <a href="Documentation.md" style="color: white; text-decoration: none; font-weight: bold;">Documentation</a>
+      <a href="Documentation.md" style="color: white; text-decoration: none; font-weight: bold;">Documentation- Quick explination of the project</a>
     </td>
   </tr>
   <tr>
     <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
-      <a href="https://theuselessweb.com" style="color: white; text-decoration: none; font-weight: bold;">Find a Site to Crawl</a>
+      <a href="https://theuselessweb.com" style="color: white; text-decoration: none; font-weight: bold;">Find a Site to Crawl- any site works </a>
     </td>
   </tr>
   <tr>
     <td align="center" style="border: 1px solid #007acc; padding: 10px; border-radius: 5px; background-color: #007acc;">
-      <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new" style="color: white; text-decoration: none; font-weight: bold;">Create a Crawl Issue</a>
+      <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new" style="color: white; text-decoration: none; font-weight: bold;">Create a Crawl Issue in format url:depth(int)</a>
     </td>
   </tr>
   <tr>
@@ -83,7 +83,8 @@ https://puginarug.com:depth(3)
 
 After submitting your issue, the crawler is automatically triggered:
 
-- It fetches links based on your specified depth.
+Crawler.p/path here
+- It fetches links based on your specified url:depth(int).
 - The results are saved in both JSON and CSV formats within the `data` directory.
 
 ### 3. Results Storage
@@ -95,10 +96,11 @@ After submitting your issue, the crawler is automatically triggered:
 navigate here to view link cards 
  **[View Cards](https://unaveragetech.github.io/PagesXcrawler/)**
 If the page does not display the latest results after deployment, simply refresh the page.
+the urls are orginized into searchable cards that display url depth and information like h1,h2tags
 
 ### 5. Overwriting Previous Fetches
 
-To replace the results of your last crawl, submit a new issue with the same format. The system will update the previous data with the latest crawl results.
+To replace the results of your last crawl, submit a new issue with the same format. The system will update the previous data with the latest crawl results. to save results just dl the csv file or the index page both are able to be dl and displayed elswhere 
 
 ## Important Considerations
 
