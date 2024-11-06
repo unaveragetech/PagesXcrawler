@@ -138,26 +138,23 @@ h1 { color: #333; }
 </div>
 
         <script>
-            function filterResults() {
-                const searchInput = document.getElementById('searchInput').value.toLowerCase();
-                const filterDropdown = document.getElementById('filterDropdown').value;
-                const resultsContainer = document.getElementById('resultsContainer');
-                const resultCards = resultsContainer.getElementsByClassName('result-card');
+    function filterResults() {
+        const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+        const filterDropdown = document.getElementById('filterDropdown').value;
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultCards = resultsContainer.getElementsByClassName('result-card');
 
-                Array.from(resultCards).forEach(card => {
-                    const keywords = card.getAttribute('data-keywords').toLowerCase();
-                    const depth = card.getAttribute('data-depth');
-                    const matchesSearch = searchInput === '' || keywords.includes(searchInput);
-                    const matchesFilter = filterDropdown === '' || depth === filterDropdown;
-                    
-                    if (matchesSearch && matchesFilter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+        Array.from(resultCards).forEach(card => {
+            const keywords = card.getAttribute('data-keywords').toLowerCase();
+            const depth = card.getAttribute('data-depth');
+            const matchesSearch = !searchInput || keywords.includes(searchInput);  // Ensures an empty search shows all cards
+            const matchesFilter = !filterDropdown || depth === filterDropdown;  // Handles empty filter as no filtering
+
+            if (matchesSearch && matchesFilter) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
-        </script>
-        </div>
-</body>
-</html>
+        });
+    }
+</script>
