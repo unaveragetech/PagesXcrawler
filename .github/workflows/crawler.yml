@@ -59,6 +59,7 @@ jobs:
         run: |
           echo "Running crawler with URL: $URL and Depth: $DEPTH"
           python crawler.py "$URL" "$DEPTH"
+          pip install -r requirements.txt
 
       # Step 6: Update HTML page with new data
       - name: Update HTML page
