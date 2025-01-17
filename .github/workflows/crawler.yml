@@ -1,14 +1,3 @@
-#🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 __action_workflow__
-# This is the GitHub Actions workflow configuration file.
-# It defines the process that runs whenever an issue is opened.
-# The workflow includes steps for checking out the code, setting up Python,
-# installing dependencies, running the crawler, committing results,
-# updating the HTML page to reflect the latest data,
-# logging the issue status, and closing the issue.
-# It also counts deployments and actions after completing the main tasks
-# and generates a chart to visualize the counts.
-#🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 __action_workflow__
-
 name: Web Crawler
 
 on:
@@ -87,18 +76,25 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER \
             -d '{"state": "closed"}'
 
-      # Step 9: Commit results to the repository
+      # Step 9: Pull latest changes before committing
+      - name: Pull latest changes
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 10: Commit results to the repository
       - name: Commit results
         env:
           MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
         run: |
-          git config --local user.name "github-actions"
-          git config --local user.email "github-actions@github.com"
           git add data/results.json data/results.csv data/issues_status.csv index.html
           git commit -m "Update results and log issues" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 10: Count deployments, actions, and generate chart
+      # Step 11: Count deployments, actions, and generate chart
       - name: Count Deployments, Actions, and Generate Chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -149,8 +145,6 @@ jobs:
           plt.savefig('data/actions_chart.png')
           EOF
 
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions"
           git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json data/actions_chart.png
           git commit -m "Update counters and chart for deployments and actions" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
