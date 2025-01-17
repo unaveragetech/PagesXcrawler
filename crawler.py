@@ -35,13 +35,6 @@ def crawl(url, depth):
         try:
             response = requests.get(url, headers=headers, timeout=5)  # Set a timeout for requests
             response.raise_for_status()  # Raise an error for bad responses
-            content_type = response.headers.get('Content-Type', '')
-
-            # Skip non-HTML content
-            if 'text/html' not in content_type:
-                print(f"Skipping non-HTML content at {url}")
-                return
-
             soup = BeautifulSoup(response.text, 'html.parser')
             
             # Gather additional information
@@ -95,8 +88,7 @@ def crawl(url, depth):
                 'h2_tags': h2_tags,
                 'main_word_count': main_word_count,
                 'image_count': image_count,
-                'link_texts': link_texts,
-                'content_type': content_type
+                'link_texts': link_texts
             })
             
             for next_url in internal_links:
@@ -104,8 +96,6 @@ def crawl(url, depth):
                 
         except requests.RequestException as e:
             print(f"Request failed for {url}: {e}")  # Log the error
-        except Exception as e:
-            print(f"An error occurred for {url}: {e}")  # Log unexpected errors
 
     _crawl(url, 0)
     return results
@@ -124,12 +114,12 @@ def save_results(results):
 
     # Save results to CSV
     csv_path = 'data/results.csv'
-    with open(csv_path, 'w', newline='', encoding='utf-8') as csv_file:
+    with open(csv_path, 'w', newline='') as csv_file:
         fieldnames = [
             'url', 'depth', 'title', 'meta_description', 
             'meta_keywords', 'internal_link_count', 'external_link_count', 
             'word_count', 'h1_tags', 'h2_tags', 'main_word_count', 
-            'image_count', 'link_texts', 'content_type'
+            'image_count', 'link_texts'
         ]
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
