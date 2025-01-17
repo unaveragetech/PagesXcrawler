@@ -1,3 +1,10 @@
+# This script updates the `index.html` file with the latest results from `results.json` and `results.csv`.
+# It processes the data, adds formatting, and generates a more readable webpage for the GitHub Pages site.
+
+import json
+import os
+import csv
+
 def update_html():
     json_path = 'data/results.json'
     csv_path = 'data/results.csv'
@@ -11,13 +18,13 @@ def update_html():
 
     # Load data from CSV if available
     if os.path.exists(csv_path):
-        with open(csv_path, 'r', encoding='utf-8') as csv_file:
+        with open(csv_path, 'r') as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
                 results.append(row)
     
     # Start building the HTML structure
-    with open('index.html', 'w', encoding='utf-8') as html_file:
+    with open('index.html', 'w') as html_file:
         html_file.write('<!DOCTYPE html>\n<html lang="en">\n<head>\n')
         html_file.write('<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
         html_file.write('<title>🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 ٩ʕ◕౪◕ʔو.url  ٩ʕ◕౪◕ʔو hmm. --Web Crawler System--</title>\n')
@@ -73,10 +80,6 @@ def update_html():
                 image_count = result.get("image_count", "0")
                 h1_tags = ', '.join(result.get("h1_tags", []))
                 h2_tags = ', '.join(result.get("h2_tags", []))
-                content_type = result.get("content_type", "N/A")
-                extracted_text = result.get("extracted_text", "N/A")
-                page_count = result.get("page_count", "0")
-                content_size = result.get("content_size", "0")
 
                 html_file.write(
                     f'<div class="result-card" id="result-{index}" data-depth="{depth}" data-keywords="{meta_keywords}">'
@@ -91,10 +94,6 @@ def update_html():
                     f'<p><strong>External Links:</strong> {external_link_count}</p>'
                     f'<p><strong>Word Count:</strong> {word_count}</p>'
                     f'<p><strong>Image Count:</strong> {image_count}</p>'
-                    f'<p><strong>Content Type:</strong> {content_type}</p>'
-                    f'<p><strong>Extracted Text:</strong> {extracted_text}</p>'
-                    f'<p><strong>Page Count:</strong> {page_count}</p>'
-                    f'<p><strong>Content Size:</strong> {content_size}</p>'
                     f'</div>\n'
                 )
             html_file.write('</div>\n')
@@ -126,3 +125,6 @@ def update_html():
 
         # Footer and closing tags
         html_file.write('</div>\n</body>\n</html>')
+
+if __name__ == "__main__":
+    update_html()
