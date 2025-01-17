@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -u requirements.txt
 
       # Step 4: Extract URL and Depth from issue title
       - name: Extract URL and Depth
