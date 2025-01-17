@@ -146,3 +146,6 @@ if __name__ == "__main__":
 
     results = crawl(url, depth)
     save_results(results)
+
+    results = crawl(url, depth)
+    save_results(results)
