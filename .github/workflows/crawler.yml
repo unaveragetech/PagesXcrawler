@@ -25,8 +25,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 matplotlib
 
-      # Step 4: Extract URL and Depth from issue title
+      # Step 4: Pull latest changes before extracting URL and Depth
+      - name: Pull latest changes before extraction
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 5: Extract URL and Depth from issue title
       - name: Extract URL and Depth
+        if: success()
         id: extract
         run: |
           issue_title="${{ github.event.issue.title }}"
@@ -43,19 +54,46 @@ jobs:
               exit 1
           fi
 
-      # Step 5: Run the crawler script with extracted URL and Depth
+      # Step 6: Pull latest changes before running the crawler
+      - name: Pull latest changes before crawling
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 7: Run the crawler script with extracted URL and Depth
       - name: Run crawler
+        if: success()
         run: |
           echo "Running crawler with URL: $URL and Depth: $DEPTH"
           python crawler.py "$URL" "$DEPTH"
 
-      # Step 6: Update HTML page with new data
+      # Step 8: Pull latest changes before updating HTML
+      - name: Pull latest changes before HTML update
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 9: Update HTML page with new data
       - name: Update HTML page
+        if: success()
         run: |
           python scripts/update_html.py
 
-      # Step 7: Log issue completion status in CSV file
+      # Step 10: Pull latest changes before logging issue status
+      - name: Pull latest changes before logging
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 11: Log issue completion status in CSV file
       - name: Log issue status
+        if: success()
         run: |
           CSV_FILE="data/issues_status.csv"
           if [ ! -f "$CSV_FILE" ]; then
@@ -63,8 +101,17 @@ jobs:
           fi
           echo "${{ env.ISSUE_NUMBER }},${{ env.ISSUE_TITLE }},Completed" >> "$CSV_FILE"
 
-      # Step 8: Close the issue programmatically using GitHub API
+      # Step 12: Pull latest changes before closing the issue
+      - name: Pull latest changes before closing issue
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 13: Close the issue programmatically using GitHub API
       - name: Close the issue
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -76,17 +123,17 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER \
             -d '{"state": "closed"}'
 
-      # Step 9: Pull latest changes before committing
-      - name: Pull latest changes
+      # Step 14: Pull latest changes before committing results
+      - name: Pull latest changes before committing
+        if: success()
         env:
           MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
           git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 10: Commit results to the repository
+      # Step 15: Commit results to the repository
       - name: Commit results
+        if: success()
         env:
           MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
         run: |
@@ -94,8 +141,17 @@ jobs:
           git commit -m "Update results and log issues" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 11: Count deployments, actions, and generate chart
+      # Step 16: Pull latest changes before counting deployments and actions
+      - name: Pull latest changes before counting
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+        run: |
+          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 17: Count deployments, actions, and generate chart
       - name: Count Deployments, Actions, and Generate Chart
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
