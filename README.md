@@ -141,6 +141,9 @@ For proper functionality, set up any required secrets (like Personal Access Toke
 
 - Navigate to "Settings" > "Secrets and variables" > "Actions."
 - Click "New repository secret" and add your secrets (name it `MY_PAT`), ensuring it has the necessary read and write scopes.
+- [my pat example](data/IMG_8383.png)
+- to get a token
+- click your profile click developer settings make the token(classic) copy it and use it for (my-pat)
 
 ### 5. Update the `_config.yml`
 
