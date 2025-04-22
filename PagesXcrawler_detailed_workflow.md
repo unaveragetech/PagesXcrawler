@@ -1,49 +1,19 @@
-# PagesXcrawler:: Detailed WorkflowGuide
+# PagesXcrawler: Detailed Workflow Guide
 
 ## Overview
-
-PagesXcrawler is a powerful web crawling system that combines GitHub ActGons uutomation with advanced web crawlini capabilities. This document pdovides e coprehensiv# visua  guide tO hovethe system works, from rvsueicreetion towaa visualizton.
-
-## Tabe of Contnts
-
-- [SystemArchitctue](#syste-rchtecture)
-- [WorkflowDiagram](#workflow-m)
-- [Key Components](#key-coponents)
- - [GitHub Action Workflow](#gitub-actions-workflw)
-  - [Web Craling Process](#web-crawling-process)
-  - [Data Storage](#data-storage)
-  - [GitHub Pages](#github-pages)
-  - [User Interface](#user-terface)
-- [User Aent RotationSystem](#user-agent-rotation-system)
-- [Rate Limiting and Error Handling](#rate-limiting-and-error-andling)
-- [Data Visualizatin](#data-visualization)
-
-##System Architecture
-
- consists of five main components that together:
-
-1. **GitHub Actions Workflow**: Triggered by isue creation manages the entire process
-2.**Web Crawlg Engine**: Fethes and processes web pages with intelligent rate imit
-3.**Data Storage**: Saves reslt in multipl formats fo analysis
-4.**GitHub Pes**: Hosts the visualization dashboard
-5. **Usr Ierface**:Pvides inercve access t crawled data
-
-## Workflow Diagram
-
-The followig Mermaid diagram illustrates the complete workflow of PagesXcrawler
 
 PagesXcrawler is a powerful web crawling system that combines GitHub Actions automation with advanced web crawling capabilities. This document provides a comprehensive visual guide to how the system works, from issue creation to data visualization.
 
 ## Table of Contents
 
-- [System Architecturc]aw(# URL DEPTH [OPTIONS]
-- [Workflow Diagram](#workflow-diagram)
+- [System Architecture](#system-architecture)
+- [Workflow Diagrams](#workflow-diagrams)
+  - [Complete System Overview](#complete-system-overview)
+  - [GitHub Actions Workflow](#github-actions-workflow-diagram)
+  - [Web Crawling Process](#web-crawling-process-diagram)
+  - [Data Flow Diagram](#data-flow-diagram)
+  - [User Interface Components](#user-interface-components)
 - [Key Components](#key-components)
-  - [GitHub Actions Workflow](#github-actions-workflow)
-  - [Web Crawling Process](#web-crawling-process)
-  - [Data Storage](#data-storage)
-  - [GitHub Pages](#github-pages)
-  - [User Interface](#user-interface)
 - [User Agent Rotation System](#user-agent-rotation-system)
 - [Rate Limiting and Error Handling](#rate-limiting-and-error-handling)
 - [Data Visualization](#data-visualization)
@@ -52,13 +22,36 @@ PagesXcrawler is a powerful web crawling system that combines GitHub Actions aut
 
 PagesXcrawler consists of five main components that work together:
 
+```mermaid
+graph TD
+    subgraph "PagesXcrawler System Architecture"
+        A[GitHub Actions Workflow] --> B[Web Crawling Engine]
+        B --> C[Data Storage]
+        C --> D[GitHub Pages]
+        D --> E[User Interface]
+        
+        A -->|Triggers| B
+        B -->|Saves to| C
+        C -->|Provides data for| D
+        D -->|Renders| E
+    end
+    
+    classDef primary fill:#f9d5e5,stroke:#333,stroke-width:2px;
+    classDef secondary fill:#d5f5e3,stroke:#333,stroke-width:1px;
+    
+    class A,B primary;
+    class C,D,E secondary;
+```
+
 1. **GitHub Actions Workflow**: Triggered by issue creation, manages the entire process
 2. **Web Crawling Engine**: Fetches and processes web pages with intelligent rate limiting
 3. **Data Storage**: Saves results in multiple formats for analysis
 4. **GitHub Pages**: Hosts the visualization dashboard
 5. **User Interface**: Provides interactive access to crawled data
 
-## Workflow Diagram
+## Workflow Diagrams
+
+### Complete System Overview
 
 The following Mermaid diagram illustrates the complete workflow of PagesXcrawler:
 
@@ -169,115 +162,9 @@ flowchart TD
             Charts[Interactive Charts]
         end
         subgraph Filters["Advanced Filters"]
-   
-
-## Key Components
-
-### GitHub Actions Workflow         Search[Content Search]
+            Search[Content Search]
             DomainFilter[Domain Filter]
-The GitHub Actions workflow (`crawler.yml`) is triggered when a user creates an issue with the format `crawl: URL DEPTH  OPTIONS]`. The workflow:
-
-1. **Checkout Repository**: Clones the repository to the GitHub Actions runner
-2. **Setup Python**: Installs Python 3.8 on the runner
-3. **Install Dependencies**: Installs required packages (requests, BeautifulSoup4)
-4. **Extract Parameters**: Parses the issue title to extract URL, depth, and options
-5. **Add Initial Comment**: Posts a comment with the configuration details
-6. **Run Crawler**: Executes the crawler.py script with the extracted parameters
-7. **Update Progress**: Posts progress updates as comments on the issue
-8. **Save Results**: Stores the crawl results in JSON and CSV formats
-9. **Update HTML**: Generates the visualization dashboard
-10. **Log Status**: Records the issue status in issues_status.csv
-11. **Add Final Comment**: Posts a completion comment with links to results
-12. **Close Issue**: Automatically closes the issue when crawling is complete
-13. **Generate Statistics**: Counts deployments and actions, generates charts
-14. **Commit & Push**: Pushes all changes back to the repository
-
-### Web Crawling Process
-
-The crawler.py script implements an intelligent web crawler with:
-
-1. **Rate Limiting**: Prevents overloading websites with requests
-2. **User Agent Rotation**: Cycles through different browser identities
-3. **Exponential Backoff**: Automatically adjusts request rate when rate-limited
-4. **Metadata Extraction**: Captures comprehensive page information
-5. **Link Analysis**: Categorizes links as internal or external
-6. **Depth Control**: Follows links up to the specified depth
-
-### Data Storage
-
-PagesXcrawler stores data in multiple formats:
-
-| File | Description |
-|------|-------------|
-| results.json | Complete crawl results in JSON format |
-| results.csv | Tabular data for spreadsheet analysis |
-| issues_status.csv | Log of all crawl issues and their status |
-| Statistics JSON | Badge data for GitHub README |
-| actions_chart.png | Visualization of GitHub Actions statistics |
-| crawler.log | Detailed log of the crawling process |
-
-### GitHub Pages
-
-The GitHub Pages component hosts the visualization dashboard:
-
-1. **index.html**: The main dashboard page
-2. **Visualizations**: Interactive charts and graphs
-3. **GitHub Pages Server**: Serves the static website
-4. **Public Website**: Accessible to anyone with the U L
-
-### User Interface
-
-Th  u er in erface provides:
-
-1. **Dashboard**: Overview    crawl statis ics and c arts
-2. **Advanc dSFilters**: Tools to filter results by tamain, status, depth, ett.
-3. **Result Cards**: Interactive cards displaying detailed information for each crawled page
-
-## User Agent Rotation System
-
-PagesXcrawler isplFments a sophisticated user ageit rolter[Stsystem to avoid deteatitn:
-
-```
-┌─────────────────────────────────────────────────────┐
-│                 User Ageus Categor es                │
-├───────────────┬───────────────┬───────────────┬─────┘
-│ WiFdows        │ macOS          │ Linix          │ Mobill
-├───────────────┼───────────────┼───────────────┼─────
-│ Chrome         │ Safari         │ Chrome         │ Android
-│ Firefox        │ Chrome         │ Firefox        │ iOS
-│ Edge           │ Firefox        │               │
-└───────────────┴───────────────┴───────────────┴─────
-```
-
-The system:
-- Randomly shuffles user agents on initialization
-- Rotates to a new agent after a configurable number of requetts
-- Logs each rotation for monitoring
-- Covers major browsers and operating systems
-
-## Rate Limiting and Error Handling
-
-PagesXcrawler includes intelligent rate limiting:
-
-1e **Domain-Specific Delays**: Tracks and adjusts delay times per domain
-2r **429 Detection**: Automatically detects "Too Many Requests" responses
-3] **Exponential Backoff**: Increases delay times when rate-limited
-4. **Gradual Recovery**: Slowly reduces delays after successful requests
-
-## Data Visualization
-
-The visualization dashboard provides:
-
-1. **Status Distribution**: Breakdown of HTTP status codes
-2. **Domain Distribution**: Analysis of domains encountered
-3. **Crawl Depth**: Visualization of page depth distribution
-4. **Content Types**: Breakdown of content types
-5. **Interactive Filtering**: Real-time filtering of results
-6. **Searchable Cards**: Cards that can be searched and filtered
-
----
-
-This detailed workflow guide provides a comprehensive overview of how PagesXcrawler works, from issue creation to data visualization. For more information, see the [Documentation](Documentation.md) or the [README(README.md).
+            StatusFilter[Status Filter]
             DepthFilter[Depth Filter]
         end
         subgraph Results["Result Cards"]
@@ -307,6 +194,214 @@ This detailed workflow guide provides a comprehensive overview of how PagesXcraw
     class UserInterface ui;
 ```
 
+### GitHub Actions Workflow Diagram
+
+This diagram focuses specifically on the GitHub Actions workflow:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant GitHub as GitHub Issues
+    participant Actions as GitHub Actions
+    participant Crawler as Crawler.py
+    participant Storage as Data Storage
+    participant Pages as GitHub Pages
+    
+    User->>GitHub: Create Issue with format:<br>crawl: URL DEPTH [OPTIONS]
+    GitHub->>Actions: Trigger workflow
+    
+    Note over Actions: crawler.yml workflow starts
+    
+    Actions->>Actions: Checkout repository
+    Actions->>Actions: Setup Python environment
+    Actions->>Actions: Install dependencies
+    
+    Actions->>GitHub: Add initial comment
+    
+    Actions->>Crawler: Run crawler with parameters
+    
+    loop Until complete
+        Crawler->>GitHub: Update progress comments
+        Crawler->>Storage: Save partial results
+    end
+    
+    Crawler->>Storage: Save final results
+    
+    Actions->>Pages: Update visualization
+    Actions->>Storage: Log issue status
+    
+    Actions->>GitHub: Add completion comment
+    Actions->>GitHub: Close issue
+    
+    Actions->>Actions: Generate statistics
+    Actions->>GitHub: Commit and push changes
+    
+    Pages->>User: Display results dashboard
+```
+
+### Web Crawling Process Diagram
+
+This diagram details the web crawling process and rate limiting:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initialize
+    
+    state Initialize {
+        [*] --> SetupRateLimiter
+        SetupRateLimiter --> InitializeUserAgents
+        InitializeUserAgents --> [*]
+    }
+    
+    Initialize --> CheckRotation
+    
+    state CheckRotation {
+        [*] --> NeedRotation
+        [*] --> NoRotationNeeded
+        NeedRotation --> RotateAgent
+        NoRotationNeeded --> [*]
+        RotateAgent --> [*]
+    }
+    
+    CheckRotation --> FetchPage
+    
+    state FetchPage {
+        [*] --> SendRequest
+        SendRequest --> CheckResponse
+        
+        state CheckResponse {
+            [*] --> Success
+            [*] --> RateLimited
+            [*] --> Error
+            
+            RateLimited --> IncreaseDelay
+            IncreaseDelay --> [*]
+            
+            Success --> DecreaseDelay
+            DecreaseDelay --> [*]
+            
+            Error --> LogError
+            LogError --> [*]
+        }
+    }
+    
+    FetchPage --> ProcessPage: Success
+    FetchPage --> CheckRotation: Rate Limited
+    
+    state ProcessPage {
+        [*] --> ParseHTML
+        ParseHTML --> ExtractMetadata
+        ParseHTML --> FindLinks
+        
+        state FindLinks {
+            [*] --> FilterLinks
+            FilterLinks --> CategorizeLinks
+            
+            state CategorizeLinks {
+                [*] --> Internal
+                [*] --> External
+            }
+        }
+        
+        ExtractMetadata --> CollectData
+        FindLinks --> CollectData
+    }
+    
+    ProcessPage --> SaveResults: Max Depth Reached
+    ProcessPage --> CheckRotation: Follow Internal Links
+    
+    SaveResults --> [*]
+```
+
+### Data Flow Diagram
+
+This diagram shows how data flows through the system:
+
+```mermaid
+graph LR
+    subgraph Input
+        A[GitHub Issue] -->|URL & Parameters| B[GitHub Actions]
+    end
+    
+    subgraph Processing
+        B -->|Triggers| C[Crawler Engine]
+        C -->|Fetches| D[Web Pages]
+        D -->|Returns| C
+        C -->|Processes| E[Raw Data]
+    end
+    
+    subgraph Storage
+        E -->|Saved as| F[JSON]
+        E -->|Saved as| G[CSV]
+        E -->|Logs| H[Status CSV]
+        E -->|Generates| I[Statistics]
+    end
+    
+    subgraph Visualization
+        F -->|Powers| J[Dashboard]
+        G -->|Available for| K[Download]
+        H -->|Tracks| L[History]
+        I -->|Creates| M[Charts]
+    end
+    
+    classDef input fill:#f9d5e5,stroke:#333,stroke-width:1px;
+    classDef process fill:#d5f5e3,stroke:#333,stroke-width:1px;
+    classDef storage fill:#d6eaf8,stroke:#333,stroke-width:1px;
+    classDef visual fill:#fdebd0,stroke:#333,stroke-width:1px;
+    
+    class A,B input;
+    class C,D,E process;
+    class F,G,H,I storage;
+    class J,K,L,M visual;
+```
+
+### User Interface Components
+
+This diagram illustrates the components of the user interface:
+
+```mermaid
+graph TD
+    subgraph Dashboard
+        A[Main Dashboard] --> B[Statistics Overview]
+        A --> C[Interactive Charts]
+        A --> D[Filter Controls]
+        A --> E[Result Cards Container]
+    end
+    
+    subgraph Filters
+        D --> F[Search Box]
+        D --> G[Domain Dropdown]
+        D --> H[Status Filter]
+        D --> I[Depth Slider]
+        D --> J[Content Type Filter]
+    end
+    
+    subgraph ResultCards
+        E --> K[Card 1]
+        E --> L[Card 2]
+        E --> M[Card 3]
+        E --> N[More Cards...]
+        
+        subgraph CardComponents
+            K --> O[Status Badge]
+            K --> P[URL Display]
+            K --> Q[Metadata Section]
+            K --> R[Link Analysis]
+            K --> S[Performance Metrics]
+        end
+    end
+    
+    classDef dashboard fill:#f9d5e5,stroke:#333,stroke-width:1px;
+    classDef filters fill:#d5f5e3,stroke:#333,stroke-width:1px;
+    classDef cards fill:#d6eaf8,stroke:#333,stroke-width:1px;
+    classDef components fill:#fdebd0,stroke:#333,stroke-width:1px;
+    
+    class A,B,C,D,E dashboard;
+    class F,G,H,I,J filters;
+    class K,L,M,N cards;
+    class O,P,Q,R,S components;
+```
+
 ## Key Components
 
 ### GitHub Actions Workflow
@@ -332,6 +427,31 @@ The GitHub Actions workflow (`crawler.yml`) is triggered when a user creates an 
 
 The crawler.py script implements an intelligent web crawler with:
 
+```mermaid
+graph TD
+    A[Start Crawl] --> B[Initialize Rate Limiter]
+    B --> C[Initialize User Agents]
+    C --> D{Need to Rotate<br>User Agent?}
+    D -->|Yes| E[Rotate User Agent]
+    D -->|No| F[Fetch HTML]
+    E --> F
+    F --> G{Rate Limited?}
+    G -->|Yes| H[Apply Backoff]
+    H --> D
+    G -->|No| I[Parse HTML]
+    I --> J[Extract Metadata]
+    I --> K[Extract Links]
+    K --> L[Filter Links]
+    L --> M{More Links<br>to Follow?}
+    M -->|Yes| N{Depth < Max?}
+    N -->|Yes| D
+    N -->|No| O[Collect Data]
+    M -->|No| O
+    J --> O
+    O --> P[Save Results]
+```
+
+Key features:
 1. **Rate Limiting**: Prevents overloading websites with requests
 2. **User Agent Rotation**: Cycles through different browser identities
 3. **Exponential Backoff**: Automatically adjusts request rate when rate-limited
@@ -343,6 +463,49 @@ The crawler.py script implements an intelligent web crawler with:
 
 PagesXcrawler stores data in multiple formats:
 
+```mermaid
+classDiagram
+    class DataStorage {
+        +results.json
+        +results.csv
+        +issues_status.csv
+        +statistics_json_files
+        +actions_chart.png
+        +crawler.log
+    }
+    
+    class ResultsJSON {
+        +url: string
+        +title: string
+        +meta_description: string
+        +internal_links: array
+        +external_links: array
+        +status_code: number
+        +content_size: number
+        +crawl_timestamp: datetime
+    }
+    
+    class ResultsCSV {
+        +url: string
+        +title: string
+        +status_code: number
+        +internal_link_count: number
+        +external_link_count: number
+        +content_size: number
+    }
+    
+    class IssuesStatus {
+        +issue_number: number
+        +issue_title: string
+        +status: string
+        +timestamp: datetime
+    }
+    
+    DataStorage <|-- ResultsJSON
+    DataStorage <|-- ResultsCSV
+    DataStorage <|-- IssuesStatus
+```
+
 | File | Description |
 |------|-------------|
 | results.json | Complete crawl results in JSON format |
@@ -352,26 +515,17 @@ PagesXcrawler stores data in multiple formats:
 | actions_chart.png | Visualization of GitHub Actions statistics |
 | crawler.log | Detailed log of the crawling process |
 
-### GitHub Pages
-
-The GitHub Pages component hosts the visualization dashboard:
-
-1. **index.html**: The main dashboard page
-2. **Visualizations**: Interactive charts and graphs
-3. **GitHub Pages Server**: Serves the static website
-4. **Public Website**: Accessible to anyone with the URL
-
-### User Interface
-
-The user interface provides:
-
-1. **Dashboard**: Overview of crawl statistics and charts
-2. **Advanced Filters**: Tools to filter results by domain, status, depth, etc.
-3. **Result Cards**: Interactive cards displaying detailed information for each crawled page
-
 ## User Agent Rotation System
 
 PagesXcrawler implements a sophisticated user agent rotation system to avoid detection:
+
+```mermaid
+pie title User Agent Distribution
+    "Windows Browsers" : 8
+    "macOS Browsers" : 6
+    "Linux Browsers" : 4
+    "Mobile Browsers" : 4
+```
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -395,6 +549,27 @@ The system:
 
 PagesXcrawler includes intelligent rate limiting:
 
+```mermaid
+graph TD
+    A[Request] --> B{Rate Limited?}
+    B -->|Yes: 429 Response| C[Increase Delay]
+    B -->|No: 200 Response| D[Decrease Delay]
+    
+    C --> E[Exponential Backoff]
+    E --> F[Log Warning]
+    F --> G[Wait]
+    G --> A
+    
+    D --> H[Gradual Recovery]
+    H --> A
+    
+    subgraph "Domain-Specific Delay Tracking"
+        I[example.com: 0.5s]
+        J[github.com: 2.0s]
+        K[wikipedia.org: 1.0s]
+    end
+```
+
 1. **Domain-Specific Delays**: Tracks and adjusts delay times per domain
 2. **429 Detection**: Automatically detects "Too Many Requests" responses
 3. **Exponential Backoff**: Increases delay times when rate-limited
@@ -403,6 +578,30 @@ PagesXcrawler includes intelligent rate limiting:
 ## Data Visualization
 
 The visualization dashboard provides:
+
+```mermaid
+graph LR
+    subgraph "Dashboard Components"
+        A[Status Distribution] --> B[Pie Chart]
+        C[Domain Distribution] --> D[Bar Chart]
+        E[Crawl Depth] --> F[Tree Map]
+        G[Content Types] --> H[Donut Chart]
+    end
+    
+    subgraph "Interactive Features"
+        I[Search] --> J[Filter Cards]
+        K[Domain Filter] --> J
+        L[Status Filter] --> J
+        M[Depth Filter] --> J
+    end
+    
+    subgraph "Result Cards"
+        J --> N[Filtered Results]
+        N --> O[Card 1]
+        N --> P[Card 2]
+        N --> Q[Card 3]
+    end
+```
 
 1. **Status Distribution**: Breakdown of HTTP status codes
 2. **Domain Distribution**: Analysis of domains encountered
