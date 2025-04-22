@@ -74,13 +74,12 @@ jobs:
                 echo "MAX_PAGES=$max_pages"
                 echo "TIMEOUT=$timeout"
                 echo "ROTATE_AGENT=$rotate_agent"
-                # Removed requests_per_second as it's handled automatically
                 echo "ISSUE_TITLE=$issue_title"
                 echo "ISSUE_NUMBER=$issue_number"
             } >> "$GITHUB_ENV"
 
             # Add configuration comment with proper escaping
-            config_msg=$(cat <<'EOF'
+            config_msg=$(cat <<EOF
 📋 Configuration:
 \`\`\`
 URL: $url
