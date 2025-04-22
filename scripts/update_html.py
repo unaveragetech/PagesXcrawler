@@ -473,6 +473,24 @@ def update_html():
                         <span class="meta-info">Path Depth</span>
                         <span class="value">{format_number(int(result.get('url_path_depth', 0)))}</span>
                     </div>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Nofollow Links</span>
+                        <span class="value">{format_number(int(result.get('nofollow_link_count', 0)))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Empty Anchors</span>
+                        <span class="value">{format_number(int(result.get('empty_anchor_text_count', 0)))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Generic Anchors</span>
+                        <span class="value">{format_number(int(result.get('generic_anchor_text_count', 0)))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Keyword Anchors</span>
+                        <span class="value">{format_number(int(result.get('keyword_rich_anchor_text_count', 0)))}</span>
+                    </div>
                 </div>''')
 
             if result.get('meta_description'):
