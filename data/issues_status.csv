@@ -61,3 +61,4 @@
 151,crawl: https://example.com 2 --max-pages 20 --timeout 10 --rotate-agent-after 5,Completed
 152,crawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5,Completed
 crawl: https://github.com/unaveragetech 15 --max-pages 50 --timeout 15 --rotate-agent-after 5,153,completed
+crawl: https://ddosecrets.com 50 --max-pages 200 --timeout 15 --rotate-agent-after 3,154,completed
