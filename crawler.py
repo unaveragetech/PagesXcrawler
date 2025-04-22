@@ -22,7 +22,7 @@ logging.basicConfig(
     ]
 )
 
-# User Agent Categories for better organization and reference
+# User agent definitions
 USER_AGENTS = {
     "windows_chrome": [
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -327,7 +327,23 @@ Two ways to use this crawler:
    Example:
    https://example.com:depth(2):params(max-pages=50,timeout=15)
 ''',
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+Examples:
+  Basic usage:
+    python crawler.py "https://example.com" 2
+    
+  With options:
+    python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
+    
+  With user agent rotation:
+    python crawler.py "https://example.com" 3 --rotate-agent-after 5
+    
+  Full example:
+    python crawler.py "https://example.com" 3 --max-pages 50 --timeout 15 --requests-per-second 1 --rotate-agent-after 5
+    
+Note: Always enclose URLs in quotes to handle special characters correctly.
+'''
     )
 
     parser.add_argument('url', 
@@ -348,41 +364,21 @@ Two ways to use this crawler:
     parser.add_argument('--rotate-agent-after', type=int, default=10,
                        help='Number of requests before rotating user agent (default: 10)')
 
-    # Add examples group
-    example_group = parser.add_argument_group('examples')
-    example_group.add_argument('-', action='store_true',
-                             help='''
-Examples:
-  Basic usage:
-    python crawler.py "https://example.com" 2
-    
-  With options:
-    python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
-    
-  With user agent rotation:
-    python crawler.py "https://example.com" 3 --rotate-agent-after 5
-    
-  Full example:
-    python crawler.py "https://example.com" 3 --max-pages 50 --timeout 15 --requests-per-second 1 --rotate-agent-after 5
-    
-Note: Always enclose URLs in quotes to handle special characters correctly.
-''')
-
     args = parser.parse_args()
 
-    # Validate URL
+    # URL validation
     if not is_valid_url(args.url):
         logging.error("Error: Invalid URL format. URL must start with http:// or https://")
         parser.print_help()
         exit(1)
 
-    # Validate depth
+    # Depth validation
     if args.depth < 0:
         logging.error("Error: Depth must be non-negative")
         parser.print_help()
         exit(1)
 
-    # Validate rate limiting
+    # Rate limiting validation
     if args.requests_per_second <= 0:
         logging.error("Error: Requests per second must be positive")
         parser.print_help()

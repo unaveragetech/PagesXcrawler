@@ -24,7 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4
 
-    - name: Parse issue title
+    - name: Parse issue title and extract parameters
       run: |
         issue_title="${{ github.event.issue.title }}"
         issue_number="${{ github.event.issue.number }}"
@@ -38,62 +38,57 @@ jobs:
             -d "{\"body\":\"$1\"}"
         }
 
-        # Add initial status comment
-        add_comment "🚀 Starting crawler with following configuration:\n\`\`\`\n$issue_title\n\`\`\`"
+        # Parse URL and depth
+        if [[ "$issue_title" =~ ^(https?://[^:]+):depth\(([0-9]+)\)(:params\(([^)]+)\))?$ ]]; then
+          url="${BASH_REMATCH[1]}"
+          depth="${BASH_REMATCH[2]}"
+          params="${BASH_REMATCH[4]}"
 
-        # Parse basic format: url:depth(n)
-        if [[ "$issue_title" =~ ^(https?://[^:]+):depth\(([0-9]+)\)$ ]]; then
-          echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-          echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
-          echo "MAX_PAGES=100" >> $GITHUB_ENV
-          echo "TIMEOUT=10" >> $GITHUB_ENV
-          echo "ROTATE_AGENT=10" >> $GITHUB_ENV
-        
-        # Parse advanced format: url:depth(n):params(...)
-        elif [[ "$issue_title" =~ ^(https?://[^:]+):depth\(([0-9]+)\):params\(([^)]+)\)$ ]]; then
-          echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-          echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
-          
-          # Parse parameters
-          params="${BASH_REMATCH[3]}"
-          IFS=',' read -ra PARAM_ARRAY <<< "$params"
-          
           # Set defaults
-          max_pages=100
-          timeout=10
-          rotate_agent=10
-          
-          # Process each parameter
-          for param in "${PARAM_ARRAY[@]}"; do
-            key="${param%%=*}"
-            value="${param#*=}"
-            case "$key" in
-              "max-pages") max_pages="$value" ;;
-              "timeout") timeout="$value" ;;
-              "rotate-agent-after") rotate_agent="$value" ;;
-            esac
-          done
-          
+          max_pages="100"
+          timeout="10"
+          rotate_agent="10"
+          requests_per_second="2"
+
+          # Parse parameters if they exist
+          if [ ! -z "$params" ]; then
+            IFS=',' read -ra PARAM_ARRAY <<< "$params"
+            for param in "${PARAM_ARRAY[@]}"; do
+              key="${param%%=*}"
+              value="${param#*=}"
+              case "$key" in
+                "max-pages") max_pages="$value" ;;
+                "timeout") timeout="$value" ;;
+                "rotate-agent-after") rotate_agent="$value" ;;
+                "requests-per-second") requests_per_second="$value" ;;
+              esac
+            done
+          fi
+
+          # Export variables
+          echo "URL=$url" >> $GITHUB_ENV
+          echo "DEPTH=$depth" >> $GITHUB_ENV
           echo "MAX_PAGES=$max_pages" >> $GITHUB_ENV
           echo "TIMEOUT=$timeout" >> $GITHUB_ENV
           echo "ROTATE_AGENT=$rotate_agent" >> $GITHUB_ENV
+          echo "REQUESTS_PER_SECOND=$requests_per_second" >> $GITHUB_ENV
           
+          # Add configuration comment
+          config_msg="📋 Parsed configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\nRequests/Second: $requests_per_second\n\`\`\`"
+          add_comment "$config_msg"
         else
           error_msg="❌ Error: Invalid issue title format.\n\nPlease use one of these formats:\n\`\`\`\nurl:depth(n)\nurl:depth(n):params(param1=value1,param2=value2)\n\`\`\`\n\nExamples:\n\`\`\`\nhttps://example.com:depth(3)\nhttps://example.com:depth(2):params(max-pages=50,timeout=15)\n\`\`\`"
           add_comment "$error_msg"
           exit 1
         fi
 
-        # Add configuration confirmation
-        config_msg="📋 Parsed configuration:\n\`\`\`\nURL: ${{ env.URL }}\nDepth: ${{ env.DEPTH }}\nMax Pages: ${{ env.MAX_PAGES }}\nTimeout: ${{ env.TIMEOUT }}s\nRotate Agent: Every ${{ env.ROTATE_AGENT }} requests\n\`\`\`"
-        add_comment "$config_msg"
-
     - name: Run crawler
       run: |
         python crawler.py "${{ env.URL }}" "${{ env.DEPTH }}" \
           --max-pages "${{ env.MAX_PAGES }}" \
           --timeout "${{ env.TIMEOUT }}" \
-          --rotate-agent-after "${{ env.ROTATE_AGENT }}"
+          --rotate-agent-after "${{ env.ROTATE_AGENT }}" \
+          --requests-per-second "${{ env.REQUESTS_PER_SECOND }}"
 
     - name: Update visualization
       run: python scripts/update_html.py
@@ -115,6 +110,7 @@ jobs:
         # Add completion comment
         completion_msg="✅ Crawl completed! View results:\n- [Dashboard](https://unaveragetech.github.io/PagesXcrawler/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)"
         
+        # Add completion comment
         curl -X POST \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
