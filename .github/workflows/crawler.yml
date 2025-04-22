@@ -80,34 +80,10 @@ jobs:
             } >> "$GITHUB_ENV"
 
             # Add configuration comment with proper escaping
-            config_msg=$(cat <<'EOF'
-📋 Configuration:
-```
-URL: $url
-Depth: $depth
-Max Pages: $max_pages
-Timeout: ${timeout}s
-Rotate Agent: Every $rotate_agent requests
-```
-EOF
-)
+            config_msg="📋 Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\n\`\`\`"
             add_comment "$config_msg"
         else
-            error_msg=$(cat <<'EOF'
-❌ Error: Invalid issue title format.
-
-Please use this format:
-```
-crawl: URL DEPTH [OPTIONS]
-```
-
-Examples:
-```
-crawl: https://example.com 3
-crawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5
-```
-EOF
-)
+            error_msg="❌ Error: Invalid issue title format.\n\nPlease use this format:\n\`\`\`\ncrawl: URL DEPTH [OPTIONS]\n\`\`\`\n\nExamples:\n\`\`\`\ncrawl: https://example.com 3\ncrawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5\n\`\`\`"
             add_comment "$error_msg"
             exit 1
         fi
