@@ -89,18 +89,18 @@ class RateLimiter:
             time.sleep(self.delays[domain] - time_passed)
         self.last_request[domain] = time.time()
         self.total_requests += 1
-    
+
     def get_next_user_agent(self):
         """Get the next user agent, rotating if necessary"""
         self.requests_since_rotation += 1
-        
+
         if self.requests_since_rotation >= self.rotate_after:
             self.user_agent_index = (self.user_agent_index + 1) % len(self.user_agents)
             self.requests_since_rotation = 0
             logging.info(f"Rotating user agent to: {self.user_agents[self.user_agent_index]}")
-        
+
         return self.user_agents[self.user_agent_index]
-    
+
     def handle_429(self, domain):
         """Handle rate limit (429) response"""
         self.consecutive_429s[domain] += 1
@@ -110,7 +110,7 @@ class RateLimiter:
         )
         logging.warning(f"Rate limit detected for {domain}. Increasing delay to {self.delays[domain]:.2f} seconds")
         return self.delays[domain]
-    
+
     def handle_success(self, domain):
         """Handle successful request"""
         if self.consecutive_429s[domain] > 0:
@@ -138,7 +138,7 @@ def extract_metadata(soup, url):
         'og_description': "",
         'og_image': "",
     }
-    
+
     for meta in soup.find_all('meta'):
         if meta.get('name') == 'description':
             metadata['meta_description'] = meta.get('content', '')
@@ -154,7 +154,7 @@ def extract_metadata(soup, url):
     favicon_link = soup.find('link', rel=re.compile(r'^(shortcut )?icon$', re.I))
     if favicon_link:
         metadata['favicon'] = urljoin(url, favicon_link.get('href', ''))
-    
+
     canonical_link = soup.find('link', rel='canonical')
     if canonical_link:
         metadata['canonical_url'] = canonical_link.get('href', '')
@@ -172,7 +172,7 @@ def is_valid_url(url):
 def save_results(results):
     """Save results to JSON and CSV files"""
     os.makedirs('data', exist_ok=True)
-    
+
     json_path = 'data/results.json'
     with open(json_path, 'w', encoding='utf-8') as json_file:
         json.dump(results, json_file, indent=4, ensure_ascii=False)
@@ -209,55 +209,59 @@ Starting crawl with:
 
     def _crawl(url, current_depth):
         nonlocal page_count, total_size
-        
+
         if current_depth > depth or url in visited or page_count >= max_pages:
             return
-        
+
         domain = urlparse(url).netloc
         visited.add(url)
         page_count += 1
-        
+
         # Progress update
         elapsed_time = time.time() - start_time
         rate_stats = rate_limiter.get_stats()
-        
+
+        # Calculate total images so far
+        total_images_so_far = sum(result.get('image_count', 0) for result in results)
+
         progress = f"""
 Progress Update:
 +- Pages: {page_count}/{max_pages} ({(page_count/max_pages*100):.1f}%)
    +- Depth: {current_depth}/{depth}
    +- Domain: {domain}
+   +- Images: {total_images_so_far}
    +- Data: {format_size(total_size)}
    +- Time: {elapsed_time:.1f}s
    +- Speed: {rate_stats['requests_per_second']:.2f} req/s
    +- Delay: {rate_limiter.delays[domain]:.2f}s
 """
         logging.info(progress)
-        
+
         # Rate limiting and user agent rotation
         rate_limiter.wait(domain)
         headers = {'User-Agent': rate_limiter.get_next_user_agent()}
-        
+
         try:
             response = requests.get(url, headers=headers, timeout=timeout)
             content_size = len(response.content)
             total_size += content_size
-            
+
             if response.status_code == 429:
                 delay = rate_limiter.handle_429(domain)
                 logging.warning(f"Rate limit hit for {domain}, waiting {delay}s...")
                 time.sleep(delay)
                 return
-            
+
             response.raise_for_status()
             rate_limiter.handle_success(domain)
-            
+
             if not response.headers.get('content-type', '').startswith('text/html'):
                 logging.info(f"Skipping non-HTML content at {url}")
                 return
 
             soup = BeautifulSoup(response.text, 'html.parser')
             metadata = extract_metadata(soup, url)
-            
+
             # Process links and content
             internal_links = []
             external_links = []
@@ -268,7 +272,11 @@ Progress Update:
                         internal_links.append(full_url)
                     else:
                         external_links.append(full_url)
-            
+
+            # Count images
+            images = soup.find_all('img')
+            image_count = len(images)
+
             result = {
                 'url': url,
                 'depth': current_depth,
@@ -276,17 +284,18 @@ Progress Update:
                 'internal_link_count': len(internal_links),
                 'external_link_count': len(external_links),
                 'word_count': len(soup.get_text(separator=' ', strip=True).split()),
+                'image_count': image_count,
                 'content_size': content_size,
                 'crawl_timestamp': datetime.now().isoformat(),
                 'status_code': response.status_code
             }
-            
+
             results.append(result)
-            
+
             for next_url in internal_links:
                 if page_count < max_pages:
                     _crawl(next_url, current_depth + 1)
-                
+
         except requests.Timeout:
             logging.error(f"Timeout error for {url}")
         except requests.RequestException as e:
@@ -295,17 +304,21 @@ Progress Update:
             logging.error(f"Unexpected error for {url}: {e}")
 
     _crawl(url, 0)
-    
+
+    # Calculate total images
+    total_images = sum(result.get('image_count', 0) for result in results)
+
     # Final summary
     stats = rate_limiter.get_stats()
     logging.info(f"""
 Crawl Completed:
 +- Pages: {page_count}
+   +- Images: {total_images}
    +- Data: {format_size(total_size)}
    +- Time: {stats['elapsed_time']:.1f}s
    +- Speed: {stats['requests_per_second']:.2f} req/s
 """)
-    
+
     return results
 
 if __name__ == "__main__":
@@ -317,13 +330,13 @@ Two ways to use this crawler:
 
 1. Command Line Format:
    python crawler.py URL DEPTH [OPTIONS]
-   
+
    Example:
    python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
 
 2. GitHub Issues Format:
    url:depth(n):params(key1=value1,key2=value2)
-   
+
    Example:
    https://example.com:depth(2):params(max-pages=50,timeout=15)
 ''',
@@ -332,35 +345,35 @@ Two ways to use this crawler:
 Examples:
   Basic usage:
     python crawler.py "https://example.com" 2
-    
+
   With options:
     python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
-    
+
   With user agent rotation:
     python crawler.py "https://example.com" 3 --rotate-agent-after 5
-    
+
   Full example:
     python crawler.py "https://example.com" 3 --max-pages 50 --timeout 15 --requests-per-second 1 --rotate-agent-after 5
-    
+
 Note: Always enclose URLs in quotes to handle special characters correctly.
 '''
     )
 
-    parser.add_argument('url', 
+    parser.add_argument('url',
                        help='The URL to crawl (include http:// or https://)')
-    
+
     parser.add_argument('depth', type=int,
                        help='How many levels deep to crawl (e.g., 2 for homepage and links from it)')
-    
+
     parser.add_argument('--max-pages', type=int, default=100,
                        help='Maximum number of pages to crawl (default: 100)')
-    
+
     parser.add_argument('--timeout', type=int, default=10,
                        help='Request timeout in seconds (default: 10)')
-    
+
     parser.add_argument('--requests-per-second', type=float, default=2,
                        help='Initial rate limiting in requests per second (default: 2)')
-    
+
     parser.add_argument('--rotate-agent-after', type=int, default=10,
                        help='Number of requests before rotating user agent (default: 10)')
 
