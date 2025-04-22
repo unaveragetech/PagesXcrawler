@@ -82,13 +82,13 @@ jobs:
             # Add configuration comment with proper escaping
             config_msg=$(cat <<'EOF'
 📋 Configuration:
-```
+\`\`\`
 URL: $url
 Depth: $depth
 Max Pages: $max_pages
 Timeout: ${timeout}s
 Rotate Agent: Every $rotate_agent requests
-```
+\`\`\`
 EOF
 )
             add_comment "$config_msg"
