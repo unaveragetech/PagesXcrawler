@@ -43,15 +43,15 @@ class RateLimiter:
         self.requests_since_rotation = 0
 ```
 
-#### Parameters
+#### Command-Line Arguments
 
-| Parameter | Description | Default | Example |
+| Argument | Description | Default | Example |
 |-----------|-------------|---------|---------|
-| `rotate-agent-after` | Number of requests before rotating user agent | 10 | `--rotate-agent-after 5` |
+| `--rotate-agent-after` | Number of requests before rotating user agent | 10 | `--rotate-agent-after 5` |
 
 Example usage with user agent rotation:
 ```bash
-python crawler.py https://example.com 2 --rotate-agent-after 5
+python crawler.py "https://example.com" 2 --rotate-agent-after 5
 ```
 
 This will rotate the user agent after every 5 requests, helping to avoid detection while crawling.
@@ -68,18 +68,18 @@ This will rotate the user agent after every 5 requests, helping to avoid detecti
 
 [Rest of the documentation remains the same...]
 
-## 3. Parameters Reference
+## 3. Command-Line Arguments Reference
 
-Updated parameters table:
+Updated command-line arguments table:
 
-| Parameter | Required | Default | Description | Example |
+| Argument | Required | Default | Description | Example |
 |-----------|:--------:|:-------:|-------------|---------|
 | **url** | ✅ | - | The URL to crawl | `https://example.com` |
 | **depth** | ✅ | - | Number of link levels to follow | `3` |
-| **max-pages** | ❌ | 100 | Maximum number of pages to crawl | `50` |
-| **timeout** | ❌ | 10 | Request timeout in seconds | `15` |
-| **requests-per-second** | ❌ | 2 | Initial rate limiting | `1.5` |
-| **rotate-agent-after** | ❌ | 10 | Requests before agent rotation | `5` |
+| **--max-pages** | ❌ | 100 | Maximum number of pages to crawl | `--max-pages 50` |
+| **--timeout** | ❌ | 10 | Request timeout in seconds | `--timeout 15` |
+| **requests-per-second** | ❌ | 2 | Initial rate limiting (handled automatically) | N/A |
+| **--rotate-agent-after** | ❌ | 10 | Requests before agent rotation | `--rotate-agent-after 5` |
 
 [Rest of the documentation continues...]
 
@@ -87,13 +87,13 @@ Updated parameters table:
 
 ```bash
 # Basic crawl with default rotation
-https://example.com:depth(2)
+python crawler.py "https://example.com" 2
 
 # Fast crawl with frequent rotation
-https://example.com:depth(2):params(requests-per-second=3,rotate-agent-after=5)
+python crawler.py "https://example.com" 2 --rotate-agent-after 5
 
 # Careful crawl with slow rotation
-https://example.com:depth(2):params(requests-per-second=1,rotate-agent-after=20)
+python crawler.py "https://example.com" 2 --rotate-agent-after 20 --timeout 20
 ```
 
 [Continue with existing documentation...]
