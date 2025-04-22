@@ -36,29 +36,69 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 matplotlib
 
-      # Step 4: Extract URL and Depth from issue title
-      - name: Extract URL and Depth
+      # Step 4: Extract URL, Depth, and Options from issue title
+      - name: Extract URL, Depth, and Options
         id: extract
         run: |
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
 
-          # Regex to capture any URL followed by ":depth(number)"
-          if [[ "$issue_title" =~ ^((https?://)?[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._/-]*)?):depth\(([0-9]+)\)$ ]]; then
-              echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-              echo "DEPTH=${BASH_REMATCH[5]}" >> $GITHUB_ENV
-              echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
-              echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
+          # Match the new format: crawl: URL DEPTH [OPTIONS]
+          if [[ "$issue_title" =~ ^crawl:[[:space:]]*(https?://[^[:space:]]+)[[:space:]]+([0-9]+)(.*)$ ]]; then
+              url="${BASH_REMATCH[1]}"
+              depth="${BASH_REMATCH[2]}"
+              options="${BASH_REMATCH[3]}"
+
+              # Set default values
+              max_pages=100
+              timeout=10
+              rotate_agent=10
+
+              # Parse options if they exist
+              if [ ! -z "$options" ]; then
+                  # Check for --max-pages
+                  if [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]]; then
+                      max_pages="${BASH_REMATCH[1]}"
+                  fi
+
+                  # Check for --timeout
+                  if [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]]; then
+                      timeout="${BASH_REMATCH[1]}"
+                  fi
+
+                  # Check for --rotate-agent-after
+                  if [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]]; then
+                      rotate_agent="${BASH_REMATCH[1]}"
+                  fi
+              fi
+
+              # Export all variables
+              echo "URL=$url" >> $GITHUB_ENV
+              echo "DEPTH=$depth" >> $GITHUB_ENV
+              echo "MAX_PAGES=$max_pages" >> $GITHUB_ENV
+              echo "TIMEOUT=$timeout" >> $GITHUB_ENV
+              echo "ROTATE_AGENT=$rotate_agent" >> $GITHUB_ENV
+              echo "ISSUE_TITLE=$issue_title" >> $GITHUB_ENV
+              echo "ISSUE_NUMBER=$issue_number" >> $GITHUB_ENV
           else
-              echo "Error: Issue title must be in the format 'url:depth(number)'"
+              echo "Error: Issue title must be in the format 'crawl: URL DEPTH [OPTIONS]'"
               exit 1
           fi
 
-      # Step 5: Run the crawler script with extracted URL and Depth
+      # Step 5: Run the crawler script with extracted parameters
       - name: Run crawler
         run: |
-          echo "Running crawler with URL: $URL and Depth: $DEPTH"
-          python crawler.py "$URL" "$DEPTH"
+          echo "Running crawler with configuration:"
+          echo "URL: ${{ env.URL }}"
+          echo "Depth: ${{ env.DEPTH }}"
+          echo "Max Pages: ${{ env.MAX_PAGES }}"
+          echo "Timeout: ${{ env.TIMEOUT }}"
+          echo "Rotate Agent: ${{ env.ROTATE_AGENT }}"
+
+          python crawler.py "${{ env.URL }}" "${{ env.DEPTH }}" \
+            --max-pages "${{ env.MAX_PAGES }}" \
+            --timeout "${{ env.TIMEOUT }}" \
+            --rotate-agent-after "${{ env.ROTATE_AGENT }}"
 
       # Step 6: Update HTML page with new data
       - name: Update HTML page
@@ -136,11 +176,11 @@ jobs:
           # Generate a bar chart with matplotlib
           python - <<EOF
           import matplotlib.pyplot as plt
-          
+
           labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
           values = [${deployments_count}, ${actions_count}, ${successful_actions_count}, ${failed_actions_count}]
           colors = ['blue', 'green', 'lime', 'red']
-          
+
           plt.figure(figsize=(8, 6))
           plt.bar(labels, values, color=colors)
           plt.title('GitHub Actions and Deployments')

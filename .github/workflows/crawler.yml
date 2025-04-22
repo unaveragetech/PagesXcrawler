@@ -80,15 +80,15 @@ jobs:
             } >> "$GITHUB_ENV"
 
             # Add configuration comment with proper escaping
-            config_msg=$(cat <<EOF
+            config_msg=$(cat <<'EOF'
 📋 Configuration:
-\`\`\`
+```
 URL: $url
 Depth: $depth
 Max Pages: $max_pages
 Timeout: ${timeout}s
 Rotate Agent: Every $rotate_agent requests
-\`\`\`
+```
 EOF
 )
             add_comment "$config_msg"
@@ -97,15 +97,15 @@ EOF
 ❌ Error: Invalid issue title format.
 
 Please use this format:
-\`\`\`
+```
 crawl: URL DEPTH [OPTIONS]
-\`\`\`
+```
 
 Examples:
-\`\`\`
+```
 crawl: https://example.com 3
 crawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5
-\`\`\`
+```
 EOF
 )
             add_comment "$error_msg"
