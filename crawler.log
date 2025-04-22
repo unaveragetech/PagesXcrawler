@@ -1018,3 +1018,1025 @@ Progress Update:
    +- Speed: 2.03 req/s
    +- Delay: 0.50s
 
+2025-04-22 00:22:15,772 - INFO - 
+Progress Update:
++- Pages: 1/50 (2.0%)
+   +- Depth: 0/3
+   +- Domain: github.com
+   +- Data: 0 bytes
+   +- Time: 0.0s
+   +- Speed: 0.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:16,045 - INFO - 
+Progress Update:
++- Pages: 2/50 (4.0%)
+   +- Depth: 1/3
+   +- Domain: github.com
+   +- Data: 281232 bytes
+   +- Time: 0.3s
+   +- Speed: 3.67 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:16,506 - INFO - 
+Progress Update:
++- Pages: 3/50 (6.0%)
+   +- Depth: 2/3
+   +- Domain: github.com
+   +- Data: 562464 bytes
+   +- Time: 0.7s
+   +- Speed: 2.73 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:17,026 - INFO - 
+Progress Update:
++- Pages: 4/50 (8.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 843696 bytes
+   +- Time: 1.3s
+   +- Speed: 2.39 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:17,510 - INFO - 
+Progress Update:
++- Pages: 5/50 (10.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 1124928 bytes
+   +- Time: 1.7s
+   +- Speed: 2.30 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:17,774 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+2025-04-22 00:22:17,978 - INFO - 
+Progress Update:
++- Pages: 6/50 (12.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 1165597 bytes
+   +- Time: 2.2s
+   +- Speed: 2.27 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:18,725 - INFO - 
+Progress Update:
++- Pages: 7/50 (14.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 1836075 bytes
+   +- Time: 3.0s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:19,181 - INFO - 
+Progress Update:
++- Pages: 8/50 (16.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 2097410 bytes
+   +- Time: 3.4s
+   +- Speed: 2.05 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:19,670 - INFO - 
+Progress Update:
++- Pages: 9/50 (18.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 2382278 bytes
+   +- Time: 3.9s
+   +- Speed: 2.05 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:20,152 - INFO - 
+Progress Update:
++- Pages: 10/50 (20.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 2717226 bytes
+   +- Time: 4.4s
+   +- Speed: 2.06 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:20,275 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84
+2025-04-22 00:22:20,724 - INFO - 
+Progress Update:
++- Pages: 11/50 (22.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3059753 bytes
+   +- Time: 5.0s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:21,163 - INFO - 
+Progress Update:
++- Pages: 12/50 (24.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3358776 bytes
+   +- Time: 5.4s
+   +- Speed: 2.04 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:21,616 - INFO - 
+Progress Update:
++- Pages: 13/50 (26.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3635245 bytes
+   +- Time: 5.8s
+   +- Speed: 2.05 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:22,223 - INFO - 
+Progress Update:
++- Pages: 14/50 (28.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3902659 bytes
+   +- Time: 6.5s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:22,717 - INFO - 
+Progress Update:
++- Pages: 15/50 (30.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 4347650 bytes
+   +- Time: 6.9s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:22,777 - INFO - Rotating user agent to: Mozilla/5.0 (Macintosh; Intel Mac OS X 11.5; rv:91.0) Gecko/20100101 Firefox/91.0
+2025-04-22 00:22:23,168 - INFO - 
+Progress Update:
++- Pages: 16/50 (32.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 4739113 bytes
+   +- Time: 7.4s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:23,706 - INFO - 
+Progress Update:
++- Pages: 17/50 (34.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 5197482 bytes
+   +- Time: 7.9s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:24,224 - INFO - 
+Progress Update:
++- Pages: 18/50 (36.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 5478555 bytes
+   +- Time: 8.5s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:24,694 - INFO - 
+Progress Update:
++- Pages: 19/50 (38.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 5770816 bytes
+   +- Time: 8.9s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:25,154 - INFO - 
+Progress Update:
++- Pages: 20/50 (40.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6000907 bytes
+   +- Time: 9.4s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:25,279 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36
+2025-04-22 00:22:25,631 - INFO - 
+Progress Update:
++- Pages: 21/50 (42.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6272403 bytes
+   +- Time: 9.9s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:26,148 - INFO - 
+Progress Update:
++- Pages: 22/50 (44.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6564575 bytes
+   +- Time: 10.4s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:26,603 - INFO - 
+Progress Update:
++- Pages: 23/50 (46.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6803272 bytes
+   +- Time: 10.8s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:27,205 - INFO - 
+Progress Update:
++- Pages: 24/50 (48.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 7032815 bytes
+   +- Time: 11.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:27,813 - INFO - 
+Progress Update:
++- Pages: 25/50 (50.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 7735698 bytes
+   +- Time: 12.0s
+   +- Speed: 1.99 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:27,813 - INFO - Rotating user agent to: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+2025-04-22 00:22:28,199 - INFO - 
+Progress Update:
++- Pages: 26/50 (52.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 7998299 bytes
+   +- Time: 12.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:28,793 - INFO - 
+Progress Update:
++- Pages: 27/50 (54.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 8657846 bytes
+   +- Time: 13.0s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:29,156 - INFO - 
+Progress Update:
++- Pages: 28/50 (56.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 8902921 bytes
+   +- Time: 13.4s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:29,703 - INFO - 
+Progress Update:
++- Pages: 29/50 (58.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9154183 bytes
+   +- Time: 13.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:30,187 - INFO - 
+Progress Update:
++- Pages: 30/50 (60.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9429548 bytes
+   +- Time: 14.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:30,315 - INFO - Rotating user agent to: Mozilla/5.0 (Linux; Android 11; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Mobile Safari/537.36
+2025-04-22 00:22:30,673 - INFO - 
+Progress Update:
++- Pages: 31/50 (62.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9647529 bytes
+   +- Time: 14.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:31,144 - INFO - 
+Progress Update:
++- Pages: 32/50 (64.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9911922 bytes
+   +- Time: 15.4s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:31,672 - INFO - 
+Progress Update:
++- Pages: 33/50 (66.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 10180883 bytes
+   +- Time: 15.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:32,177 - INFO - 
+Progress Update:
++- Pages: 34/50 (68.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 10447522 bytes
+   +- Time: 16.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:32,662 - INFO - 
+Progress Update:
++- Pages: 35/50 (70.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 10825911 bytes
+   +- Time: 16.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:32,818 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36
+2025-04-22 00:22:33,186 - INFO - 
+Progress Update:
++- Pages: 36/50 (72.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 11220135 bytes
+   +- Time: 17.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:33,643 - INFO - 
+Progress Update:
++- Pages: 37/50 (74.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 11551973 bytes
+   +- Time: 17.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:34,154 - INFO - 
+Progress Update:
++- Pages: 38/50 (76.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 11813524 bytes
+   +- Time: 18.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:34,688 - INFO - 
+Progress Update:
++- Pages: 39/50 (78.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 12086843 bytes
+   +- Time: 18.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:35,194 - INFO - 
+Progress Update:
++- Pages: 40/50 (80.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 12379560 bytes
+   +- Time: 19.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:35,320 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0
+2025-04-22 00:22:35,655 - INFO - 
+Progress Update:
++- Pages: 41/50 (82.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 12588182 bytes
+   +- Time: 19.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:36,993 - INFO - 
+Progress Update:
++- Pages: 42/50 (84.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13147151 bytes
+   +- Time: 21.2s
+   +- Speed: 1.93 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:37,274 - INFO - 
+Progress Update:
++- Pages: 43/50 (86.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13299060 bytes
+   +- Time: 21.5s
+   +- Speed: 1.95 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:37,857 - INFO - 
+Progress Update:
++- Pages: 44/50 (88.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13725195 bytes
+   +- Time: 22.1s
+   +- Speed: 1.95 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:38,425 - INFO - 
+Progress Update:
++- Pages: 45/50 (90.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13999082 bytes
+   +- Time: 22.7s
+   +- Speed: 1.94 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:38,495 - INFO - Rotating user agent to: Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1
+2025-04-22 00:22:38,982 - INFO - 
+Progress Update:
++- Pages: 46/50 (92.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 14582787 bytes
+   +- Time: 23.2s
+   +- Speed: 1.94 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:39,412 - INFO - 
+Progress Update:
++- Pages: 47/50 (94.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 14864398 bytes
+   +- Time: 23.6s
+   +- Speed: 1.95 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:39,801 - INFO - 
+Progress Update:
++- Pages: 48/50 (96.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 15145940 bytes
+   +- Time: 24.0s
+   +- Speed: 1.96 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:40,446 - INFO - 
+Progress Update:
++- Pages: 49/50 (98.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 15346991 bytes
+   +- Time: 24.7s
+   +- Speed: 1.95 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:40,865 - INFO - 
+Progress Update:
++- Pages: 50/50 (100.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 15632910 bytes
+   +- Time: 25.1s
+   +- Speed: 1.95 req/s
+   +- Delay: 0.50s
+
+2025-04-22 00:22:40,997 - INFO - Rotating user agent to: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0
+2025-04-22 00:22:41,615 - ERROR - Request failed for https://github.com/marketplace: 400 Client Error: Bad Request for url: https://github.com/marketplace
+2025-04-22 03:16:48,222 - INFO - 
+Progress Update:
++- Pages: 1/50 (2.0%)
+   +- Depth: 0/3
+   +- Domain: github.com
+   +- Data: 0 bytes
+   +- Time: 0.0s
+   +- Speed: 0.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:48,500 - INFO - 
+Progress Update:
++- Pages: 2/50 (4.0%)
+   +- Depth: 1/3
+   +- Domain: github.com
+   +- Data: 281234 bytes
+   +- Time: 0.3s
+   +- Speed: 3.60 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:48,980 - INFO - 
+Progress Update:
++- Pages: 3/50 (6.0%)
+   +- Depth: 2/3
+   +- Domain: github.com
+   +- Data: 562468 bytes
+   +- Time: 0.8s
+   +- Speed: 2.64 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:49,463 - INFO - 
+Progress Update:
++- Pages: 4/50 (8.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 843702 bytes
+   +- Time: 1.2s
+   +- Speed: 2.42 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:49,963 - INFO - 
+Progress Update:
++- Pages: 5/50 (10.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 1124936 bytes
+   +- Time: 1.7s
+   +- Speed: 2.30 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:50,224 - INFO - Rotating user agent to: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15
+2025-04-22 03:16:50,420 - INFO - 
+Progress Update:
++- Pages: 6/50 (12.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 1165915 bytes
+   +- Time: 2.2s
+   +- Speed: 2.27 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:51,187 - INFO - 
+Progress Update:
++- Pages: 7/50 (14.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 1836707 bytes
+   +- Time: 3.0s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:51,563 - INFO - 
+Progress Update:
++- Pages: 8/50 (16.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 2098352 bytes
+   +- Time: 3.3s
+   +- Speed: 2.09 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:52,067 - INFO - 
+Progress Update:
++- Pages: 9/50 (18.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 2383509 bytes
+   +- Time: 3.8s
+   +- Speed: 2.08 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:52,564 - INFO - 
+Progress Update:
++- Pages: 10/50 (20.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 2718766 bytes
+   +- Time: 4.3s
+   +- Speed: 2.07 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:52,726 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84
+2025-04-22 03:16:53,106 - INFO - 
+Progress Update:
++- Pages: 11/50 (22.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3061274 bytes
+   +- Time: 4.9s
+   +- Speed: 2.05 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:53,626 - INFO - 
+Progress Update:
++- Pages: 12/50 (24.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3360294 bytes
+   +- Time: 5.4s
+   +- Speed: 2.04 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:54,096 - INFO - 
+Progress Update:
++- Pages: 13/50 (26.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3636765 bytes
+   +- Time: 5.9s
+   +- Speed: 2.04 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:54,583 - INFO - 
+Progress Update:
++- Pages: 14/50 (28.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 3904180 bytes
+   +- Time: 6.4s
+   +- Speed: 2.04 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:55,276 - INFO - 
+Progress Update:
++- Pages: 15/50 (30.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 4349179 bytes
+   +- Time: 7.1s
+   +- Speed: 1.98 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:55,276 - INFO - Rotating user agent to: Mozilla/5.0 (Linux; Android 11; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Mobile Safari/537.36
+2025-04-22 03:16:55,624 - INFO - 
+Progress Update:
++- Pages: 16/50 (32.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 4740649 bytes
+   +- Time: 7.4s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:56,145 - INFO - 
+Progress Update:
++- Pages: 17/50 (34.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 5199019 bytes
+   +- Time: 7.9s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:56,617 - INFO - 
+Progress Update:
++- Pages: 18/50 (36.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 5480099 bytes
+   +- Time: 8.4s
+   +- Speed: 2.03 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:57,159 - INFO - 
+Progress Update:
++- Pages: 19/50 (38.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 5772362 bytes
+   +- Time: 8.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:57,618 - INFO - 
+Progress Update:
++- Pages: 20/50 (40.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6002455 bytes
+   +- Time: 9.4s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:57,778 - INFO - Rotating user agent to: Mozilla/5.0 (Macintosh; Intel Mac OS X 11.5; rv:91.0) Gecko/20100101 Firefox/91.0
+2025-04-22 03:16:58,243 - INFO - 
+Progress Update:
++- Pages: 21/50 (42.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6273952 bytes
+   +- Time: 10.0s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:58,729 - INFO - 
+Progress Update:
++- Pages: 22/50 (44.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6566125 bytes
+   +- Time: 10.5s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:59,123 - INFO - 
+Progress Update:
++- Pages: 23/50 (46.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 6804821 bytes
+   +- Time: 10.9s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:16:59,695 - INFO - 
+Progress Update:
++- Pages: 24/50 (48.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 7034365 bytes
+   +- Time: 11.5s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:00,268 - INFO - 
+Progress Update:
++- Pages: 25/50 (50.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 7737247 bytes
+   +- Time: 12.0s
+   +- Speed: 1.99 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:00,280 - INFO - Rotating user agent to: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36
+2025-04-22 03:17:00,607 - INFO - 
+Progress Update:
++- Pages: 26/50 (52.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 7999848 bytes
+   +- Time: 12.4s
+   +- Speed: 2.02 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:01,303 - INFO - 
+Progress Update:
++- Pages: 27/50 (54.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 8659368 bytes
+   +- Time: 13.1s
+   +- Speed: 1.99 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:01,646 - INFO - 
+Progress Update:
++- Pages: 28/50 (56.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 8904442 bytes
+   +- Time: 13.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:02,215 - INFO - 
+Progress Update:
++- Pages: 29/50 (58.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9155703 bytes
+   +- Time: 14.0s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:02,704 - INFO - 
+Progress Update:
++- Pages: 30/50 (60.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9431069 bytes
+   +- Time: 14.5s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:02,805 - INFO - Rotating user agent to: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
+2025-04-22 03:17:03,140 - INFO - 
+Progress Update:
++- Pages: 31/50 (62.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9649024 bytes
+   +- Time: 14.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:03,625 - INFO - 
+Progress Update:
++- Pages: 32/50 (64.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 9913418 bytes
+   +- Time: 15.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:04,141 - INFO - 
+Progress Update:
++- Pages: 33/50 (66.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 10182379 bytes
+   +- Time: 15.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:04,790 - INFO - 
+Progress Update:
++- Pages: 34/50 (68.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 10449018 bytes
+   +- Time: 16.6s
+   +- Speed: 1.99 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:05,167 - INFO - 
+Progress Update:
++- Pages: 35/50 (70.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 10827407 bytes
+   +- Time: 16.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:05,307 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59
+2025-04-22 03:17:05,746 - INFO - 
+Progress Update:
++- Pages: 36/50 (72.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 11221784 bytes
+   +- Time: 17.5s
+   +- Speed: 2.00 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:06,130 - INFO - 
+Progress Update:
++- Pages: 37/50 (74.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 11553149 bytes
+   +- Time: 17.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:06,638 - INFO - 
+Progress Update:
++- Pages: 38/50 (76.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 11814851 bytes
+   +- Time: 18.4s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:07,155 - INFO - 
+Progress Update:
++- Pages: 39/50 (78.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 12088295 bytes
+   +- Time: 18.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:07,793 - INFO - 
+Progress Update:
++- Pages: 40/50 (80.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 12381137 bytes
+   +- Time: 19.6s
+   +- Speed: 1.99 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:07,810 - INFO - Rotating user agent to: Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1
+2025-04-22 03:17:08,141 - INFO - 
+Progress Update:
++- Pages: 41/50 (82.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 12590058 bytes
+   +- Time: 19.9s
+   +- Speed: 2.01 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:09,655 - INFO - 
+Progress Update:
++- Pages: 42/50 (84.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13149594 bytes
+   +- Time: 21.4s
+   +- Speed: 1.91 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:09,924 - INFO - 
+Progress Update:
++- Pages: 43/50 (86.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13301747 bytes
+   +- Time: 21.7s
+   +- Speed: 1.94 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:10,543 - INFO - 
+Progress Update:
++- Pages: 44/50 (88.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 13728190 bytes
+   +- Time: 22.3s
+   +- Speed: 1.93 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:11,149 - INFO - 
+Progress Update:
++- Pages: 45/50 (90.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 14002404 bytes
+   +- Time: 22.9s
+   +- Speed: 1.92 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:11,156 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36
+2025-04-22 03:17:11,641 - INFO - 
+Progress Update:
++- Pages: 46/50 (92.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 14585768 bytes
+   +- Time: 23.4s
+   +- Speed: 1.92 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:11,990 - INFO - 
+Progress Update:
++- Pages: 47/50 (94.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 14867065 bytes
+   +- Time: 23.8s
+   +- Speed: 1.94 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:12,386 - INFO - 
+Progress Update:
++- Pages: 48/50 (96.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 15148297 bytes
+   +- Time: 24.2s
+   +- Speed: 1.94 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:13,109 - INFO - 
+Progress Update:
++- Pages: 49/50 (98.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 15349039 bytes
+   +- Time: 24.9s
+   +- Speed: 1.93 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:13,494 - INFO - 
+Progress Update:
++- Pages: 50/50 (100.0%)
+   +- Depth: 3/3
+   +- Domain: github.com
+   +- Data: 15634643 bytes
+   +- Time: 25.3s
+   +- Speed: 1.94 req/s
+   +- Delay: 0.50s
+
+2025-04-22 03:17:13,658 - INFO - Rotating user agent to: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36
+2025-04-22 03:17:14,522 - ERROR - Request failed for https://github.com/marketplace: 400 Client Error: Bad Request for url: https://github.com/marketplace
