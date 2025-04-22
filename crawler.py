@@ -46,18 +46,6 @@ USER_AGENTS = {
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
     ],
-    "macos_firefox": [
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:90.0) Gecko/20100101 Firefox/90.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11.5; rv:91.0) Gecko/20100101 Firefox/91.0'
-    ],
-    "linux_chrome": [
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
-    ],
-    "linux_firefox": [
-        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0',
-        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0'
-    ],
     "mobile_android": [
         'Mozilla/5.0 (Linux; Android 11; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; Android 11; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Mobile Safari/537.36'
@@ -70,6 +58,14 @@ USER_AGENTS = {
 
 # Flatten USER_AGENTS for use in rotation
 ALL_USER_AGENTS = [agent for agents in USER_AGENTS.values() for agent in agents]
+
+def format_size(size):
+    """Format size in bytes to human readable format"""
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if size < 1024:
+            return f"{size:.2f} {unit}"
+        size /= 1024
+    return f"{size:.2f} GB"
 
 class RateLimiter:
     def __init__(self, initial_requests_per_second=2, rotate_agent_after=10):
@@ -98,7 +94,6 @@ class RateLimiter:
         """Get the next user agent, rotating if necessary"""
         self.requests_since_rotation += 1
         
-        # Rotate if we've hit the threshold
         if self.requests_since_rotation >= self.rotate_after:
             self.user_agent_index = (self.user_agent_index + 1) % len(self.user_agents)
             self.requests_since_rotation = 0
@@ -107,7 +102,7 @@ class RateLimiter:
         return self.user_agents[self.user_agent_index]
     
     def handle_429(self, domain):
-        """Handle 429 Too Many Requests error with exponential backoff"""
+        """Handle rate limit (429) response"""
         self.consecutive_429s[domain] += 1
         self.delays[domain] = min(
             self.delays[domain] * (self.backoff_factor ** self.consecutive_429s[domain]),
@@ -117,12 +112,13 @@ class RateLimiter:
         return self.delays[domain]
     
     def handle_success(self, domain):
-        """Handle successful request by gradually reducing delay"""
+        """Handle successful request"""
         if self.consecutive_429s[domain] > 0:
             self.consecutive_429s[domain] = 0
             self.delays[domain] = max(self.delays[domain] / self.backoff_factor, 0.5)
 
     def get_stats(self):
+        """Get current statistics"""
         elapsed_time = time.time() - self.start_time
         return {
             'total_requests': self.total_requests,
@@ -166,7 +162,7 @@ def extract_metadata(soup, url):
     return metadata
 
 def is_valid_url(url):
-    """Check if the URL is valid and well-formed."""
+    """Check if the URL is valid and well-formed"""
     try:
         parsed = urlparse(url)
         return bool(parsed.scheme) and bool(parsed.netloc) and parsed.scheme in ['http', 'https']
@@ -189,14 +185,27 @@ def save_results(results):
             writer.writeheader()
             writer.writerows(results)
 
-def crawl(url, depth, max_pages=100, timeout=10, rotate_agent_after=10):
-    """Main crawl function with user agent rotation"""
+def crawl(url, depth, max_pages=100, timeout=10, requests_per_second=2, rotate_agent_after=10):
+    """Main crawl function with smart rate limiting and user agent rotation"""
     visited = set()
     results = []
     page_count = 0
-    rate_limiter = RateLimiter(rotate_agent_after=rotate_agent_after)
+    rate_limiter = RateLimiter(
+        initial_requests_per_second=requests_per_second,
+        rotate_agent_after=rotate_agent_after
+    )
     total_size = 0
     start_time = time.time()
+
+    logging.info(f"""
+Starting crawl with:
+- URL: {url}
+- Depth: {depth}
+- Max Pages: {max_pages}
+- Timeout: {timeout}s
+- Rate Limit: {requests_per_second} req/s
+- Agent Rotation: every {rotate_agent_after} requests
+""")
 
     def _crawl(url, current_depth):
         nonlocal page_count, total_size
@@ -217,7 +226,7 @@ Progress Update:
 +- Pages: {page_count}/{max_pages} ({(page_count/max_pages*100):.1f}%)
    +- Depth: {current_depth}/{depth}
    +- Domain: {domain}
-   +- Data: {total_size} bytes
+   +- Data: {format_size(total_size)}
    +- Time: {elapsed_time:.1f}s
    +- Speed: {rate_stats['requests_per_second']:.2f} req/s
    +- Delay: {rate_limiter.delays[domain]:.2f}s
@@ -230,10 +239,12 @@ Progress Update:
         
         try:
             response = requests.get(url, headers=headers, timeout=timeout)
-            total_size += len(response.content)
+            content_size = len(response.content)
+            total_size += content_size
             
             if response.status_code == 429:
                 delay = rate_limiter.handle_429(domain)
+                logging.warning(f"Rate limit hit for {domain}, waiting {delay}s...")
                 time.sleep(delay)
                 return
             
@@ -265,7 +276,7 @@ Progress Update:
                 'internal_link_count': len(internal_links),
                 'external_link_count': len(external_links),
                 'word_count': len(soup.get_text(separator=' ', strip=True).split()),
-                'content_size': len(response.content),
+                'content_size': content_size,
                 'crawl_timestamp': datetime.now().isoformat(),
                 'status_code': response.status_code
             }
@@ -284,30 +295,110 @@ Progress Update:
             logging.error(f"Unexpected error for {url}: {e}")
 
     _crawl(url, 0)
+    
+    # Final summary
+    stats = rate_limiter.get_stats()
+    logging.info(f"""
+Crawl Completed:
++- Pages: {page_count}
+   +- Data: {format_size(total_size)}
+   +- Time: {stats['elapsed_time']:.1f}s
+   +- Speed: {stats['requests_per_second']:.2f} req/s
+""")
+    
     return results
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Web crawler with enhanced capabilities')
-    parser.add_argument('url', help='URL to crawl')
-    parser.add_argument('depth', type=int, help='Maximum crawl depth')
-    parser.add_argument('--max-pages', type=int, default=100, help='Maximum number of pages to crawl')
-    parser.add_argument('--timeout', type=int, default=10, help='Request timeout in seconds')
-    parser.add_argument('--rotate-agent-after', type=int, default=10, 
-                      help='Number of requests after which to rotate user agent')
+    parser = argparse.ArgumentParser(
+        description='''
+PagesXcrawler - Advanced Web Crawler with Smart Rate Limiting
+
+Two ways to use this crawler:
+
+1. Command Line Format:
+   python crawler.py URL DEPTH [OPTIONS]
+   
+   Example:
+   python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
+
+2. GitHub Issues Format:
+   url:depth(n):params(key1=value1,key2=value2)
+   
+   Example:
+   https://example.com:depth(2):params(max-pages=50,timeout=15)
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+
+    parser.add_argument('url', 
+                       help='The URL to crawl (include http:// or https://)')
+    
+    parser.add_argument('depth', type=int,
+                       help='How many levels deep to crawl (e.g., 2 for homepage and links from it)')
+    
+    parser.add_argument('--max-pages', type=int, default=100,
+                       help='Maximum number of pages to crawl (default: 100)')
+    
+    parser.add_argument('--timeout', type=int, default=10,
+                       help='Request timeout in seconds (default: 10)')
+    
+    parser.add_argument('--requests-per-second', type=float, default=2,
+                       help='Initial rate limiting in requests per second (default: 2)')
+    
+    parser.add_argument('--rotate-agent-after', type=int, default=10,
+                       help='Number of requests before rotating user agent (default: 10)')
+
+    # Add examples group
+    example_group = parser.add_argument_group('examples')
+    example_group.add_argument('-', action='store_true',
+                             help='''
+Examples:
+  Basic usage:
+    python crawler.py "https://example.com" 2
+    
+  With options:
+    python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
+    
+  With user agent rotation:
+    python crawler.py "https://example.com" 3 --rotate-agent-after 5
+    
+  Full example:
+    python crawler.py "https://example.com" 3 --max-pages 50 --timeout 15 --requests-per-second 1 --rotate-agent-after 5
+    
+Note: Always enclose URLs in quotes to handle special characters correctly.
+''')
 
     args = parser.parse_args()
 
+    # Validate URL
     if not is_valid_url(args.url):
-        logging.error("Error: Invalid URL format.")
+        logging.error("Error: Invalid URL format. URL must start with http:// or https://")
+        parser.print_help()
         exit(1)
 
+    # Validate depth
     if args.depth < 0:
-        logging.error("Error: Depth must be non-negative.")
+        logging.error("Error: Depth must be non-negative")
+        parser.print_help()
+        exit(1)
+
+    # Validate rate limiting
+    if args.requests_per_second <= 0:
+        logging.error("Error: Requests per second must be positive")
+        parser.print_help()
         exit(1)
 
     try:
-        results = crawl(args.url, args.depth, args.max_pages, args.timeout, args.rotate_agent_after)
+        results = crawl(
+            args.url,
+            args.depth,
+            args.max_pages,
+            args.timeout,
+            args.requests_per_second,
+            args.rotate_agent_after
+        )
         save_results(results)
+        logging.info("Results saved successfully")
     except KeyboardInterrupt:
         logging.info("\nCrawl interrupted by user. Saving partial results...")
         if results:

@@ -2,237 +2,128 @@ name: Web Crawler
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
-
+    if: contains(github.event.issue.title, ':depth(')
+    
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.MY_PAT }}
 
-      # Step 2: Set up Python environment
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
 
-      # Step 3: Install dependencies required for crawling, HTML updates, and chart generation
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 matplotlib
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
 
-      # Step 4: Add initial comment to issue
-      - name: Add initial comment
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🚀 Starting crawl process...'
-            })
+    - name: Parse issue title
+      run: |
+        issue_title="${{ github.event.issue.title }}"
+        issue_number="${{ github.event.issue.number }}"
+        
+        # Function to add comment to the issue
+        add_comment() {
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.MY_PAT }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/$issue_number/comments" \
+            -d "{\"body\":\"$1\"}"
+        }
 
-      # Step 5: Pull latest changes before extracting URL and Depth
-      - name: Pull latest changes before extraction
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+        # Add initial status comment
+        add_comment "🚀 Starting crawler with following configuration:\n\`\`\`\n$issue_title\n\`\`\`"
 
-      # Step 6: Extract URL and Depth from issue title
-      - name: Extract URL and Depth
-        if: success()
-        id: extract
-        run: |
-          issue_title="${{ github.event.issue.title }}"
-          issue_number="${{ github.event.issue.number }}"
-
-          # Enhanced regex to support more URL formats
-          if [[ "$issue_title" =~ ^((https?://)?[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,})(:[0-9]+)?(/[a-zA-Z0-9._/-]*)?):depth\(([0-9]+)\)(:params\((([^)]*))\))? ]]; then
-              echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-              echo "DEPTH=${BASH_REMATCH[6]}" >> $GITHUB_ENV
-              echo "PARAMS=${BASH_REMATCH[8]:-}" >> $GITHUB_ENV
-              echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
-              echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
-          else
-              echo "Error: Issue title must be in the format 'url:depth(number)' or 'url:depth(number):params(key1=value1,key2=value2)'"
-              exit 1
-          fi
-
-      # Step 7: Update issue with extracted parameters
-      - name: Update issue with parameters
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `📋 Crawl parameters:
-              - URL: ${{ env.URL }}
-              - Depth: ${{ env.DEPTH }}
-              - Additional params: ${{ env.PARAMS || 'None' }}`
-            })
-
-      # Step 8: Run the crawler script
-      - name: Run crawler
-        id: crawler
-        if: success()
-        run: |
-          echo "Running crawler with URL: $URL and Depth: $DEPTH"
-          if [ -n "$PARAMS" ]; then
-            # Parse and add additional parameters
-            ADDITIONAL_ARGS=""
-            IFS=',' read -ra PARAM_PAIRS <<< "$PARAMS"
-            for PAIR in "${PARAM_PAIRS[@]}"; do
-              KEY="${PAIR%%=*}"
-              VALUE="${PAIR##*=}"
-              ADDITIONAL_ARGS="$ADDITIONAL_ARGS --$KEY $VALUE"
-            done
-            python crawler.py "$URL" "$DEPTH" $ADDITIONAL_ARGS
-          else
-            python crawler.py "$URL" "$DEPTH"
-          fi
-
-      # Step 9: Update issue with crawl completion
-      - name: Update issue with completion
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '✅ Crawl completed successfully! Updating HTML...'
-            })
-
-      # Step 10: Update HTML page
-      - name: Update HTML page
-        if: success()
-        run: |
-          python scripts/update_html.py
-
-      # Step 11: Log issue status
-      - name: Log issue status
-        if: success()
-        run: |
-          CSV_FILE="data/issues_status.csv"
-          if [ ! -f "$CSV_FILE" ]; then
-              echo "Issue Number,Issue Title,Status" > "$CSV_FILE"
-          fi
-          echo "${{ env.ISSUE_NUMBER }},${{ env.ISSUE_TITLE }},Completed" >> "$CSV_FILE"
-
-      # Step 12: Update counters
-      - name: Update counters
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mkdir -p data
-
-          count_paginated() {
-            local url=$1
-            local count=0
-            local page=1
-            while true; do
-              response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "${url}?per_page=100&page=${page}")
-              page_count=$(echo "$response" | jq 'length')
-              count=$((count + page_count))
-              if [ "$page_count" -lt 100 ]; then break; fi
-              page=$((page + 1))
-            done
-            echo $count
-          }
-
-          deployments_count=$(count_paginated "https://api.github.com/repos/${{ github.repository }}/deployments")
-          actions_count=$(count_paginated "https://api.github.com/repos/${{ github.repository }}/actions/runs")
-          successful_actions=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=100" | \
-            jq '[.workflow_runs[] | select(.conclusion == "success")] | length')
-          failed_actions=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=100" | \
-            jq '[.workflow_runs[] | select(.conclusion == "failure")] | length')
-
-          echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
-          echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
-          echo '{"schemaVersion": 1, "label": "Successful Actions", "message": "'"$successful_actions"'", "color": "brightgreen"}' > data/successful_actions.json
-          echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions"'", "color": "red"}' > data/failed_actions.json
-
-          # Generate chart
-          python - <<EOF
-          import matplotlib.pyplot as plt
+        # Parse basic format: url:depth(n)
+        if [[ "$issue_title" =~ ^(https?://[^:]+):depth\(([0-9]+)\)$ ]]; then
+          echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+          echo "MAX_PAGES=100" >> $GITHUB_ENV
+          echo "TIMEOUT=10" >> $GITHUB_ENV
+          echo "ROTATE_AGENT=10" >> $GITHUB_ENV
+        
+        # Parse advanced format: url:depth(n):params(...)
+        elif [[ "$issue_title" =~ ^(https?://[^:]+):depth\(([0-9]+)\):params\(([^)]+)\)$ ]]; then
+          echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          echo "DEPTH=${BASH_REMATCH[2]}" >> $GITHUB_ENV
           
-          labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
-          values = [${deployments_count}, ${actions_count}, ${successful_actions}, ${failed_actions}]
-          colors = ['blue', 'green', 'lime', 'red']
+          # Parse parameters
+          params="${BASH_REMATCH[3]}"
+          IFS=',' read -ra PARAM_ARRAY <<< "$params"
           
-          plt.figure(figsize=(8, 6))
-          plt.bar(labels, values, color=colors)
-          plt.title('GitHub Actions and Deployments')
-          plt.xlabel('Metrics')
-          plt.ylabel('Count')
-          plt.savefig('data/actions_chart.png')
-          EOF
+          # Set defaults
+          max_pages=100
+          timeout=10
+          rotate_agent=10
+          
+          # Process each parameter
+          for param in "${PARAM_ARRAY[@]}"; do
+            key="${param%%=*}"
+            value="${param#*=}"
+            case "$key" in
+              "max-pages") max_pages="$value" ;;
+              "timeout") timeout="$value" ;;
+              "rotate-agent-after") rotate_agent="$value" ;;
+            esac
+          done
+          
+          echo "MAX_PAGES=$max_pages" >> $GITHUB_ENV
+          echo "TIMEOUT=$timeout" >> $GITHUB_ENV
+          echo "ROTATE_AGENT=$rotate_agent" >> $GITHUB_ENV
+          
+        else
+          error_msg="❌ Error: Invalid issue title format.\n\nPlease use one of these formats:\n\`\`\`\nurl:depth(n)\nurl:depth(n):params(param1=value1,param2=value2)\n\`\`\`\n\nExamples:\n\`\`\`\nhttps://example.com:depth(3)\nhttps://example.com:depth(2):params(max-pages=50,timeout=15)\n\`\`\`"
+          add_comment "$error_msg"
+          exit 1
+        fi
 
-      # Step 13: Commit results
-      - name: Commit results
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}
-        run: |
-          git add data/* index.html
-          git commit -m "Update results for issue #${{ env.ISSUE_NUMBER }}" || echo "No changes to commit"
-          git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+        # Add configuration confirmation
+        config_msg="📋 Parsed configuration:\n\`\`\`\nURL: ${{ env.URL }}\nDepth: ${{ env.DEPTH }}\nMax Pages: ${{ env.MAX_PAGES }}\nTimeout: ${{ env.TIMEOUT }}s\nRotate Agent: Every ${{ env.ROTATE_AGENT }} requests\n\`\`\`"
+        add_comment "$config_msg"
 
-      # Step 14: Final update and delay before closing
-      - name: Final update and delay
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // Add final comment
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🎉 Task completed! Results have been updated.\n\nView the results at: https://${{ github.repository_owner }}.github.io/PagesXcrawler'
-            });
-            
-            // Wait 30 seconds
-            await new Promise(resolve => setTimeout(resolve, 30000));
-            
-            // Close the issue
-            await github.rest.issues.update({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'closed'
-            });
+    - name: Run crawler
+      run: |
+        python crawler.py "${{ env.URL }}" "${{ env.DEPTH }}" \
+          --max-pages "${{ env.MAX_PAGES }}" \
+          --timeout "${{ env.TIMEOUT }}" \
+          --rotate-agent-after "${{ env.ROTATE_AGENT }}"
 
-      # Error handling
-      - name: Handle failure
-        if: failure()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '❌ The crawl process encountered an error. Please check the action logs for details.'
-            })
+    - name: Update visualization
+      run: python scripts/update_html.py
+
+    - name: Update issue status
+      run: |
+        echo "${{ github.event.issue.title }},${{ github.event.issue.number }},completed" >> data/issues_status.csv
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/* index.html
+        git commit -m "Update data and visualization from issue #${{ github.event.issue.number }}"
+        git push
+
+    - name: Close issue
+      run: |
+        # Add completion comment
+        completion_msg="✅ Crawl completed! View results:\n- [Dashboard](https://unaveragetech.github.io/PagesXcrawler/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)"
+        
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.MY_PAT }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" \
+          -d "{\"body\":\"$completion_msg\"}"
+        
+        # Close the issue
+        curl -X PATCH \
+          -H "Authorization: token ${{ secrets.MY_PAT }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}" \
+          -d '{"state":"closed"}'
