@@ -7,8 +7,8 @@ on:
 jobs:
   crawl:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.title, ':depth(')
-    
+    if: contains(github.event.issue.title, 'crawl:')
+
     steps:
     - uses: actions/checkout@v2
       with:
@@ -28,7 +28,7 @@ jobs:
       run: |
         issue_title="${{ github.event.issue.title }}"
         issue_number="${{ github.event.issue.number }}"
-        
+
         # Function to add comment to the issue
         add_comment() {
           curl -X POST \
@@ -38,33 +38,35 @@ jobs:
             -d "{\"body\":\"$1\"}"
         }
 
-        # First try to match with params pattern
-        if [[ "$issue_title" =~ ^(https?://[^:]+):depth\(([0-9]+)\)(:params\(([^)]+)\))?$ ]]; then
+        # Match the new format: crawl: URL DEPTH [OPTIONS]
+        if [[ "$issue_title" =~ ^crawl:[[:space:]]*(https?://[^[:space:]]+)[[:space:]]+([0-9]+)(.*)$ ]]; then
             url="${BASH_REMATCH[1]}"
             depth="${BASH_REMATCH[2]}"
-            params="${BASH_REMATCH[4]}"
-            
+            options="${BASH_REMATCH[3]}"
+
             # Set default values
             max_pages=100
             timeout=10
             rotate_agent=10
-            requests_per_second=2
-            
-            # Parse parameters if they exist
-            if [ ! -z "$params" ]; then
-                IFS=',' read -ra PARAM_ARRAY <<< "$params"
-                for param in "${PARAM_ARRAY[@]}"; do
-                    key="${param%%=*}"
-                    value="${param#*=}"
-                    case "$key" in
-                        "max-pages") max_pages="$value" ;;
-                        "timeout") timeout="$value" ;;
-                        "rotate-agent-after") rotate_agent="$value" ;;
-                        "requests-per-second") requests_per_second="$value" ;;
-                    esac
-                done
+
+            # Parse options if they exist
+            if [ ! -z "$options" ]; then
+                # Check for --max-pages
+                if [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]]; then
+                    max_pages="${BASH_REMATCH[1]}"
+                fi
+
+                # Check for --timeout
+                if [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]]; then
+                    timeout="${BASH_REMATCH[1]}"
+                fi
+
+                # Check for --rotate-agent-after
+                if [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]]; then
+                    rotate_agent="${BASH_REMATCH[1]}"
+                fi
             fi
-            
+
             # Export all variables
             {
                 echo "URL=$url"
@@ -72,27 +74,57 @@ jobs:
                 echo "MAX_PAGES=$max_pages"
                 echo "TIMEOUT=$timeout"
                 echo "ROTATE_AGENT=$rotate_agent"
-                echo "REQUESTS_PER_SECOND=$requests_per_second"
+                # Removed requests_per_second as it's handled automatically
                 echo "ISSUE_TITLE=$issue_title"
                 echo "ISSUE_NUMBER=$issue_number"
-            } >> $GITHUB_ENV
-            
-            # Add configuration comment
-            add_comment "📋 Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\nRequests/Second: $requests_per_second\n\`\`\`"
+            } >> "$GITHUB_ENV"
+
+            # Add configuration comment with proper escaping
+            config_msg=$(cat <<EOF
+📋 Configuration:
+\`\`\`
+URL: $url
+Depth: $depth
+Max Pages: $max_pages
+Timeout: ${timeout}s
+Rotate Agent: Every $rotate_agent requests
+\`\`\`
+EOF
+)
+            add_comment "$config_msg"
         else
-            error_msg="❌ Error: Invalid issue title format.\n\nPlease use one of these formats:\n\`\`\`\nurl:depth(n)\nurl:depth(n):params(param1=value1,param2=value2)\n\`\`\`\n\nExamples:\n\`\`\`\nhttps://example.com:depth(3)\nhttps://example.com:depth(2):params(max-pages=50,timeout=15)\n\`\`\`"
+            error_msg=$(cat <<'EOF'
+❌ Error: Invalid issue title format.
+
+Please use this format:
+\`\`\`
+crawl: URL DEPTH [OPTIONS]
+\`\`\`
+
+Examples:
+\`\`\`
+crawl: https://example.com 3
+crawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5
+\`\`\`
+EOF
+)
             add_comment "$error_msg"
             exit 1
         fi
 
     - name: Run crawler
       run: |
-        echo "Running crawler with URL: ${{ env.URL }}"
+        echo "Running crawler with configuration:"
+        echo "URL: ${{ env.URL }}"
+        echo "Depth: ${{ env.DEPTH }}"
+        echo "Max Pages: ${{ env.MAX_PAGES }}"
+        echo "Timeout: ${{ env.TIMEOUT }}"
+        echo "Rotate Agent: ${{ env.ROTATE_AGENT }}"
+
         python crawler.py "${{ env.URL }}" "${{ env.DEPTH }}" \
           --max-pages "${{ env.MAX_PAGES }}" \
           --timeout "${{ env.TIMEOUT }}" \
-          --rotate-agent-after "${{ env.ROTATE_AGENT }}" \
-          --requests-per-second "${{ env.REQUESTS_PER_SECOND }}"
+          --rotate-agent-after "${{ env.ROTATE_AGENT }}"
 
     - name: Update visualization
       run: python scripts/update_html.py
@@ -113,13 +145,13 @@ jobs:
       run: |
         # Add completion comment
         completion_msg="✅ Crawl completed! View results:\n- [Dashboard](https://unaveragetech.github.io/PagesXcrawler/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)"
-        
+
         curl -X POST \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}/comments" \
           -d "{\"body\":\"$completion_msg\"}"
-        
+
         curl -X PATCH \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
