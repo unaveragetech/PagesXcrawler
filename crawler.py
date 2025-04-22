@@ -7,10 +7,19 @@ import random
 import time
 import logging
 import argparse
-from collections import defaultdict
-from urllib.parse import urljoin, urlparse
 import re
+from collections import defaultdict, Counter
+from urllib.parse import urljoin, urlparse, parse_qs
 from datetime import datetime
+import cssutils
+import tinycss
+import cssselect
+from html import unescape
+import validators
+import colorama
+
+# Suppress cssutils logging
+cssutils.log.setLevel(logging.FATAL)
 
 # Configure logging
 logging.basicConfig(
@@ -22,109 +31,257 @@ logging.basicConfig(
     ]
 )
 
-# User agent definitions
-USER_AGENTS = {
-    "windows_chrome": [
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-    ],
-    "windows_firefox": [
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'
-    ],
-    "windows_edge": [
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84'
-    ],
-    "macos_safari": [
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15'
-    ],
-    "macos_chrome": [
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
-    ],
-    "mobile_android": [
-        'Mozilla/5.0 (Linux; Android 11; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Mobile Safari/537.36',
-        'Mozilla/5.0 (Linux; Android 11; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Mobile Safari/537.36'
-    ],
-    "mobile_ios": [
-        'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1',
-        'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1'
-    ]
-}
+[Previous USER_AGENTS and RateLimiter code remains the same...]
 
-# Flatten USER_AGENTS for use in rotation
-ALL_USER_AGENTS = [agent for agents in USER_AGENTS.values() for agent in agents]
+def analyze_heading_structure(soup):
+    """Analyze heading hierarchy and structure"""
+    headings = {f'h{i}': len(soup.find_all(f'h{i}')) for i in range(1, 7)}
+    heading_order = []
+    for tag in soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']):
+        heading_order.append(int(tag.name[1]))
+    
+    return {
+        'heading_counts': headings,
+        'heading_order': heading_order,
+        'has_valid_hierarchy': all(x >= y for x, y in zip(heading_order, heading_order[1:]))
+    }
 
-def format_size(size):
-    """Format size in bytes to human readable format"""
-    for unit in ['B', 'KB', 'MB', 'GB']:
-        if size < 1024:
-            return f"{size:.2f} {unit}"
-        size /= 1024
-    return f"{size:.2f} GB"
+def analyze_content_types(soup, response):
+    """Analyze content types and ratios"""
+    text_content = soup.get_text(strip=True)
+    html_content = str(soup)
+    scripts = soup.find_all('script')
+    styles = soup.find_all('style')
+    
+    return {
+        'text_length': len(text_content),
+        'html_length': len(html_content),
+        'text_html_ratio': len(text_content) / len(html_content) if html_content else 0,
+        'script_count': len(scripts),
+        'style_count': len(styles),
+        'script_size': sum(len(str(s)) for s in scripts),
+        'style_size': sum(len(str(s)) for s in styles)
+    }
 
-class RateLimiter:
-    def __init__(self, initial_requests_per_second=2, rotate_agent_after=10):
-        self.delays = defaultdict(lambda: 1.0 / initial_requests_per_second)
-        self.last_request = defaultdict(float)
-        self.consecutive_429s = defaultdict(int)
-        self.backoff_factor = 2
-        self.max_delay = 60
-        self.total_requests = 0
-        self.start_time = time.time()
-        self.user_agents = ALL_USER_AGENTS.copy()
-        random.shuffle(self.user_agents)
-        self.user_agent_index = 0
-        self.rotate_after = rotate_agent_after
-        self.requests_since_rotation = 0
+def analyze_page_structure(soup):
+    """Analyze DOM structure and elements"""
+    return {
+        'dom_elements': len(soup.find_all()),
+        'dom_depth': max(len(list(el.parents)) for el in soup.find_all()),
+        'div_count': len(soup.find_all('div')),
+        'span_count': len(soup.find_all('span')),
+        'p_count': len(soup.find_all('p')),
+        'list_count': len(soup.find_all(['ul', 'ol'])),
+        'table_count': len(soup.find_all('table'))
+    }
 
-    def wait(self, domain):
-        current_time = time.time()
-        time_passed = current_time - self.last_request[domain]
-        if time_passed < self.delays[domain]:
-            time.sleep(self.delays[domain] - time_passed)
-        self.last_request[domain] = time.time()
-        self.total_requests += 1
+def analyze_forms(soup):
+    """Analyze forms and input fields"""
+    forms = soup.find_all('form')
+    form_data = []
+    
+    for form in forms:
+        inputs = form.find_all('input')
+        required = len([i for i in inputs if i.get('required')])
+        form_data.append({
+            'method': form.get('method', 'get').lower(),
+            'action': form.get('action', ''),
+            'input_count': len(inputs),
+            'required_fields': required,
+            'input_types': Counter(i.get('type', 'text') for i in inputs)
+        })
+    
+    return {
+        'form_count': len(forms),
+        'total_inputs': sum(f['input_count'] for f in form_data),
+        'total_required': sum(f['required_fields'] for f in form_data),
+        'forms': form_data
+    }
 
-    def get_next_user_agent(self):
-        """Get the next user agent, rotating if necessary"""
-        self.requests_since_rotation += 1
+def analyze_meta_tags(soup):
+    """Analyze meta tags and SEO elements"""
+    meta_tags = soup.find_all('meta')
+    meta_data = {
+        'title': soup.title.string if soup.title else None,
+        'title_length': len(soup.title.string) if soup.title else 0,
+        'description': None,
+        'keywords': None,
+        'robots': None,
+        'viewport': None,
+        'charset': None,
+        'canonical': None,
+        'og_tags': [],
+        'twitter_cards': []
+    }
+    
+    for tag in meta_tags:
+        name = tag.get('name', '').lower()
+        property = tag.get('property', '').lower()
+        content = tag.get('content', '')
+        
+        if name == 'description':
+            meta_data['description'] = content
+        elif name == 'keywords':
+            meta_data['keywords'] = content
+        elif name == 'robots':
+            meta_data['robots'] = content
+        elif name == 'viewport':
+            meta_data['viewport'] = content
+        elif property.startswith('og:'):
+            meta_data['og_tags'].append({'property': property, 'content': content})
+        elif property.startswith('twitter:'):
+            meta_data['twitter_cards'].append({'property': property, 'content': content})
+    
+    canonical = soup.find('link', rel='canonical')
+    if canonical:
+        meta_data['canonical'] = canonical.get('href')
+    
+    return meta_data
 
-        if self.requests_since_rotation >= self.rotate_after:
-            self.user_agent_index = (self.user_agent_index + 1) % len(self.user_agents)
-            self.requests_since_rotation = 0
-            logging.info(f"Rotating user agent to: {self.user_agents[self.user_agent_index]}")
+def analyze_schema_markup(soup):
+    """Analyze schema.org structured data"""
+    schemas = []
+    for tag in soup.find_all():
+        if tag.get('itemtype'):
+            schemas.append({
+                'type': tag.get('itemtype'),
+                'props': len(tag.find_all(attrs={'itemprop': True}))
+            })
+    return schemas
 
-        return self.user_agents[self.user_agent_index]
+def analyze_content_keywords(soup):
+    """Analyze keyword density and distribution"""
+    # Get text content and clean it
+    text = soup.get_text(' ', strip=True).lower()
+    words = re.findall(r'\b\w+\b', text)
+    
+    # Remove common stop words (expanded list)
+    stop_words = {'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at'}
+    words = [w for w in words if w not in stop_words and len(w) > 2]
+    
+    # Calculate word frequency
+    word_freq = Counter(words)
+    total_words = len(words)
+    
+    return {
+        'total_words': total_words,
+        'unique_words': len(word_freq),
+        'top_keywords': dict(word_freq.most_common(20)),
+        'keyword_density': {word: count/total_words for word, count in word_freq.most_common(20)} if total_words else {}
+    }
 
-    def handle_429(self, domain):
-        """Handle rate limit (429) response"""
-        self.consecutive_429s[domain] += 1
-        self.delays[domain] = min(
-            self.delays[domain] * (self.backoff_factor ** self.consecutive_429s[domain]),
-            self.max_delay
-        )
-        logging.warning(f"Rate limit detected for {domain}. Increasing delay to {self.delays[domain]:.2f} seconds")
-        return self.delays[domain]
+def analyze_url_structure(url):
+    """Analyze URL structure and parameters"""
+    parsed = urlparse(url)
+    params = parse_qs(parsed.query)
+    
+    return {
+        'scheme': parsed.scheme,
+        'netloc': parsed.netloc,
+        'path': parsed.path,
+        'path_length': len(parsed.path),
+        'path_segments': len([s for s in parsed.path.split('/') if s]),
+        'query_params': len(params),
+        'param_names': list(params.keys()),
+        'has_fragment': bool(parsed.fragment)
+    }
 
-    def handle_success(self, domain):
-        """Handle successful request"""
-        if self.consecutive_429s[domain] > 0:
-            self.consecutive_429s[domain] = 0
-            self.delays[domain] = max(self.delays[domain] / self.backoff_factor, 0.5)
+def analyze_links(soup, base_url):
+    """Analyze links and their attributes"""
+    links = soup.find_all('a')
+    link_data = {
+        'total': len(links),
+        'internal': 0,
+        'external': 0,
+        'nofollow': 0,
+        'empty_anchors': 0,
+        'generic_anchors': 0,
+        'broken_links': 0,
+        'anchor_text': []
+    }
+    
+    generic_anchors = {'click here', 'read more', 'learn more', 'click', 'here', 'link'}
+    
+    for link in links:
+        href = link.get('href')
+        if not href:
+            link_data['empty_anchors'] += 1
+            continue
+            
+        # Clean and normalize anchor text
+        anchor_text = link.get_text(strip=True).lower()
+        link_data['anchor_text'].append(anchor_text)
+        
+        if anchor_text in generic_anchors:
+            link_data['generic_anchors'] += 1
+        
+        # Check if internal or external
+        if href.startswith(('http://', 'https://')):
+            if urlparse(href).netloc == urlparse(base_url).netloc:
+                link_data['internal'] += 1
+            else:
+                link_data['external'] += 1
+        else:
+            link_data['internal'] += 1
+        
+        # Check for nofollow
+        if 'nofollow' in link.get('rel', []):
+            link_data['nofollow'] += 1
+    
+    return link_data
 
-    def get_stats(self):
-        """Get current statistics"""
-        elapsed_time = time.time() - self.start_time
-        return {
-            'total_requests': self.total_requests,
-            'elapsed_time': elapsed_time,
-            'requests_per_second': self.total_requests / elapsed_time if elapsed_time > 0 else 0
-        }
+def analyze_media(soup, base_url):
+    """Analyze images, videos, and other media"""
+    images = soup.find_all('img')
+    media_data = {
+        'images': {
+            'total': len(images),
+            'missing_alt': 0,
+            'empty_alt': 0,
+            'responsive': 0,
+            'formats': defaultdict(int),
+            'sizes': []
+        },
+        'videos': {
+            'total': 0,
+            'youtube': 0,
+            'vimeo': 0,
+            'other': 0
+        },
+        'audio': len(soup.find_all('audio')),
+        'total_media_size': 0
+    }
+    
+    # Analyze images
+    for img in images:
+        if not img.get('alt'):
+            media_data['images']['missing_alt'] += 1
+        elif img.get('alt').strip() == '':
+            media_data['images']['empty_alt'] += 1
+        
+        if img.get('srcset') or img.get('sizes'):
+            media_data['images']['responsive'] += 1
+        
+        src = img.get('src', '')
+        if src:
+            ext = os.path.splitext(src)[1].lower()
+            media_data['images']['formats'][ext] += 1
+    
+    # Analyze videos
+    iframes = soup.find_all('iframe')
+            elif src_url:
+                resources['external_resources'] += 1
+
+    # Count audios
+    for audio in soup.find_all('audio', src=True):
+        resources['audios'] += 1
+        src_url = urljoin(url, audio['src'])
+        if urlparse(src_url).netloc == domain:
+            resources['internal_resources'] += 1
+        else:
+            resources['external_resources'] += 1
+
+    return resources
 
 def extract_metadata(soup, url):
     """Extract metadata from the page"""
@@ -221,15 +378,25 @@ Starting crawl with:
         elapsed_time = time.time() - start_time
         rate_stats = rate_limiter.get_stats()
 
-        # Calculate total images so far
+        # Calculate totals so far
         total_images_so_far = sum(result.get('image_count', 0) for result in results)
+        total_js_files = sum(result.get('js_files_count', 0) for result in results)
+        total_css_files = sum(result.get('css_files_count', 0) for result in results)
+        total_internal_links = sum(result.get('internal_link_count', 0) for result in results)
+        total_external_links = sum(result.get('external_link_count', 0) for result in results)
 
         progress = f"""
 Progress Update:
 +- Pages: {page_count}/{max_pages} ({(page_count/max_pages*100):.1f}%)
    +- Depth: {current_depth}/{depth}
    +- Domain: {domain}
-   +- Images: {total_images_so_far}
+   +- Resources:
+      +- Images: {total_images_so_far}
+      +- JS Files: {total_js_files}
+      +- CSS Files: {total_css_files}
+   +- Links:
+      +- Internal: {total_internal_links}
+      +- External: {total_external_links}
    +- Data: {format_size(total_size)}
    +- Time: {elapsed_time:.1f}s
    +- Speed: {rate_stats['requests_per_second']:.2f} req/s
@@ -262,29 +429,52 @@ Progress Update:
             soup = BeautifulSoup(response.text, 'html.parser')
             metadata = extract_metadata(soup, url)
 
-            # Process links and content
-            internal_links = []
-            external_links = []
-            for link in soup.find_all('a', href=True):
-                full_url = urljoin(url, link['href'])
-                if is_valid_url(full_url):
-                    if urlparse(full_url).netloc == domain:
-                        internal_links.append(full_url)
-                    else:
-                        external_links.append(full_url)
+            # Analyze URL structure
+            url_structure = analyze_url_structure(url)
 
-            # Count images
-            images = soup.find_all('img')
-            image_count = len(images)
+            # Analyze links
+            link_analysis = analyze_link_quality(soup, url)
+            internal_links = link_analysis['internal_links']
+            external_links = link_analysis['external_links']
 
+            # Count resources
+            resource_counts = count_resources(soup, url)
+
+            # Count images (already counted in resource_counts but kept for backward compatibility)
+            image_count = resource_counts['images']
+
+            # Prepare result with all the new metrics
             result = {
                 'url': url,
                 'depth': current_depth,
                 **metadata,
-                'internal_link_count': len(internal_links),
-                'external_link_count': len(external_links),
-                'word_count': len(soup.get_text(separator=' ', strip=True).split()),
+                # URL structure metrics
+                'url_length': url_structure['url_length'],
+                'url_params_count': url_structure['params_count'],
+                'url_path_depth': url_structure['path_depth'],
+
+                # Link metrics
+                'internal_link_count': link_analysis['internal_link_count'],
+                'external_link_count': link_analysis['external_link_count'],
+                'nofollow_link_count': link_analysis['nofollow_link_count'],
+                'empty_anchor_text_count': link_analysis['empty_anchor_text_count'],
+                'generic_anchor_text_count': link_analysis['generic_anchor_text_count'],
+                'keyword_rich_anchor_text_count': link_analysis['keyword_rich_anchor_text_count'],
+                'internal_external_ratio': link_analysis['internal_external_ratio'],
+                'total_link_count': link_analysis['total_link_count'],
+
+                # Resource metrics
+                'js_files_count': resource_counts['js_files'],
+                'css_files_count': resource_counts['css_files'],
                 'image_count': image_count,
+                'font_count': resource_counts['fonts'],
+                'video_count': resource_counts['videos'],
+                'audio_count': resource_counts['audios'],
+                'internal_resources_count': resource_counts['internal_resources'],
+                'external_resources_count': resource_counts['external_resources'],
+
+                # Basic metrics (kept for backward compatibility)
+                'word_count': len(soup.get_text(separator=' ', strip=True).split()),
                 'content_size': content_size,
                 'crawl_timestamp': datetime.now().isoformat(),
                 'status_code': response.status_code
@@ -305,15 +495,34 @@ Progress Update:
 
     _crawl(url, 0)
 
-    # Calculate total images
+    # Calculate totals
     total_images = sum(result.get('image_count', 0) for result in results)
+    total_js_files = sum(result.get('js_files_count', 0) for result in results)
+    total_css_files = sum(result.get('css_files_count', 0) for result in results)
+    total_fonts = sum(result.get('font_count', 0) for result in results)
+    total_videos = sum(result.get('video_count', 0) for result in results)
+    total_audios = sum(result.get('audio_count', 0) for result in results)
+
+    total_internal_links = sum(result.get('internal_link_count', 0) for result in results)
+    total_external_links = sum(result.get('external_link_count', 0) for result in results)
+    total_nofollow_links = sum(result.get('nofollow_link_count', 0) for result in results)
 
     # Final summary
     stats = rate_limiter.get_stats()
     logging.info(f"""
 Crawl Completed:
 +- Pages: {page_count}
-   +- Images: {total_images}
+   +- Resources:
+      +- Images: {total_images}
+      +- JS Files: {total_js_files}
+      +- CSS Files: {total_css_files}
+      +- Fonts: {total_fonts}
+      +- Videos: {total_videos}
+      +- Audios: {total_audios}
+   +- Links:
+      +- Internal: {total_internal_links}
+      +- External: {total_external_links}
+      +- Nofollow: {total_nofollow_links}
    +- Data: {format_size(total_size)}
    +- Time: {stats['elapsed_time']:.1f}s
    +- Speed: {stats['requests_per_second']:.2f} req/s
@@ -325,6 +534,99 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='''
 PagesXcrawler - Advanced Web Crawler with Smart Rate Limiting
+
+Two ways to use this crawler:
+
+1. Command Line Format:
+   python crawler.py URL DEPTH [OPTIONS]
+
+   Example:
+   python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
+
+2. GitHub Issues Format:
+   url:depth(n):params(key1=value1,key2=value2)
+
+   Example:
+   https://example.com:depth(2):params(max-pages=50,timeout=15)
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+Examples:
+  Basic usage:
+    python crawler.py "https://example.com" 2
+
+  With options:
+    python crawler.py "https://example.com" 2 --max-pages 50 --timeout 15
+
+  With user agent rotation:
+    python crawler.py "https://example.com" 3 --rotate-agent-after 5
+
+  Full example:
+    python crawler.py "https://example.com" 3 --max-pages 50 --timeout 15 --requests-per-second 1 --rotate-agent-after 5
+
+Note: Always enclose URLs in quotes to handle special characters correctly.
+'''
+    )
+
+    parser.add_argument('url',
+                       help='The URL to crawl (include http:// or https://)')
+
+    parser.add_argument('depth', type=int,
+                       help='How many levels deep to crawl (e.g., 2 for homepage and links from it)')
+
+    parser.add_argument('--max-pages', type=int, default=100,
+                       help='Maximum number of pages to crawl (default: 100)')
+
+    parser.add_argument('--timeout', type=int, default=10,
+                       help='Request timeout in seconds (default: 10)')
+
+    parser.add_argument('--requests-per-second', type=float, default=2,
+                       help='Initial rate limiting in requests per second (default: 2)')
+
+    parser.add_argument('--rotate-agent-after', type=int, default=10,
+                       help='Number of requests before rotating user agent (default: 10)')
+
+    args = parser.parse_args()
+
+    # URL validation
+    if not is_valid_url(args.url):
+        logging.error("Error: Invalid URL format. URL must start with http:// or https://")
+        parser.print_help()
+        exit(1)
+
+    # Depth validation
+    if args.depth < 0:
+        logging.error("Error: Depth must be non-negative")
+        parser.print_help()
+        exit(1)
+
+    # Rate limiting validation
+    if args.requests_per_second <= 0:
+        logging.error("Error: Requests per second must be positive")
+        parser.print_help()
+        exit(1)
+
+    try:
+        results = crawl(
+            args.url,
+            args.depth,
+            args.max_pages,
+            args.timeout,
+            args.requests_per_second,
+            args.rotate_agent_after
+        )
+        save_results(results)
+        logging.info("Results saved successfully")
+    except KeyboardInterrupt:
+        logging.info("\nCrawl interrupted by user. Saving partial results...")
+        if results:
+            save_results(results)
+        exit(0)
+    except Exception as e:
+        logging.error(f"Unexpected error: {str(e)}")
+        if results:
+            save_results(results)
+        exit(1)
 
 Two ways to use this crawler:
 

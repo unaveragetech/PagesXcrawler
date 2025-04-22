@@ -22,7 +22,7 @@ def update_html():
     """Generate the HTML dashboard with crawl results"""
     json_path = 'data/results.json'
     csv_path = 'data/results.csv'
-    
+
     results = []
 
     # Load data from JSON if available
@@ -45,6 +45,14 @@ def update_html():
     content_types = defaultdict(int)
     total_words = 0
     total_images = 0
+    total_js_files = 0
+    total_css_files = 0
+    total_fonts = 0
+    total_videos = 0
+    total_audios = 0
+    total_internal_links = 0
+    total_external_links = 0
+    total_nofollow_links = 0
     depths = set()
 
     for result in results:
@@ -53,9 +61,23 @@ def update_html():
         if 'content_type' in result:
             content_type = result['content_type'].split(';')[0].strip()
             content_types[content_type] += 1
+
+        # Count basic stats
         total_words += int(result.get('word_count', 0))
         total_images += int(result.get('image_count', 0))
         depths.add(int(result.get('depth', 0)))
+
+        # Count resource stats
+        total_js_files += int(result.get('js_files_count', 0))
+        total_css_files += int(result.get('css_files_count', 0))
+        total_fonts += int(result.get('font_count', 0))
+        total_videos += int(result.get('video_count', 0))
+        total_audios += int(result.get('audio_count', 0))
+
+        # Count link stats
+        total_internal_links += int(result.get('internal_link_count', 0))
+        total_external_links += int(result.get('external_link_count', 0))
+        total_nofollow_links += int(result.get('nofollow_link_count', 0))
 
     styles = """
         :root {
@@ -106,26 +128,26 @@ def update_html():
         }
 
         @media (min-width: 640px) {
-            .results-container { 
-                grid-template-columns: repeat(1, 1fr); 
+            .results-container {
+                grid-template-columns: repeat(1, 1fr);
             }
         }
 
         @media (min-width: 768px) {
-            .results-container { 
-                grid-template-columns: repeat(2, 1fr); 
+            .results-container {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (min-width: 1024px) {
-            .results-container { 
-                grid-template-columns: repeat(3, 1fr); 
+            .results-container {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (min-width: 1280px) {
-            .results-container { 
-                grid-template-columns: repeat(4, 1fr); 
+            .results-container {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -218,6 +240,14 @@ def update_html():
             text-align: center;
         }
 
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+            text-align: center;
+        }
+
         .card-header {
             margin-bottom: 1rem;
         }
@@ -288,7 +318,7 @@ def update_html():
 <body>
     <div class="container">
         <h1 class="title">Crawler Results Dashboard</h1>
-        
+
         <div class="dashboard">
             <div class="stat-card">
                 <h3>Pages Crawled</h3>
@@ -299,12 +329,60 @@ def update_html():
                 <div class="value">{format_number(total_words)}</div>
             </div>
             <div class="stat-card">
-                <h3>Total Images</h3>
+                <h3>Domains</h3>
+                <div class="value">{format_number(len(domains))}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Links</h3>
+                <div class="value">{format_number(total_internal_links + total_external_links)}</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Resource Statistics</h2>
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Images</h3>
                 <div class="value">{format_number(total_images)}</div>
             </div>
             <div class="stat-card">
-                <h3>Domains</h3>
-                <div class="value">{format_number(len(domains))}</div>
+                <h3>JavaScript Files</h3>
+                <div class="value">{format_number(total_js_files)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>CSS Files</h3>
+                <div class="value">{format_number(total_css_files)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Fonts</h3>
+                <div class="value">{format_number(total_fonts)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Videos</h3>
+                <div class="value">{format_number(total_videos)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Audios</h3>
+                <div class="value">{format_number(total_audios)}</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Link Statistics</h2>
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Internal Links</h3>
+                <div class="value">{format_number(total_internal_links)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>External Links</h3>
+                <div class="value">{format_number(total_external_links)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Nofollow Links</h3>
+                <div class="value">{format_number(total_nofollow_links)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Internal/External Ratio</h3>
+                <div class="value">{total_internal_links / max(total_external_links, 1):.2f}</div>
             </div>
         </div>
 
@@ -376,6 +454,24 @@ def update_html():
                     <div class="stat-item">
                         <span class="meta-info">External Links</span>
                         <span class="value">{format_number(external_links)}</span>
+                    </div>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">JS Files</span>
+                        <span class="value">{format_number(int(result.get('js_files_count', 0)))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">CSS Files</span>
+                        <span class="value">{format_number(int(result.get('css_files_count', 0)))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">URL Length</span>
+                        <span class="value">{format_number(int(result.get('url_length', 0)))}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Path Depth</span>
+                        <span class="value">{format_number(int(result.get('url_path_depth', 0)))}</span>
                     </div>
                 </div>''')
 
