@@ -59,3 +59,4 @@
 142,https://valleywisehealth.org:depth(3),Completed
 143,https://ddosecrets.com:depth(2),Completed
 151,crawl: https://example.com 2 --max-pages 20 --timeout 10 --rotate-agent-after 5,Completed
+152,crawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5,Completed
