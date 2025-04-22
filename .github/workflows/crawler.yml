@@ -25,17 +25,30 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 matplotlib
 
-      # Step 4: Pull latest changes before extracting URL and Depth
+      # Step 4: Add initial comment to issue
+      - name: Add initial comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 Starting crawl process...'
+            })
+
+      # Step 5: Pull latest changes before extracting URL and Depth
       - name: Pull latest changes before extraction
         if: success()
         env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
+          MY_PAT: ${{ secrets.MY_PAT }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
 
-      # Step 5: Extract URL and Depth from issue title
+      # Step 6: Extract URL and Depth from issue title
       - name: Extract URL and Depth
         if: success()
         id: extract
@@ -43,55 +56,76 @@ jobs:
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
 
-          # Regex to capture any URL followed by ":depth(number)"
-          if [[ "$issue_title" =~ ^((https?://)?[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._/-]*)?):depth\(([0-9]+)\)$ ]]; then
+          # Enhanced regex to support more URL formats
+          if [[ "$issue_title" =~ ^((https?://)?[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,})(:[0-9]+)?(/[a-zA-Z0-9._/-]*)?):depth\(([0-9]+)\)(:params\((([^)]*))\))? ]]; then
               echo "URL=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-              echo "DEPTH=${BASH_REMATCH[5]}" >> $GITHUB_ENV
+              echo "DEPTH=${BASH_REMATCH[6]}" >> $GITHUB_ENV
+              echo "PARAMS=${BASH_REMATCH[8]:-}" >> $GITHUB_ENV
               echo "ISSUE_TITLE=${issue_title}" >> $GITHUB_ENV
               echo "ISSUE_NUMBER=${issue_number}" >> $GITHUB_ENV
           else
-              echo "Error: Issue title must be in the format 'url:depth(number)'"
+              echo "Error: Issue title must be in the format 'url:depth(number)' or 'url:depth(number):params(key1=value1,key2=value2)'"
               exit 1
           fi
 
-      # Step 6: Pull latest changes before running the crawler
-      - name: Pull latest changes before crawling
+      # Step 7: Update issue with extracted parameters
+      - name: Update issue with parameters
         if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `📋 Crawl parameters:
+              - URL: ${{ env.URL }}
+              - Depth: ${{ env.DEPTH }}
+              - Additional params: ${{ env.PARAMS || 'None' }}`
+            })
 
-      # Step 7: Run the crawler script with extracted URL and Depth
+      # Step 8: Run the crawler script
       - name: Run crawler
+        id: crawler
         if: success()
         run: |
           echo "Running crawler with URL: $URL and Depth: $DEPTH"
-          python crawler.py "$URL" "$DEPTH"
+          if [ -n "$PARAMS" ]; then
+            # Parse and add additional parameters
+            ADDITIONAL_ARGS=""
+            IFS=',' read -ra PARAM_PAIRS <<< "$PARAMS"
+            for PAIR in "${PARAM_PAIRS[@]}"; do
+              KEY="${PAIR%%=*}"
+              VALUE="${PAIR##*=}"
+              ADDITIONAL_ARGS="$ADDITIONAL_ARGS --$KEY $VALUE"
+            done
+            python crawler.py "$URL" "$DEPTH" $ADDITIONAL_ARGS
+          else
+            python crawler.py "$URL" "$DEPTH"
+          fi
 
-      # Step 8: Pull latest changes before updating HTML
-      - name: Pull latest changes before HTML update
+      # Step 9: Update issue with crawl completion
+      - name: Update issue with completion
         if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Crawl completed successfully! Updating HTML...'
+            })
 
-      # Step 9: Update HTML page with new data
+      # Step 10: Update HTML page
       - name: Update HTML page
         if: success()
         run: |
           python scripts/update_html.py
 
-      # Step 10: Pull latest changes before logging issue status
-      - name: Pull latest changes before logging
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
-
-      # Step 11: Log issue completion status in CSV file
+      # Step 11: Log issue status
       - name: Log issue status
         if: success()
         run: |
@@ -101,56 +135,8 @@ jobs:
           fi
           echo "${{ env.ISSUE_NUMBER }},${{ env.ISSUE_TITLE }},Completed" >> "$CSV_FILE"
 
-      # Step 12: Pull latest changes before closing the issue
-      - name: Pull latest changes before closing issue
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
-
-      # Step 13: Close the issue programmatically using GitHub API
-      - name: Close the issue
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ISSUE_NUMBER="${{ github.event.issue.number }}"
-          echo "Closing issue #$ISSUE_NUMBER"
-          curl -X PATCH \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER \
-            -d '{"state": "closed"}'
-
-      # Step 14: Pull latest changes before committing results
-      - name: Pull latest changes before committing
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
-
-      # Step 15: Commit results to the repository
-      - name: Commit results
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git add data/results.json data/results.csv data/issues_status.csv index.html
-          git commit -m "Update results and log issues" || echo "No changes to commit"
-          git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
-
-      # Step 16: Pull latest changes before counting deployments and actions
-      - name: Pull latest changes before counting
-        if: success()
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}  # Use Personal Access Token for auth
-        run: |
-          git pull https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
-
-      # Step 17: Count deployments, actions, and generate chart
-      - name: Count Deployments, Actions, and Generate Chart
+      # Step 12: Update counters
+      - name: Update counters
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -171,26 +157,26 @@ jobs:
             echo $count
           }
 
-          deployments_count=$(count_paginated "https://api.github.com/repos/unaveragetech/PagesXcrawler/deployments")
-          actions_count=$(count_paginated "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs")
-          successful_actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=100" | \
+          deployments_count=$(count_paginated "https://api.github.com/repos/${{ github.repository }}/deployments")
+          actions_count=$(count_paginated "https://api.github.com/repos/${{ github.repository }}/actions/runs")
+          successful_actions=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=100" | \
             jq '[.workflow_runs[] | select(.conclusion == "success")] | length')
-          failed_actions_count=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/unaveragetech/PagesXcrawler/actions/runs?per_page=100" | \
+          failed_actions=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=100" | \
             jq '[.workflow_runs[] | select(.conclusion == "failure")] | length')
 
           echo '{"schemaVersion": 1, "label": "Deployments", "message": "'"$deployments_count"'", "color": "blue"}' > data/deployments.json
           echo '{"schemaVersion": 1, "label": "Actions", "message": "'"$actions_count"'", "color": "green"}' > data/actions.json
-          echo '{"schemaVersion": 1, "label": "Successful Actions", "message": "'"$successful_actions_count"'", "color": "brightgreen"}' > data/successful_actions.json
-          echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions_count"'", "color": "red"}' > data/failed_actions.json
+          echo '{"schemaVersion": 1, "label": "Successful Actions", "message": "'"$successful_actions"'", "color": "brightgreen"}' > data/successful_actions.json
+          echo '{"schemaVersion": 1, "label": "Failed Actions", "message": "'"$failed_actions"'", "color": "red"}' > data/failed_actions.json
 
-          # Generate a bar chart with matplotlib
+          # Generate chart
           python - <<EOF
           import matplotlib.pyplot as plt
           
           labels = ['Deployments', 'Actions', 'Successful Actions', 'Failed Actions']
-          values = [${deployments_count}, ${actions_count}, ${successful_actions_count}, ${failed_actions_count}]
+          values = [${deployments_count}, ${actions_count}, ${successful_actions}, ${failed_actions}]
           colors = ['blue', 'green', 'lime', 'red']
           
           plt.figure(figsize=(8, 6))
@@ -201,6 +187,52 @@ jobs:
           plt.savefig('data/actions_chart.png')
           EOF
 
-          git add data/deployments.json data/actions.json data/successful_actions.json data/failed_actions.json data/actions_chart.png
-          git commit -m "Update counters and chart for deployments and actions" || echo "No changes to commit"
+      # Step 13: Commit results
+      - name: Commit results
+        if: success()
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}
+        run: |
+          git add data/* index.html
+          git commit -m "Update results for issue #${{ env.ISSUE_NUMBER }}" || echo "No changes to commit"
           git push https://x-access-token:${MY_PAT}@github.com/${{ github.repository }} HEAD:main
+
+      # Step 14: Final update and delay before closing
+      - name: Final update and delay
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Add final comment
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🎉 Task completed! Results have been updated.\n\nView the results at: https://${{ github.repository_owner }}.github.io/PagesXcrawler'
+            });
+            
+            // Wait 30 seconds
+            await new Promise(resolve => setTimeout(resolve, 30000));
+            
+            // Close the issue
+            await github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed'
+            });
+
+      # Error handling
+      - name: Handle failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ The crawl process encountered an error. Please check the action logs for details.'
+            })

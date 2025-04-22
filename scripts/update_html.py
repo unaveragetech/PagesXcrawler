@@ -1,11 +1,25 @@
-# This script updates the `index.html` file with the latest results from `results.json` and `results.csv`.
-# It processes the data, adds formatting, and generates a more readable webpage for the GitHub Pages site.
-
 import json
 import os
 import csv
+from collections import defaultdict
+from urllib.parse import urlparse
+import re
+from datetime import datetime
+
+def format_size(size):
+    """Format size in bytes to human readable format"""
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if size < 1024:
+            return f"{size:.2f} {unit}"
+        size /= 1024
+    return f"{size:.2f} GB"
+
+def format_number(num):
+    """Format number with thousand separators"""
+    return "{:,}".format(int(num))
 
 def update_html():
+    """Generate the HTML dashboard with crawl results"""
     json_path = 'data/results.json'
     csv_path = 'data/results.csv'
     
@@ -13,118 +27,407 @@ def update_html():
 
     # Load data from JSON if available
     if os.path.exists(json_path):
-        with open(json_path, 'r') as json_file:
+        with open(json_path, 'r', encoding='utf-8') as json_file:
             results.extend(json.load(json_file))
 
     # Load data from CSV if available
     if os.path.exists(csv_path):
-        with open(csv_path, 'r') as csv_file:
+        with open(csv_path, 'r', encoding='utf-8') as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
+                for key in ['h1_tags', 'h2_tags', 'link_texts']:
+                    if isinstance(row.get(key), str):
+                        row[key] = eval(row[key]) if row[key] else []
                 results.append(row)
-    
-    # Start building the HTML structure
-    with open('index.html', 'w') as html_file:
-        html_file.write('<!DOCTYPE html>\n<html lang="en">\n<head>\n')
-        html_file.write('<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
-        html_file.write('<title>🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 ٩ʕ◕౪◕ʔو.url  ٩ʕ◕౪◕ʔو hmm. --Web Crawler System--</title>\n')
-        html_file.write('<style>\n')
-        html_file.write('body { font-family: Arial, sans-serif; margin: 0; display: flex; }\n')
-        html_file.write('.sidebar { width: 250px; background-color: #f4f4f4; padding: 20px; overflow-y: auto; height: 100vh; }\n')
-        html_file.write('.content { flex: 1; padding: 20px; }\n')
-        html_file.write('h1 { color: #333; }\n')
-        html_file.write('.results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }\n')
-        html_file.write('.result-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #ffffff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }\n')
-        html_file.write('.result-card h3 { font-size: 18px; color: #007BFF; }\n')
-        html_file.write('.result-card p { margin: 5px 0; font-size: 14px; }\n')
-        html_file.write('.url { font-weight: bold; color: #007BFF; }\n')
-        html_file.write('.sidebar ul { list-style-type: none; padding: 0; }\n')
-        html_file.write('.sidebar ul li { margin: 10px 0; }\n')
-        html_file.write('.sidebar a { text-decoration: none; color: #007BFF; }\n')
-        html_file.write('</style>\n')
-        html_file.write('</head>\n<body>\n')
-        html_file.write('<div class="sidebar">\n<h2>Navigation</h2>\n<ul>\n')
 
-        # Create a list of links for each URL
-        for index, result in enumerate(results):
-            url = result.get("url", "N/A")
-            html_file.write(f'<li><a href="#result-{index}">{url}</a></li>\n')
+    # Process data for visualization
+    domains = defaultdict(int)
+    content_types = defaultdict(int)
+    total_words = 0
+    total_images = 0
+    depths = set()
 
-        html_file.write('</ul>\n</div>\n')
-        html_file.write('<div class="content">\n<h1 id="results">🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 Results</h1>\n')
-        
-        # Add search bar and filters
-        html_file.write('''<div>
-            <input type="text" id="searchInput" placeholder="Search by keyword..." onkeyup="filterResults()" style="padding: 5px; margin-bottom: 10px; width: 200px;">
-            <select id="filterDropdown" onchange="filterResults()" style="padding: 5px; margin-left: 10px;">
-                <option value="">Filter by depth</option>
-                <option value="1">Depth 1</option>
-                <option value="2">Depth 2</option>
-                <option value="3">Depth 3</option>
-                <!-- Add more depth options if needed -->
-            </select>
-        </div>''')
+    for result in results:
+        domain = urlparse(result['url']).netloc
+        domains[domain] += 1
+        if 'content_type' in result:
+            content_type = result['content_type'].split(';')[0].strip()
+            content_types[content_type] += 1
+        total_words += int(result.get('word_count', 0))
+        total_images += int(result.get('image_count', 0))
+        depths.add(int(result.get('depth', 0)))
 
-        # Add results container
-        if results:
-            html_file.write('<div class="results-container" id="resultsContainer">\n')
-            for index, result in enumerate(results):
-                url = result.get("url", "N/A")
-                depth = result.get("depth", "N/A")
-                title = result.get("title", "N/A")
-                meta_description = result.get("meta_description", "N/A")
-                meta_keywords = result.get("meta_keywords", "N/A")
-                internal_link_count = result.get("internal_link_count", "0")
-                external_link_count = result.get("external_link_count", "0")
-                word_count = result.get("word_count", "0")
-                image_count = result.get("image_count", "0")
-                h1_tags = ', '.join(result.get("h1_tags", []))
-                h2_tags = ', '.join(result.get("h2_tags", []))
+    styles = """
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #93c5fd;
+            --secondary-color: #64748b;
+            --background-color: #f1f5f9;
+            --card-background: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
 
-                html_file.write(
-                    f'<div class="result-card" id="result-{index}" data-depth="{depth}" data-keywords="{meta_keywords}">'
-                    f'<h3 class="url">{url}</h3>'
-                    f'<p><strong>Depth:</strong> {depth}</p>'
-                    f'<p><strong>Title:</strong> {title}</p>'
-                    f'<p><strong>Meta Description:</strong> {meta_description}</p>'
-                    f'<p><strong>Meta Keywords:</strong> {meta_keywords}</p>'
-                    f'<p><strong>H1 Tags:</strong> {h1_tags}</p>'
-                    f'<p><strong>H2 Tags:</strong> {h2_tags}</p>'
-                    f'<p><strong>Internal Links:</strong> {internal_link_count}</p>'
-                    f'<p><strong>External Links:</strong> {external_link_count}</p>'
-                    f'<p><strong>Word Count:</strong> {word_count}</p>'
-                    f'<p><strong>Image Count:</strong> {image_count}</p>'
-                    f'</div>\n'
-                )
-            html_file.write('</div>\n')
-        else:
-            html_file.write('<p>No crawl results available at the moment.</p>\n')
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        # Add JavaScript for search and filter functionality
-        html_file.write('''<script>
-            function filterResults() {
-                const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
-                const filterDropdown = document.getElementById('filterDropdown').value;
-                const resultsContainer = document.getElementById('resultsContainer');
-                const resultCards = resultsContainer.getElementsByClassName('result-card');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
 
-                Array.from(resultCards).forEach(card => {
-                    const keywords = card.getAttribute('data-keywords').toLowerCase();
-                    const depth = card.getAttribute('data-depth');
-                    const matchesSearch = !searchInput || keywords.includes(searchInput);
-                    const matchesFilter = !filterDropdown || depth === filterDropdown;
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
-                    if (matchesSearch && matchesFilter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .results-container { 
+                grid-template-columns: repeat(1, 1fr); 
             }
-        </script>''')
+        }
 
-        # Footer and closing tags
-        html_file.write('</div>\n</body>\n</html>')
+        @media (min-width: 768px) {
+            .results-container { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .results-container { 
+                grid-template-columns: repeat(3, 1fr); 
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .results-container { 
+                grid-template-columns: repeat(4, 1fr); 
+            }
+        }
+
+        .result-card {
+            background: var(--card-background);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .filters {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .stat-card {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-card h3 {
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .title {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .card-header {
+            margin-bottom: 1rem;
+        }
+
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 0.5rem;
+            margin-top: auto;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-info {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+        }
+
+        .value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .url {
+            color: var(--primary-dark);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .url:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    """
+
+    # Write HTML content
+    with open('index.html', 'w', encoding='utf-8') as html_file:
+        html_file.write(f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crawler Results Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        {styles}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Crawler Results Dashboard</h1>
+        
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Pages Crawled</h3>
+                <div class="value">{format_number(len(results))}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Words</h3>
+                <div class="value">{format_number(total_words)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Images</h3>
+                <div class="value">{format_number(total_images)}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Domains</h3>
+                <div class="value">{format_number(len(domains))}</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="searchInput">Search Content</label>
+                <input type="text" id="searchInput" placeholder="Enter keywords...">
+            </div>
+            <div class="filter-group">
+                <label for="domainFilter">Filter by Domain</label>
+                <select id="domainFilter">
+                    <option value="">All Domains</option>''')
+
+        # Add domain options
+        for domain in sorted(domains):
+            count = domains[domain]
+            html_file.write(f'<option value="{domain}">{domain} ({count})</option>')
+
+        html_file.write('''
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="depthFilter">Filter by Depth</label>
+                <select id="depthFilter">
+                    <option value="">All Depths</option>''')
+
+        # Add depth options
+        for depth in sorted(depths):
+            html_file.write(f'<option value="{depth}">Depth {depth}</option>')
+
+        html_file.write('''
+                </select>
+            </div>
+        </div>
+
+        <div class="results-container">''')
+
+        # Add result cards
+        for result in results:
+            url = result.get('url', 'N/A')
+            domain = urlparse(url).netloc
+            depth = result.get('depth', 'N/A')
+            title = result.get('title', 'No Title')
+            word_count = int(result.get('word_count', 0))
+            image_count = int(result.get('image_count', 0))
+            internal_links = int(result.get('internal_link_count', 0))
+            external_links = int(result.get('external_link_count', 0))
+
+            html_file.write(f'''
+            <div class="result-card" data-domain="{domain}" data-depth="{depth}">
+                <div class="card-header">
+                    <span class="tag">Depth {depth}</span>
+                    <h2 class="title">{title}</h2>
+                    <a href="{url}" target="_blank" class="url">{url}</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">{format_number(word_count)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">{format_number(image_count)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">{format_number(internal_links)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">{format_number(external_links)}</span>
+                    </div>
+                </div>''')
+
+            if result.get('meta_description'):
+                html_file.write(f'''
+                <div class="meta-info">
+                    <strong>Description:</strong> {result['meta_description']}
+                </div>''')
+
+            if result.get('meta_keywords'):
+                html_file.write(f'''
+                <div class="meta-info">
+                    <strong>Keywords:</strong> {result['meta_keywords']}
+                </div>''')
+
+            html_file.write('\n            </div>')
+
+        # Close containers and add JavaScript
+        html_file.write('''
+        </div>
+    </div>
+    <script>
+        function filterResults() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const domainFilter = document.getElementById('domainFilter').value;
+            const depthFilter = document.getElementById('depthFilter').value;
+            const cards = document.getElementsByClassName('result-card');
+
+            Array.from(cards).forEach(card => {
+                const content = card.textContent.toLowerCase();
+                const domain = card.getAttribute('data-domain');
+                const depth = card.getAttribute('data-depth');
+
+                const matchesSearch = content.includes(searchInput);
+                const matchesDomain = !domainFilter || domain === domainFilter;
+                const matchesDepth = !depthFilter || depth === depthFilter;
+
+                if (matchesSearch && matchesDomain && matchesDepth) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterResults);
+        document.getElementById('domainFilter').addEventListener('change', filterResults);
+        document.getElementById('depthFilter').addEventListener('change', filterResults);
+    </script>
+</body>
+</html>
+''')
 
 if __name__ == "__main__":
     update_html()

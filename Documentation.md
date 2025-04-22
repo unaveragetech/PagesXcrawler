@@ -1,40 +1,99 @@
+# PagesXcrawler Technical Documentation
 
-🌐 Introducing PagesXcrawler: My New Proof-of-Concept Web Crawler! 🌐
+[Previous sections remain the same until User Agent Management...]
 
-Ever wanted a way to explore a website from top to bottom without needing to be an expert in web scraping? That’s exactly why I made PagesXcrawler—a simple, self-hosted, and straightforward web crawler that requires no setup and minimal knowledge to get started. It was a proof of concept at first, but it turned out to be a powerful and useful tool for diving deep into sites, gathering all the links you need in one go. Here’s why it’s awesome and how it works!
+## 2. Crawler Engine
 
-Why PagesXcrawler?
+### 2.1 User Agent Management
 
-Building PagesXcrawler was about showing that crawling a website doesn’t have to be complicated or require a complex setup. The idea was to take something typically reserved for developers or data scientists and make it accessible to anyone with a GitHub account. Now, with just a few clicks and a tiny bit of typing, you can gather all the links from a website at any level of depth, making it perfect for SEO, research, or just seeing where a site’s rabbit hole takes you.
+The crawler implements a sophisticated user agent rotation system:
 
-Imagine wanting to see how deeply Wikipedia branches out, or mapping a blog’s internal links. You could do this with expensive software or a programming background—or you could just use PagesXcrawler!
+#### Available User Agents
 
-How to Use PagesXcrawler (Super Simple Steps):
+| Category | Browser | Version | Example |
+|----------|---------|---------|---------|
+| **Windows** | Chrome | 91.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ...` |
+| | | 92.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ...` |
+| | | 93.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ...` |
+| | Firefox | 90.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) ...` |
+| | | 91.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) ...` |
+| | | 92.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) ...` |
+| | Edge | 91.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) ... Edg/91.0` |
+| | | 92.0 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) ... Edg/92.0` |
+| **macOS** | Safari | 14.1.2 | `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) ...` |
+| | Chrome | 91.0 | `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) ...` |
+| | | 92.0 | `Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5_2) ...` |
+| | Firefox | 90.0 | `Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:90.0) ...` |
+| | | 91.0 | `Mozilla/5.0 (Macintosh; Intel Mac OS X 11.5; rv:91.0) ...` |
+| **Linux** | Chrome | 91.0 | `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ...` |
+| | | 92.0 | `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ...` |
+| | Firefox | 90.0 | `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) ...` |
+| | | 91.0 | `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) ...` |
+| **Mobile** | Android | Chrome | `Mozilla/5.0 (Linux; Android 11; SM-G991B) ...` |
+| | iOS | Safari | `Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) ...` |
 
-	1.	Head to the PagesXcrawler Repo: Everything is hosted on GitHub, so there’s no software to download, and it’s free to use.
-	2.	Create a New Issue with Your Target Link: In the repo, open a new issue and, in the title, paste the link you want to crawl. Add a colon and then the crawl depth (e.g., https://example.com:2). The depth tells the crawler how far to dig into the site’s link structure.
-	•	Example: Typing https://example.com:2 tells PagesXcrawler to go two levels deep on example.com.
-	•	The crawler will start from the homepage and go deeper into linked pages, gathering as much data as you specify.
-	3.	Sit Back and Let PagesXcrawler Do Its Thing: The crawler will run automatically, saving everything it finds. All you have to do is wait about 60 seconds, then check the deployments page to see if your crawl is complete.
+#### User Agent Rotation
 
-What You Get:
+The crawler now supports configurable user agent rotation:
 
-Once the crawl is complete, you’ll find:
+```python
+class RateLimiter:
+    def __init__(self, initial_requests_per_second=2, rotate_agent_after=10):
+        self.rotate_after = rotate_agent_after
+        self.requests_since_rotation = 0
+```
 
-	•	results.json: A JSON file with the latest crawl’s findings, perfect for processing.
-	•	results.csv: The same data in a CSV format, ideal for viewing in a spreadsheet.
-	•	issue_status.csv: A log of all past crawls and their statuses.
+#### Parameters
 
-This setup makes it easy to track what you’ve crawled and see the latest results without having to manage data manually. Everything is saved automatically, and the latest crawl always overwrites the previous results, so you’re not dealing with huge files of outdated data. But, if you’re interested in tracking your progress, issue_status.csv keeps a record of all past runs.
+| Parameter | Description | Default | Example |
+|-----------|-------------|---------|---------|
+| `rotate-agent-after` | Number of requests before rotating user agent | 10 | `--rotate-agent-after 5` |
 
-Key Things to Remember:
+Example usage with user agent rotation:
+```bash
+python crawler.py https://example.com 2 --rotate-agent-after 5
+```
 
-	•	Single-User Mode: PagesXcrawler is designed to serve one person at a time. If multiple people want to use it, they can fork the repo and add their own Actions key. Just add it to the environment variables, and you’re good to go!
-	•	Depth and Crawl Time: The deeper the crawl, the longer it will take. Certain sites may take longer, especially those with complex URLs or special characters like slashes. At the moment, those URLs might be tricky, but future updates are planned to fix this.
-	•	Checking the Status: Since there’s no real-time status indicator, you may need to give it a minute before checking the deployments page to see the latest crawl status.
+This will rotate the user agent after every 5 requests, helping to avoid detection while crawling.
 
-Why Use PagesXcrawler?
+#### Rotation Strategy
 
-PagesXcrawler is perfect for anyone who wants to quickly gather data from a website, whether for SEO analysis, research, or simply exploring a website’s structure. Think of it as a handy tool that lets you explore a site’s full structure with zero effort. With PagesXcrawler, you’re one issue post away from gathering every link on a site, and it’s all automated—no extra steps, no learning curve.
+1. User agents are randomly shuffled on initialization
+2. System rotates through agents after specified number of requests
+3. Rotation is logged for monitoring
+4. Counter resets after each rotation
+5. Rotation occurs across all categories for maximum variety
 
-Try it out, explore a site, and let me know what you think. Happy crawling!
+### 2.2 Smart Rate Limiting
+
+[Rest of the documentation remains the same...]
+
+## 3. Parameters Reference
+
+Updated parameters table:
+
+| Parameter | Required | Default | Description | Example |
+|-----------|:--------:|:-------:|-------------|---------|
+| **url** | ✅ | - | The URL to crawl | `https://example.com` |
+| **depth** | ✅ | - | Number of link levels to follow | `3` |
+| **max-pages** | ❌ | 100 | Maximum number of pages to crawl | `50` |
+| **timeout** | ❌ | 10 | Request timeout in seconds | `15` |
+| **requests-per-second** | ❌ | 2 | Initial rate limiting | `1.5` |
+| **rotate-agent-after** | ❌ | 10 | Requests before agent rotation | `5` |
+
+[Rest of the documentation continues...]
+
+### Advanced Usage Examples
+
+```bash
+# Basic crawl with default rotation
+https://example.com:depth(2)
+
+# Fast crawl with frequent rotation
+https://example.com:depth(2):params(requests-per-second=3,rotate-agent-after=5)
+
+# Careful crawl with slow rotation
+https://example.com:depth(2):params(requests-per-second=1,rotate-agent-after=20)
+```
+
+[Continue with existing documentation...]

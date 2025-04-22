@@ -1,223 +1,1917 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 ٩ʕ◕౪◕ʔو.url  ٩ʕ◕౪◕ʔو hmm. --Web Crawler System--</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 0; display: flex; }
-.sidebar { width: 250px; background-color: #f4f4f4; padding: 20px; overflow-y: auto; height: 100vh; }
-.content { flex: 1; padding: 20px; }
-h1 { color: #333; }
-.results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-.result-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #ffffff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
-.result-card h3 { font-size: 18px; color: #007BFF; }
-.result-card p { margin: 5px 0; font-size: 14px; }
-.url { font-weight: bold; color: #007BFF; }
-.sidebar ul { list-style-type: none; padding: 0; }
-.sidebar ul li { margin: 10px 0; }
-.sidebar a { text-decoration: none; color: #007BFF; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crawler Results Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #93c5fd;
+            --secondary-color: #64748b;
+            --background-color: #f1f5f9;
+            --card-background: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .results-container { 
+                grid-template-columns: repeat(1, 1fr); 
+            }
+        }
+
+        @media (min-width: 768px) {
+            .results-container { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .results-container { 
+                grid-template-columns: repeat(3, 1fr); 
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .results-container { 
+                grid-template-columns: repeat(4, 1fr); 
+            }
+        }
+
+        .result-card {
+            background: var(--card-background);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .filters {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .stat-card {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-card h3 {
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .title {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .card-header {
+            margin-bottom: 1rem;
+        }
+
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 0.5rem;
+            margin-top: auto;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-info {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+        }
+
+        .value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .url {
+            color: var(--primary-dark);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .url:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    
+    </style>
 </head>
 <body>
-<div class="sidebar">
-<h2>Navigation</h2>
-<ul>
-<li><a href="#result-0">https://ddosecrets.com</a></li>
-<li><a href="#result-1">https://ddosecrets.com/</a></li>
-<li><a href="#result-2">https://ddosecrets.com/about</a></li>
-<li><a href="#result-3">https://ddosecrets.com/submit</a></li>
-<li><a href="#result-4">https://ddosecrets.com/type/Hack</a></li>
-<li><a href="#result-5">https://ddosecrets.com/type/Corporate</a></li>
-<li><a href="#result-6">https://ddosecrets.com/country/United%20States</a></li>
-<li><a href="#result-7">https://ddosecrets.com/type/Limited%20Distribution</a></li>
-<li><a href="#result-8">https://ddosecrets.com/source/Anonymous</a></li>
-<li><a href="#result-9">https://ddosecrets.com/all_categories</a></li>
-<li><a href="#result-10">https://ddosecrets.com/article/israel-police</a></li>
-<li><a href="#result-11">https://ddosecrets.com/author/Bonaventure</a></li>
-<li><a href="#result-12">https://ddosecrets.com/article/mineral-resources-authority-of-papua-new-guinea</a></li>
-<li><a href="#result-13">https://ddosecrets.com/article/tesla-sexy-harassment-and-doxing</a></li>
-<li><a href="#result-14">https://ddosecrets.com/article/lexipolleaks</a></li>
-<li><a href="#result-15">https://ddosecrets.com/article/paramilitary-leaks</a></li>
-<li><a href="#result-16">https://ddosecrets.com/article/douglas-valentine-collection</a></li>
-<li><a href="#result-17">https://ddosecrets.com/article/statement-on-israeli-sanctions-against-the-media</a></li>
-<li><a href="#result-18">https://ddosecrets.com/article/introducing-the-ddosecrets-library-system</a></li>
-<li><a href="#result-19">https://ddosecrets.com/article/andrew-tate-s-war-room-videos</a></li>
-<li><a href="#result-20">https://ddosecrets.com/article/kazakhstan-ministry-of-energy</a></li>
-<li><a href="#result-21">https://ddosecrets.com/all_articles/recent</a></li>
-<li><a href="#result-22">https://ddosecrets.com/article/meritservus-and-meritkapital</a></li>
-<li><a href="#result-23">https://ddosecrets.com/article/myanmar-investments</a></li>
-<li><a href="#result-24">https://ddosecrets.com/article/roskomnadzor-moscow</a></li>
-<li><a href="#result-25">https://ddosecrets.com/article/fiscalia-of-colombia</a></li>
-<li><a href="#result-26">https://ddosecrets.com/article/mspy</a></li>
-<li><a href="#result-27">https://ddosecrets.com/all_articles/edited</a></li>
-<li><a href="#result-28">https://ddosecrets.com/article/israel-ministry-of-justice</a></li>
-<li><a href="#result-29">https://ddosecrets.com/article/eswatini-financial-intelligence-unit</a></li>
-<li><a href="#result-30">https://ddosecrets.com/author/mx_yzptlk</a></li>
-<li><a href="#result-31">https://ddosecrets.com/article/fuerza-armada-de-el-salvador</a></li>
-<li><a href="#result-32">https://ddosecrets.com/author/artvandelay</a></li>
-<li><a href="#result-33">https://ddosecrets.com/article/embassy-of-ecuador-moscow</a></li>
-<li><a href="#result-34">https://ddosecrets.com/article/djc-accountants</a></li>
-<li><a href="#result-35">https://ddosecrets.com/article/cellebrite-and-msab</a></li>
-<li><a href="#result-36">https://ddosecrets.com/article/bahamas-registry</a></li>
-<li><a href="#result-37">https://ddosecrets.com/article/ariantel</a></li>
-<li><a href="#result-38">https://ddosecrets.com/article/kallias-and-associates</a></li>
-<li><a href="#result-39">https://ddosecrets.com/all_articles/external</a></li>
-<li><a href="#result-40">https://ddosecrets.com</a></li>
-<li><a href="#result-41">https://ddosecrets.com/</a></li>
-<li><a href="#result-42">https://ddosecrets.com/about</a></li>
-<li><a href="#result-43">https://ddosecrets.com/submit</a></li>
-<li><a href="#result-44">https://ddosecrets.com/type/Hack</a></li>
-<li><a href="#result-45">https://ddosecrets.com/type/Corporate</a></li>
-<li><a href="#result-46">https://ddosecrets.com/country/United%20States</a></li>
-<li><a href="#result-47">https://ddosecrets.com/type/Limited%20Distribution</a></li>
-<li><a href="#result-48">https://ddosecrets.com/source/Anonymous</a></li>
-<li><a href="#result-49">https://ddosecrets.com/all_categories</a></li>
-<li><a href="#result-50">https://ddosecrets.com/article/israel-police</a></li>
-<li><a href="#result-51">https://ddosecrets.com/author/Bonaventure</a></li>
-<li><a href="#result-52">https://ddosecrets.com/article/mineral-resources-authority-of-papua-new-guinea</a></li>
-<li><a href="#result-53">https://ddosecrets.com/article/tesla-sexy-harassment-and-doxing</a></li>
-<li><a href="#result-54">https://ddosecrets.com/article/lexipolleaks</a></li>
-<li><a href="#result-55">https://ddosecrets.com/article/paramilitary-leaks</a></li>
-<li><a href="#result-56">https://ddosecrets.com/article/douglas-valentine-collection</a></li>
-<li><a href="#result-57">https://ddosecrets.com/article/statement-on-israeli-sanctions-against-the-media</a></li>
-<li><a href="#result-58">https://ddosecrets.com/article/introducing-the-ddosecrets-library-system</a></li>
-<li><a href="#result-59">https://ddosecrets.com/article/andrew-tate-s-war-room-videos</a></li>
-<li><a href="#result-60">https://ddosecrets.com/article/kazakhstan-ministry-of-energy</a></li>
-<li><a href="#result-61">https://ddosecrets.com/all_articles/recent</a></li>
-<li><a href="#result-62">https://ddosecrets.com/article/meritservus-and-meritkapital</a></li>
-<li><a href="#result-63">https://ddosecrets.com/article/myanmar-investments</a></li>
-<li><a href="#result-64">https://ddosecrets.com/article/roskomnadzor-moscow</a></li>
-<li><a href="#result-65">https://ddosecrets.com/article/fiscalia-of-colombia</a></li>
-<li><a href="#result-66">https://ddosecrets.com/article/mspy</a></li>
-<li><a href="#result-67">https://ddosecrets.com/all_articles/edited</a></li>
-<li><a href="#result-68">https://ddosecrets.com/article/israel-ministry-of-justice</a></li>
-<li><a href="#result-69">https://ddosecrets.com/article/eswatini-financial-intelligence-unit</a></li>
-<li><a href="#result-70">https://ddosecrets.com/author/mx_yzptlk</a></li>
-<li><a href="#result-71">https://ddosecrets.com/article/fuerza-armada-de-el-salvador</a></li>
-<li><a href="#result-72">https://ddosecrets.com/author/artvandelay</a></li>
-<li><a href="#result-73">https://ddosecrets.com/article/embassy-of-ecuador-moscow</a></li>
-<li><a href="#result-74">https://ddosecrets.com/article/djc-accountants</a></li>
-<li><a href="#result-75">https://ddosecrets.com/article/cellebrite-and-msab</a></li>
-<li><a href="#result-76">https://ddosecrets.com/article/bahamas-registry</a></li>
-<li><a href="#result-77">https://ddosecrets.com/article/ariantel</a></li>
-<li><a href="#result-78">https://ddosecrets.com/article/kallias-and-associates</a></li>
-<li><a href="#result-79">https://ddosecrets.com/all_articles/external</a></li>
-</ul>
-</div>
-<div class="content">
-<h1 id="results">🅿🅰🅶🅴🆂🆇🅲🆁🅰🆆🅻🅴🆁 Results</h1>
-<div>
-            <input type="text" id="searchInput" placeholder="Search by keyword..." onkeyup="filterResults()" style="padding: 5px; margin-bottom: 10px; width: 200px;">
-            <select id="filterDropdown" onchange="filterResults()" style="padding: 5px; margin-left: 10px;">
-                <option value="">Filter by depth</option>
-                <option value="1">Depth 1</option>
-                <option value="2">Depth 2</option>
-                <option value="3">Depth 3</option>
-                <!-- Add more depth options if needed -->
-            </select>
-        </div><div class="results-container" id="resultsContainer">
-<div class="result-card" id="result-0" data-depth="0" data-keywords=""><h3 class="url">https://ddosecrets.com</h3><p><strong>Depth:</strong> 0</p><p><strong>Title:</strong> Home - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets</p><p><strong>H2 Tags:</strong> Welcome to Distributed Denial of Secrets, Recently Published, Recently Edited, Collaborations</p><p><strong>Internal Links:</strong> 103</p><p><strong>External Links:</strong> 10</p><p><strong>Word Count:</strong> 1296</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-1" data-depth="1" data-keywords=""><h3 class="url">https://ddosecrets.com/</h3><p><strong>Depth:</strong> 1</p><p><strong>Title:</strong> Home - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets</p><p><strong>H2 Tags:</strong> Welcome to Distributed Denial of Secrets, Recently Published, Recently Edited, Collaborations</p><p><strong>Internal Links:</strong> 103</p><p><strong>External Links:</strong> 10</p><p><strong>Word Count:</strong> 1296</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-2" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/about</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> About Us - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, About Us</p><p><strong>H2 Tags:</strong> Lorax B. Horne, Emma Best, Maggie Mayhem, Bonaventure, Micah Lee, Glenn Sorrentino, Milo Z. Trujillo, Delfin Mocache Massoko, Annalise Burkhart, Brassy, Media</p><p><strong>Internal Links:</strong> 9</p><p><strong>External Links:</strong> 14</p><p><strong>Word Count:</strong> 618</p><p><strong>Image Count:</strong> 10</p></div>
-<div class="result-card" id="result-3" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/submit</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Submit - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Data Submission</p><p><strong>H2 Tags:</strong> Guidelines for Potential Sources</p><p><strong>Internal Links:</strong> 4</p><p><strong>External Links:</strong> 10</p><p><strong>Word Count:</strong> 417</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-4" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/type/Hack</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles of Type: Hack - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles of Type "Hack"</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 798</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 10071</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-5" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/type/Corporate</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles of Type: Corporate - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles of Type "Corporate"</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 495</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 6183</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-6" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/country/United%20States</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles from United States - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles from United States</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 378</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 4817</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-7" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/type/Limited%20Distribution</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles of Type: Limited Distribution - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles of Type "Limited Distribution"</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 270</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 3608</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-8" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/source/Anonymous</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles from Anonymous - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles with Source: Anonymous</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 237</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 3002</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-9" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_categories</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All Categories - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, All Categories</p><p><strong>H2 Tags:</strong> All Articles, Types, Countries, Sources</p><p><strong>Internal Links:</strong> 212</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 423</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-10" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/israel-police</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Israel Police - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Israel Police</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, References, Related Articles</p><p><strong>Internal Links:</strong> 44</p><p><strong>External Links:</strong> 27</p><p><strong>Word Count:</strong> 716</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-11" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/author/Bonaventure</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles by Bonaventure - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles by Bonaventure</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 177</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 2331</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-12" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/mineral-resources-authority-of-papua-new-guinea</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Mineral Resources Authority of Papua New Guinea - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Mineral Resources Authority of Papua New Guinea</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Related Articles</p><p><strong>Internal Links:</strong> 27</p><p><strong>External Links:</strong> 12</p><p><strong>Word Count:</strong> 332</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-13" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/tesla-sexy-harassment-and-doxing</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Tesla.Sexy harassment and doxing - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Tesla.Sexy harassment and doxing</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, References</p><p><strong>Internal Links:</strong> 10</p><p><strong>External Links:</strong> 14</p><p><strong>Word Count:</strong> 188</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-14" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/lexipolleaks</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> LexipolLeaks - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, LexipolLeaks</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Reference, Related Articles</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 23</p><p><strong>Word Count:</strong> 740</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-15" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/paramilitary-leaks</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Paramilitary Leaks - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Paramilitary Leaks</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research:, Reference:, Related Articles</p><p><strong>Internal Links:</strong> 64</p><p><strong>External Links:</strong> 21</p><p><strong>Word Count:</strong> 960</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-16" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/douglas-valentine-collection</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Douglas Valentine collection - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Douglas Valentine collection</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Related Articles</p><p><strong>Internal Links:</strong> 42</p><p><strong>External Links:</strong> 11</p><p><strong>Word Count:</strong> 537</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-17" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/statement-on-israeli-sanctions-against-the-media</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Statement on Israeli sanctions against the media - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Statement on Israeli sanctions against the media</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Related Articles</p><p><strong>Internal Links:</strong> 19</p><p><strong>External Links:</strong> 21</p><p><strong>Word Count:</strong> 611</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-18" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/introducing-the-ddosecrets-library-system</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Introducing the DDoSecrets library system - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Introducing the DDoSecrets library system</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Related Articles</p><p><strong>Internal Links:</strong> 19</p><p><strong>External Links:</strong> 22</p><p><strong>Word Count:</strong> 1088</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-19" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/andrew-tate-s-war-room-videos</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Andrew Tate's War Room videos - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Andrew Tate's War Room videos</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, References, Related Articles</p><p><strong>Internal Links:</strong> 32</p><p><strong>External Links:</strong> 20</p><p><strong>Word Count:</strong> 577</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-20" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/kazakhstan-ministry-of-energy</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Kazakhstan Ministry of Energy - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Kazakhstan Ministry of Energy</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, References, Related Articles</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 18</p><p><strong>Word Count:</strong> 558</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-21" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_articles/recent</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All Recently Published Articles - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, All Recently Published Articles</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 1101</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 13994</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-22" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/meritservus-and-meritkapital</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> MeritServus and MeritKapital - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, MeritServus and MeritKapital</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Embargo, Reserved, Related Articles</p><p><strong>Internal Links:</strong> 46</p><p><strong>External Links:</strong> 108</p><p><strong>Word Count:</strong> 1931</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-23" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/myanmar-investments</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Myanmar Investments - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Myanmar Investments</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Burmese Translation, References, Research, Aftermath, Source Information, Statement from the source, Related Articles</p><p><strong>Internal Links:</strong> 56</p><p><strong>External Links:</strong> 35</p><p><strong>Word Count:</strong> 1008</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-24" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/roskomnadzor-moscow</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Roskomnadzor Moscow - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Roskomnadzor Moscow</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Disclaimer, Editor Notes, Related Articles</p><p><strong>Internal Links:</strong> 42</p><p><strong>External Links:</strong> 16</p><p><strong>Word Count:</strong> 675</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-25" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/fiscalia-of-colombia</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Fiscalia of Colombia - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Fiscalia of Colombia</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Reserved, Related Articles</p><p><strong>Internal Links:</strong> 43</p><p><strong>External Links:</strong> 87</p><p><strong>Word Count:</strong> 1605</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-26" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/mspy</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> mSpy - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, mSpy</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, References, Related Articles</p><p><strong>Internal Links:</strong> 87</p><p><strong>External Links:</strong> 22</p><p><strong>Word Count:</strong> 1127</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-27" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_articles/edited</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All Recently Edited Articles - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, All Recently Edited Articles</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 177</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 2303</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-28" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/israel-ministry-of-justice</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Israel Ministry of Justice - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Israel Ministry of Justice</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, References, Disclaimer, Related Articles</p><p><strong>Internal Links:</strong> 76</p><p><strong>External Links:</strong> 46</p><p><strong>Word Count:</strong> 1367</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-29" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/eswatini-financial-intelligence-unit</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Eswatini Financial Intelligence Unit - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Eswatini Financial Intelligence Unit</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Embargo, References, Related Articles</p><p><strong>Internal Links:</strong> 49</p><p><strong>External Links:</strong> 28</p><p><strong>Word Count:</strong> 828</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-30" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/author/mx_yzptlk</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles by mx_yzptlk - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles by mx_yzptlk</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 391</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-31" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/fuerza-armada-de-el-salvador</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Fuerza Armada de El Salvador - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Fuerza Armada de El Salvador</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Reserved, Research, Guacamaya statement, Guacamaya Release Art and Statement, Related Articles</p><p><strong>Internal Links:</strong> 62</p><p><strong>External Links:</strong> 23</p><p><strong>Word Count:</strong> 2773</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-32" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/author/artvandelay</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles by artvandelay - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Articles by artvandelay</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 891</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 11162</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-33" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/embassy-of-ecuador-moscow</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Embassy of Ecuador, Moscow - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Embassy of Ecuador, Moscow</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Reserved, Disclaimer, Related Articles</p><p><strong>Internal Links:</strong> 74</p><p><strong>External Links:</strong> 13</p><p><strong>Word Count:</strong> 950</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-34" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/djc-accountants</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> DJC Accountants - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, DJC Accountants</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Embargo, Related Articles</p><p><strong>Internal Links:</strong> 50</p><p><strong>External Links:</strong> 30</p><p><strong>Word Count:</strong> 869</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-35" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/cellebrite-and-msab</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Cellebrite and MSAB - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Cellebrite and MSAB</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Related Articles</p><p><strong>Internal Links:</strong> 23</p><p><strong>External Links:</strong> 17</p><p><strong>Word Count:</strong> 366</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-36" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/bahamas-registry</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Bahamas Registry - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Bahamas Registry</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Related Articles</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 30</p><p><strong>Word Count:</strong> 717</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-37" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/ariantel</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> ArianTel - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, ArianTel</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Related Articles</p><p><strong>Internal Links:</strong> 22</p><p><strong>External Links:</strong> 15</p><p><strong>Word Count:</strong> 300</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-38" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/kallias-and-associates</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Kallias and Associates - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, Kallias and Associates</p><p><strong>H2 Tags:</strong> We need your help!, Article Details, Research, Aftermath, Embargo, Related Articles</p><p><strong>Internal Links:</strong> 50</p><p><strong>External Links:</strong> 20</p><p><strong>Word Count:</strong> 750</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-39" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_articles/external</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All External Collaboration Articles - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> Distributed Denial of Secrets, All External Collaboration Articles</p><p><strong>H2 Tags:</strong> </p><p><strong>Internal Links:</strong> 51</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 621</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-40" data-depth="0" data-keywords=""><h3 class="url">https://ddosecrets.com</h3><p><strong>Depth:</strong> 0</p><p><strong>Title:</strong> Home - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e, l, c, o, m, e,  , t, o,  , D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', R, e, c, e, n, t, l, y,  , P, u, b, l, i, s, h, e, d, ', ,,  , ', R, e, c, e, n, t, l, y,  , E, d, i, t, e, d, ', ,,  , ', C, o, l, l, a, b, o, r, a, t, i, o, n, s, ', ]</p><p><strong>Internal Links:</strong> 103</p><p><strong>External Links:</strong> 10</p><p><strong>Word Count:</strong> 1296</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-41" data-depth="1" data-keywords=""><h3 class="url">https://ddosecrets.com/</h3><p><strong>Depth:</strong> 1</p><p><strong>Title:</strong> Home - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e, l, c, o, m, e,  , t, o,  , D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', R, e, c, e, n, t, l, y,  , P, u, b, l, i, s, h, e, d, ', ,,  , ', R, e, c, e, n, t, l, y,  , E, d, i, t, e, d, ', ,,  , ', C, o, l, l, a, b, o, r, a, t, i, o, n, s, ', ]</p><p><strong>Internal Links:</strong> 103</p><p><strong>External Links:</strong> 10</p><p><strong>Word Count:</strong> 1296</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-42" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/about</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> About Us - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, b, o, u, t,  , U, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', L, o, r, a, x,  , B, .,  , H, o, r, n, e, ', ,,  , ', E, m, m, a,  , B, e, s, t, ', ,,  , ', M, a, g, g, i, e,  , M, a, y, h, e, m, ', ,,  , ', B, o, n, a, v, e, n, t, u, r, e, ', ,,  , ', M, i, c, a, h,  , L, e, e, ', ,,  , ', G, l, e, n, n,  , S, o, r, r, e, n, t, i, n, o, ', ,,  , ', M, i, l, o,  , Z, .,  , T, r, u, j, i, l, l, o, ', ,,  , ', D, e, l, f, i, n,  , M, o, c, a, c, h, e,  , M, a, s, s, o, k, o, ', ,,  , ', A, n, n, a, l, i, s, e,  , B, u, r, k, h, a, r, t, ', ,,  , ', B, r, a, s, s, y, ', ,,  , ', M, e, d, i, a, ', ]</p><p><strong>Internal Links:</strong> 9</p><p><strong>External Links:</strong> 14</p><p><strong>Word Count:</strong> 618</p><p><strong>Image Count:</strong> 10</p></div>
-<div class="result-card" id="result-43" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/submit</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Submit - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', D, a, t, a,  , S, u, b, m, i, s, s, i, o, n, ', ]</p><p><strong>H2 Tags:</strong> [, ', G, u, i, d, e, l, i, n, e, s,  , f, o, r,  , P, o, t, e, n, t, i, a, l,  , S, o, u, r, c, e, s, ', ]</p><p><strong>Internal Links:</strong> 4</p><p><strong>External Links:</strong> 10</p><p><strong>Word Count:</strong> 417</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-44" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/type/Hack</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles of Type: Hack - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , o, f,  , T, y, p, e,  , ", H, a, c, k, ", ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 798</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 10071</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-45" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/type/Corporate</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles of Type: Corporate - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , o, f,  , T, y, p, e,  , ", C, o, r, p, o, r, a, t, e, ", ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 495</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 6183</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-46" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/country/United%20States</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles from United States - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , f, r, o, m,  , U, n, i, t, e, d,  , S, t, a, t, e, s, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 378</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 4817</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-47" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/type/Limited%20Distribution</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles of Type: Limited Distribution - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , o, f,  , T, y, p, e,  , ", L, i, m, i, t, e, d,  , D, i, s, t, r, i, b, u, t, i, o, n, ", ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 270</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 3608</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-48" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/source/Anonymous</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles from Anonymous - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , w, i, t, h,  , S, o, u, r, c, e, :,  , A, n, o, n, y, m, o, u, s, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 237</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 3002</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-49" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_categories</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All Categories - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, l, l,  , C, a, t, e, g, o, r, i, e, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', A, l, l,  , A, r, t, i, c, l, e, s, ', ,,  , ', T, y, p, e, s, ', ,,  , ', C, o, u, n, t, r, i, e, s, ', ,,  , ', S, o, u, r, c, e, s, ', ]</p><p><strong>Internal Links:</strong> 212</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 423</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-50" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/israel-police</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Israel Police - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', I, s, r, a, e, l,  , P, o, l, i, c, e, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 44</p><p><strong>External Links:</strong> 27</p><p><strong>Word Count:</strong> 716</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-51" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/author/Bonaventure</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles by Bonaventure - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , b, y,  , B, o, n, a, v, e, n, t, u, r, e, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 177</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 2331</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-52" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/mineral-resources-authority-of-papua-new-guinea</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Mineral Resources Authority of Papua New Guinea - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', M, i, n, e, r, a, l,  , R, e, s, o, u, r, c, e, s,  , A, u, t, h, o, r, i, t, y,  , o, f,  , P, a, p, u, a,  , N, e, w,  , G, u, i, n, e, a, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 27</p><p><strong>External Links:</strong> 12</p><p><strong>Word Count:</strong> 332</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-53" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/tesla-sexy-harassment-and-doxing</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Tesla.Sexy harassment and doxing - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', T, e, s, l, a, ., S, e, x, y,  , h, a, r, a, s, s, m, e, n, t,  , a, n, d,  , d, o, x, i, n, g, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ]</p><p><strong>Internal Links:</strong> 10</p><p><strong>External Links:</strong> 14</p><p><strong>Word Count:</strong> 188</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-54" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/lexipolleaks</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> LexipolLeaks - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', L, e, x, i, p, o, l, L, e, a, k, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, f, e, r, e, n, c, e, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 23</p><p><strong>Word Count:</strong> 740</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-55" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/paramilitary-leaks</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Paramilitary Leaks - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', P, a, r, a, m, i, l, i, t, a, r, y,  , L, e, a, k, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, :, ', ,,  , ', R, e, f, e, r, e, n, c, e, :, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 64</p><p><strong>External Links:</strong> 21</p><p><strong>Word Count:</strong> 960</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-56" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/douglas-valentine-collection</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Douglas Valentine collection - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', D, o, u, g, l, a, s,  , V, a, l, e, n, t, i, n, e,  , c, o, l, l, e, c, t, i, o, n, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 42</p><p><strong>External Links:</strong> 11</p><p><strong>Word Count:</strong> 537</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-57" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/statement-on-israeli-sanctions-against-the-media</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Statement on Israeli sanctions against the media - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', S, t, a, t, e, m, e, n, t,  , o, n,  , I, s, r, a, e, l, i,  , s, a, n, c, t, i, o, n, s,  , a, g, a, i, n, s, t,  , t, h, e,  , m, e, d, i, a, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 19</p><p><strong>External Links:</strong> 21</p><p><strong>Word Count:</strong> 611</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-58" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/introducing-the-ddosecrets-library-system</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Introducing the DDoSecrets library system - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', I, n, t, r, o, d, u, c, i, n, g,  , t, h, e,  , D, D, o, S, e, c, r, e, t, s,  , l, i, b, r, a, r, y,  , s, y, s, t, e, m, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 19</p><p><strong>External Links:</strong> 22</p><p><strong>Word Count:</strong> 1088</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-59" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/andrew-tate-s-war-room-videos</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Andrew Tate's War Room videos - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ", A, n, d, r, e, w,  , T, a, t, e, ', s,  , W, a, r,  , R, o, o, m,  , v, i, d, e, o, s, ", ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 32</p><p><strong>External Links:</strong> 20</p><p><strong>Word Count:</strong> 577</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-60" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/kazakhstan-ministry-of-energy</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Kazakhstan Ministry of Energy - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', K, a, z, a, k, h, s, t, a, n,  , M, i, n, i, s, t, r, y,  , o, f,  , E, n, e, r, g, y, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 18</p><p><strong>Word Count:</strong> 558</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-61" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_articles/recent</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All Recently Published Articles - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, l, l,  , R, e, c, e, n, t, l, y,  , P, u, b, l, i, s, h, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 1101</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 13994</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-62" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/meritservus-and-meritkapital</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> MeritServus and MeritKapital - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', M, e, r, i, t, S, e, r, v, u, s,  , a, n, d,  , M, e, r, i, t, K, a, p, i, t, a, l, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', E, m, b, a, r, g, o, ', ,,  , ', R, e, s, e, r, v, e, d, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 46</p><p><strong>External Links:</strong> 108</p><p><strong>Word Count:</strong> 1931</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-63" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/myanmar-investments</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Myanmar Investments - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', M, y, a, n, m, a, r,  , I, n, v, e, s, t, m, e, n, t, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', B, u, r, m, e, s, e,  , T, r, a, n, s, l, a, t, i, o, n, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', S, o, u, r, c, e,  , I, n, f, o, r, m, a, t, i, o, n, ', ,,  , ', S, t, a, t, e, m, e, n, t,  , f, r, o, m,  , t, h, e,  , s, o, u, r, c, e, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 56</p><p><strong>External Links:</strong> 35</p><p><strong>Word Count:</strong> 1008</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-64" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/roskomnadzor-moscow</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Roskomnadzor Moscow - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', R, o, s, k, o, m, n, a, d, z, o, r,  , M, o, s, c, o, w, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', D, i, s, c, l, a, i, m, e, r, ', ,,  , ', E, d, i, t, o, r,  , N, o, t, e, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 42</p><p><strong>External Links:</strong> 16</p><p><strong>Word Count:</strong> 675</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-65" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/fiscalia-of-colombia</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Fiscalia of Colombia - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', F, i, s, c, a, l, i, a,  , o, f,  , C, o, l, o, m, b, i, a, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', R, e, s, e, r, v, e, d, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 43</p><p><strong>External Links:</strong> 87</p><p><strong>Word Count:</strong> 1605</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-66" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/mspy</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> mSpy - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', m, S, p, y, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 87</p><p><strong>External Links:</strong> 22</p><p><strong>Word Count:</strong> 1127</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-67" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_articles/edited</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All Recently Edited Articles - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, l, l,  , R, e, c, e, n, t, l, y,  , E, d, i, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 177</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 2303</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-68" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/israel-ministry-of-justice</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Israel Ministry of Justice - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', I, s, r, a, e, l,  , M, i, n, i, s, t, r, y,  , o, f,  , J, u, s, t, i, c, e, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', D, i, s, c, l, a, i, m, e, r, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 76</p><p><strong>External Links:</strong> 46</p><p><strong>Word Count:</strong> 1367</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-69" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/eswatini-financial-intelligence-unit</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Eswatini Financial Intelligence Unit - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', E, s, w, a, t, i, n, i,  , F, i, n, a, n, c, i, a, l,  , I, n, t, e, l, l, i, g, e, n, c, e,  , U, n, i, t, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', E, m, b, a, r, g, o, ', ,,  , ', R, e, f, e, r, e, n, c, e, s, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 49</p><p><strong>External Links:</strong> 28</p><p><strong>Word Count:</strong> 828</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-70" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/author/mx_yzptlk</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles by mx_yzptlk - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , b, y,  , m, x, _, y, z, p, t, l, k, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 391</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-71" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/fuerza-armada-de-el-salvador</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Fuerza Armada de El Salvador - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', F, u, e, r, z, a,  , A, r, m, a, d, a,  , d, e,  , E, l,  , S, a, l, v, a, d, o, r, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, r, v, e, d, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', G, u, a, c, a, m, a, y, a,  , s, t, a, t, e, m, e, n, t, ', ,,  , ', G, u, a, c, a, m, a, y, a,  , R, e, l, e, a, s, e,  , A, r, t,  , a, n, d,  , S, t, a, t, e, m, e, n, t, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 62</p><p><strong>External Links:</strong> 23</p><p><strong>Word Count:</strong> 2773</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-72" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/author/artvandelay</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Articles by artvandelay - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, t, i, c, l, e, s,  , b, y,  , a, r, t, v, a, n, d, e, l, a, y, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 891</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 11162</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-73" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/embassy-of-ecuador-moscow</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Embassy of Ecuador, Moscow - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', E, m, b, a, s, s, y,  , o, f,  , E, c, u, a, d, o, r, ,,  , M, o, s, c, o, w, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', R, e, s, e, r, v, e, d, ', ,,  , ', D, i, s, c, l, a, i, m, e, r, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 74</p><p><strong>External Links:</strong> 13</p><p><strong>Word Count:</strong> 950</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-74" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/djc-accountants</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> DJC Accountants - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', D, J, C,  , A, c, c, o, u, n, t, a, n, t, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', E, m, b, a, r, g, o, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 50</p><p><strong>External Links:</strong> 30</p><p><strong>Word Count:</strong> 869</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-75" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/cellebrite-and-msab</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Cellebrite and MSAB - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', C, e, l, l, e, b, r, i, t, e,  , a, n, d,  , M, S, A, B, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 23</p><p><strong>External Links:</strong> 17</p><p><strong>Word Count:</strong> 366</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-76" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/bahamas-registry</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Bahamas Registry - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', B, a, h, a, m, a, s,  , R, e, g, i, s, t, r, y, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 33</p><p><strong>External Links:</strong> 30</p><p><strong>Word Count:</strong> 717</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-77" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/ariantel</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> ArianTel - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, r, i, a, n, T, e, l, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 22</p><p><strong>External Links:</strong> 15</p><p><strong>Word Count:</strong> 300</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-78" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/article/kallias-and-associates</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> Kallias and Associates - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', K, a, l, l, i, a, s,  , a, n, d,  , A, s, s, o, c, i, a, t, e, s, ', ]</p><p><strong>H2 Tags:</strong> [, ', W, e,  , n, e, e, d,  , y, o, u, r,  , h, e, l, p, !, ', ,,  , ', A, r, t, i, c, l, e,  , D, e, t, a, i, l, s, ', ,,  , ', R, e, s, e, a, r, c, h, ', ,,  , ', A, f, t, e, r, m, a, t, h, ', ,,  , ', E, m, b, a, r, g, o, ', ,,  , ', R, e, l, a, t, e, d,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>Internal Links:</strong> 50</p><p><strong>External Links:</strong> 20</p><p><strong>Word Count:</strong> 750</p><p><strong>Image Count:</strong> 0</p></div>
-<div class="result-card" id="result-79" data-depth="2" data-keywords=""><h3 class="url">https://ddosecrets.com/all_articles/external</h3><p><strong>Depth:</strong> 2</p><p><strong>Title:</strong> All External Collaboration Articles - Distributed Denial of Secrets</p><p><strong>Meta Description:</strong> A 501(c)(3) dedicated to archiving and publishing hacked and leaked data.</p><p><strong>Meta Keywords:</strong> </p><p><strong>H1 Tags:</strong> [, ', D, i, s, t, r, i, b, u, t, e, d,  , D, e, n, i, a, l,  , o, f,  , S, e, c, r, e, t, s, ', ,,  , ', A, l, l,  , E, x, t, e, r, n, a, l,  , C, o, l, l, a, b, o, r, a, t, i, o, n,  , A, r, t, i, c, l, e, s, ', ]</p><p><strong>H2 Tags:</strong> [, ]</p><p><strong>Internal Links:</strong> 51</p><p><strong>External Links:</strong> 8</p><p><strong>Word Count:</strong> 621</p><p><strong>Image Count:</strong> 0</p></div>
-</div>
-<script>
-            function filterResults() {
-                const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
-                const filterDropdown = document.getElementById('filterDropdown').value;
-                const resultsContainer = document.getElementById('resultsContainer');
-                const resultCards = resultsContainer.getElementsByClassName('result-card');
+    <div class="container">
+        <h1 class="title">Crawler Results Dashboard</h1>
+        
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Pages Crawled</h3>
+                <div class="value">64</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Words</h3>
+                <div class="value">26,950</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Images</h3>
+                <div class="value">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Domains</h3>
+                <div class="value">1</div>
+            </div>
+        </div>
 
-                Array.from(resultCards).forEach(card => {
-                    const keywords = card.getAttribute('data-keywords').toLowerCase();
-                    const depth = card.getAttribute('data-depth');
-                    const matchesSearch = !searchInput || keywords.includes(searchInput);
-                    const matchesFilter = !filterDropdown || depth === filterDropdown;
+        <div class="filters">
+            <div class="filter-group">
+                <label for="searchInput">Search Content</label>
+                <input type="text" id="searchInput" placeholder="Enter keywords...">
+            </div>
+            <div class="filter-group">
+                <label for="domainFilter">Filter by Domain</label>
+                <select id="domainFilter">
+                    <option value="">All Domains</option><option value="minewind.com">minewind.com (64)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="depthFilter">Filter by Depth</label>
+                <select id="depthFilter">
+                    <option value="">All Depths</option><option value="0">Depth 0</option><option value="1">Depth 1</option><option value="2">Depth 2</option><option value="3">Depth 3</option>
+                </select>
+            </div>
+        </div>
 
-                    if (matchesSearch && matchesFilter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-        </script></div>
+        <div class="results-container">
+            <div class="result-card" data-domain="minewind.com" data-depth="0">
+                <div class="card-header">
+                    <span class="tag">Depth 0</span>
+                    <h2 class="title">Minewind | Best Minecraft Server 2025</h2>
+                    <a href="https://minewind.com" target="_blank" class="url">https://minewind.com</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">177</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">49</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <div class="meta-info">
+                    <strong>Description:</strong> Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown!
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="1">
+                <div class="card-header">
+                    <span class="tag">Depth 1</span>
+                    <h2 class="title">Minewind | Best Minecraft Server 2025</h2>
+                    <a href="https://minewind.com#mobile-menu" target="_blank" class="url">https://minewind.com#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">177</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">49</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <div class="meta-info">
+                    <strong>Description:</strong> Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown!
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">Changelog | Minewind</h2>
+                    <a href="https://minewind.com/changelog/" target="_blank" class="url">https://minewind.com/changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,670</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Changelog | Minewind</h2>
+                    <a href="https://minewind.com/changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,670</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">About | Minewind</h2>
+                    <a href="https://minewind.com/about" target="_blank" class="url">https://minewind.com/about</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">172</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">24</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Voting Rewards | Minewind</h2>
+                    <a href="https://minewind.com/vote/" target="_blank" class="url">https://minewind.com/vote/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">147</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">28</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Minewind | Best Minecraft Server 2025</h2>
+                    <a href="https://minewind.com/" target="_blank" class="url">https://minewind.com/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">177</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">49</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <div class="meta-info">
+                    <strong>Description:</strong> Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown!
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">FAQ | Minewind</h2>
+                    <a href="https://minewind.com/faq" target="_blank" class="url">https://minewind.com/faq</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">524</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">41</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Feedback | Minewind</h2>
+                    <a href="https://minewind.com/feedback" target="_blank" class="url">https://minewind.com/feedback</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">95</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">18</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Report a bug | Minewind</h2>
+                    <a href="https://minewind.com/bug-report-form/" target="_blank" class="url">https://minewind.com/bug-report-form/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">90</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">19</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Report a Player | Minewind</h2>
+                    <a href="https://minewind.com/report/" target="_blank" class="url">https://minewind.com/report/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">118</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">20</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Report a bug | Minewind</h2>
+                    <a href="https://minewind.com/bugs" target="_blank" class="url">https://minewind.com/bugs</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">90</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">19</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Tempest | Minewind</h2>
+                    <a href="https://minewind.com/tempest" target="_blank" class="url">https://minewind.com/tempest</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">563</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Voting Rewards | Minewind</h2>
+                    <a href="https://minewind.com/vote" target="_blank" class="url">https://minewind.com/vote</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">147</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">28</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Open Party | Minewind</h2>
+                    <a href="https://minewind.com/open-party/" target="_blank" class="url">https://minewind.com/open-party/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,125</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">30</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Glamour | Minewind</h2>
+                    <a href="https://minewind.com/glamour/" target="_blank" class="url">https://minewind.com/glamour/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">176</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">19</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">New Spawn Regen | Minewind</h2>
+                    <a href="https://minewind.com/new-spawn-regen/" target="_blank" class="url">https://minewind.com/new-spawn-regen/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">179</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">21</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Clans | Minewind</h2>
+                    <a href="https://minewind.com/clans" target="_blank" class="url">https://minewind.com/clans</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">329</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">20</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">Tempest | Minewind</h2>
+                    <a href="https://minewind.com/tempest/" target="_blank" class="url">https://minewind.com/tempest/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">563</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Tempest | Minewind</h2>
+                    <a href="https://minewind.com/tempest/#mobile-menu" target="_blank" class="url">https://minewind.com/tempest/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">563</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Server Updates | SOME STUFF WORTH MENTIONING</h2>
+                    <a href="https://minewind.com/category/server-updates/" target="_blank" class="url">https://minewind.com/category/server-updates/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">215</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">68</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Changelog | Minewind</h2>
+                    <a href="https://minewind.com/changelog" target="_blank" class="url">https://minewind.com/changelog</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,670</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">November 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/november-2024-changelog/" target="_blank" class="url">https://minewind.com/november-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">276</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">November 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/november-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/november-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">276</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">October 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/october-2024-changelog/" target="_blank" class="url">https://minewind.com/october-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">286</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">October 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/october-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/october-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">286</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">Paradox Midas | Minewind</h2>
+                    <a href="https://minewind.com/paradox/" target="_blank" class="url">https://minewind.com/paradox/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">189</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Paradox Midas | Minewind</h2>
+                    <a href="https://minewind.com/paradox/#mobile-menu" target="_blank" class="url">https://minewind.com/paradox/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">189</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">September 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/september-2024-changelog/" target="_blank" class="url">https://minewind.com/september-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">353</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">September 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/september-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/september-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">353</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">August 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/august-2024-changelog/" target="_blank" class="url">https://minewind.com/august-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">315</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">26</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">August 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/august-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/august-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">315</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">26</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="0">
+                <div class="card-header">
+                    <span class="tag">Depth 0</span>
+                    <h2 class="title">Minewind | Best Minecraft Server 2025</h2>
+                    <a href="https://minewind.com" target="_blank" class="url">https://minewind.com</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">177</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">49</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <div class="meta-info">
+                    <strong>Description:</strong> Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown!
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="1">
+                <div class="card-header">
+                    <span class="tag">Depth 1</span>
+                    <h2 class="title">Minewind | Best Minecraft Server 2025</h2>
+                    <a href="https://minewind.com#mobile-menu" target="_blank" class="url">https://minewind.com#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">177</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">49</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <div class="meta-info">
+                    <strong>Description:</strong> Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown!
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">Changelog | Minewind</h2>
+                    <a href="https://minewind.com/changelog/" target="_blank" class="url">https://minewind.com/changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,670</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Changelog | Minewind</h2>
+                    <a href="https://minewind.com/changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,670</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">About | Minewind</h2>
+                    <a href="https://minewind.com/about" target="_blank" class="url">https://minewind.com/about</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">172</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">24</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Voting Rewards | Minewind</h2>
+                    <a href="https://minewind.com/vote/" target="_blank" class="url">https://minewind.com/vote/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">147</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">28</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Minewind | Best Minecraft Server 2025</h2>
+                    <a href="https://minewind.com/" target="_blank" class="url">https://minewind.com/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">177</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">49</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <div class="meta-info">
+                    <strong>Description:</strong> Battle cursed boss monsters. Craft mythical items from thousands of combinations. Venture the infinite world, meet new friends and brave the unknown!
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">FAQ | Minewind</h2>
+                    <a href="https://minewind.com/faq" target="_blank" class="url">https://minewind.com/faq</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">524</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">41</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Feedback | Minewind</h2>
+                    <a href="https://minewind.com/feedback" target="_blank" class="url">https://minewind.com/feedback</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">95</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">18</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Report a bug | Minewind</h2>
+                    <a href="https://minewind.com/bug-report-form/" target="_blank" class="url">https://minewind.com/bug-report-form/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">90</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">19</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Report a Player | Minewind</h2>
+                    <a href="https://minewind.com/report/" target="_blank" class="url">https://minewind.com/report/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">118</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">20</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Report a bug | Minewind</h2>
+                    <a href="https://minewind.com/bugs" target="_blank" class="url">https://minewind.com/bugs</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">90</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">19</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Tempest | Minewind</h2>
+                    <a href="https://minewind.com/tempest" target="_blank" class="url">https://minewind.com/tempest</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">563</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Voting Rewards | Minewind</h2>
+                    <a href="https://minewind.com/vote" target="_blank" class="url">https://minewind.com/vote</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">147</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">28</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Open Party | Minewind</h2>
+                    <a href="https://minewind.com/open-party/" target="_blank" class="url">https://minewind.com/open-party/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,125</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">30</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Glamour | Minewind</h2>
+                    <a href="https://minewind.com/glamour/" target="_blank" class="url">https://minewind.com/glamour/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">176</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">19</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">New Spawn Regen | Minewind</h2>
+                    <a href="https://minewind.com/new-spawn-regen/" target="_blank" class="url">https://minewind.com/new-spawn-regen/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">179</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">21</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Clans | Minewind</h2>
+                    <a href="https://minewind.com/clans" target="_blank" class="url">https://minewind.com/clans</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">329</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">20</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">Tempest | Minewind</h2>
+                    <a href="https://minewind.com/tempest/" target="_blank" class="url">https://minewind.com/tempest/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">563</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Tempest | Minewind</h2>
+                    <a href="https://minewind.com/tempest/#mobile-menu" target="_blank" class="url">https://minewind.com/tempest/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">563</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Server Updates | SOME STUFF WORTH MENTIONING</h2>
+                    <a href="https://minewind.com/category/server-updates/" target="_blank" class="url">https://minewind.com/category/server-updates/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">215</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">68</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Changelog | Minewind</h2>
+                    <a href="https://minewind.com/changelog" target="_blank" class="url">https://minewind.com/changelog</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">1,670</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">31</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">November 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/november-2024-changelog/" target="_blank" class="url">https://minewind.com/november-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">276</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">November 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/november-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/november-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">276</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">October 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/october-2024-changelog/" target="_blank" class="url">https://minewind.com/october-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">286</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">October 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/october-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/october-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">286</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">Paradox Midas | Minewind</h2>
+                    <a href="https://minewind.com/paradox/" target="_blank" class="url">https://minewind.com/paradox/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">189</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">Paradox Midas | Minewind</h2>
+                    <a href="https://minewind.com/paradox/#mobile-menu" target="_blank" class="url">https://minewind.com/paradox/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">189</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">September 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/september-2024-changelog/" target="_blank" class="url">https://minewind.com/september-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">353</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">September 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/september-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/september-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">353</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="2">
+                <div class="card-header">
+                    <span class="tag">Depth 2</span>
+                    <h2 class="title">August 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/august-2024-changelog/" target="_blank" class="url">https://minewind.com/august-2024-changelog/</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">315</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">26</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card" data-domain="minewind.com" data-depth="3">
+                <div class="card-header">
+                    <span class="tag">Depth 3</span>
+                    <h2 class="title">August 2024 Changelog | Minewind</h2>
+                    <a href="https://minewind.com/august-2024-changelog/#mobile-menu" target="_blank" class="url">https://minewind.com/august-2024-changelog/#mobile-menu</a>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="meta-info">Words</span>
+                        <span class="value">315</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Images</span>
+                        <span class="value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">Internal Links</span>
+                        <span class="value">26</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="meta-info">External Links</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function filterResults() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const domainFilter = document.getElementById('domainFilter').value;
+            const depthFilter = document.getElementById('depthFilter').value;
+            const cards = document.getElementsByClassName('result-card');
+
+            Array.from(cards).forEach(card => {
+                const content = card.textContent.toLowerCase();
+                const domain = card.getAttribute('data-domain');
+                const depth = card.getAttribute('data-depth');
+
+                const matchesSearch = content.includes(searchInput);
+                const matchesDomain = !domainFilter || domain === domainFilter;
+                const matchesDepth = !depthFilter || depth === depthFilter;
+
+                if (matchesSearch && matchesDomain && matchesDepth) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterResults);
+        document.getElementById('domainFilter').addEventListener('change', filterResults);
+        document.getElementById('depthFilter').addEventListener('change', filterResults);
+    </script>
 </body>
 </html>
