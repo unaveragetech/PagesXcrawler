@@ -63,3 +63,4 @@
 crawl: https://github.com/unaveragetech 15 --max-pages 50 --timeout 15 --rotate-agent-after 5,153,completed
 crawl: https://ddosecrets.com 50 --max-pages 200 --timeout 15 --rotate-agent-after 3,154,completed
 crawl: https://ddosecrets.com 50 --max-pages 100 --timeout 15 --rotate-agent-after 3,155,completed
+crawl: https://chat.deepseek.com 10 —max-pages 50 --timeout 15 --rotate-agent-after 5,156,completed
