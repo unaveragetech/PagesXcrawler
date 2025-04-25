@@ -68,3 +68,4 @@ crawl: https://chat.deepseek.com 10 —max-pages 50 --timeout 15 --rotate-agent-
 crawl: https://chat.deepseek.com 10 —max-pages 50 --timeout 15 --rotate-agent-after 5,158,completed
 crawl: https://github.com 3 ,159,completed
 crawl: https://www.2b2t.org 20,160,completed
+crawl: https://www.2b2t.org 20,161,completed
