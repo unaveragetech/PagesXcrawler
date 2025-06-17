@@ -3,7 +3,7 @@ import os
 import csv
 from collections import defaultdict
 from urllib.parse import urlparse
-import re
+from html import escape
 from datetime import datetime
 
 def format_size(size):
@@ -17,6 +17,32 @@ def format_size(size):
 def format_number(num):
     """Format number with thousand separators"""
     return "{:,}".format(int(num))
+
+def calculate_averages(results):
+    """Calculate average metrics across all pages"""
+    if not results:
+        return {}
+    
+    metrics = [
+        'word_count', 'image_count', 'js_files_count', 'css_files_count',
+        'internal_link_count', 'external_link_count', 'nofollow_link_count',
+        'empty_anchor_text_count', 'keyword_rich_anchor_text_count'
+    ]
+    
+    totals = {metric: 0 for metric in metrics}
+    max_values = {metric: 0 for metric in metrics}
+    
+    for result in results:
+        for metric in metrics:
+            value = int(result.get(metric, 0))
+            totals[metric] += value
+            if value > max_values[metric]:
+                max_values[metric] = value
+    
+    averages = {f'avg_{metric}': totals[metric] / len(results) for metric in metrics}
+    averages.update({f'max_{metric}': max_values[metric] for metric in metrics})
+    
+    return averages
 
 def update_html():
     """Generate the HTML dashboard with crawl results"""
@@ -53,6 +79,8 @@ def update_html():
     total_internal_links = 0
     total_external_links = 0
     total_nofollow_links = 0
+    total_empty_anchors = 0
+    total_keyword_anchors = 0
     depths = set()
 
     for result in results:
@@ -78,229 +106,11 @@ def update_html():
         total_internal_links += int(result.get('internal_link_count', 0))
         total_external_links += int(result.get('external_link_count', 0))
         total_nofollow_links += int(result.get('nofollow_link_count', 0))
+        total_empty_anchors += int(result.get('empty_anchor_text_count', 0))
+        total_keyword_anchors += int(result.get('keyword_rich_anchor_text_count', 0))
 
-    styles = """
-        :root {
-            --primary-color: #3b82f6;
-            --primary-dark: #2563eb;
-            --primary-light: #93c5fd;
-            --secondary-color: #64748b;
-            --background-color: #f1f5f9;
-            --card-background: #ffffff;
-            --text-color: #1e293b;
-            --border-color: #e2e8f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.5;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            margin-top: 2rem;
-        }
-
-        .results-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        @media (min-width: 640px) {
-            .results-container {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .results-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .results-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .results-container {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .result-card {
-            background: var(--card-background);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .result-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary-light);
-        }
-
-        .filters {
-            background: var(--card-background);
-            padding: 1.5rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .filter-group label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--secondary-color);
-        }
-
-        .filter-group select,
-        .filter-group input {
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            width: 100%;
-            transition: all 0.2s;
-        }
-
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-
-        .stat-card {
-            background: var(--card-background);
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .stat-card h3 {
-            color: var(--secondary-color);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .stat-card .value {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .title {
-            font-size: 1.875rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin: 2rem 0 1rem;
-            text-align: center;
-        }
-
-        .card-header {
-            margin-bottom: 1rem;
-        }
-
-        .card-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--background-color);
-            border-radius: 0.5rem;
-            margin-top: auto;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .meta-info {
-            font-size: 0.875rem;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
-        }
-
-        .value {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .url {
-            color: var(--primary-dark);
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .url:hover {
-            text-decoration: underline;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-    """
+    # Calculate averages
+    averages = calculate_averages(results)
 
     # Write HTML content
     with open('index.html', 'w', encoding='utf-8') as html_file:
@@ -310,238 +120,373 @@ def update_html():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crawler Results Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        {styles}
+        .metric-card:hover {{
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }}
+        .description-text {{
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }}
+        .chart-container {{
+            height: 300px;
+        }}
+        @media (max-width: 768px) {{
+            .chart-container {{
+                height: 200px;
+            }}
+        }}
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1 class="title">Crawler Results Dashboard</h1>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-indigo-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <i class="fas fa-spider text-2xl mr-3"></i>
+                        <h1 class="text-2xl font-bold">Crawler Results Dashboard</h1>
+                    </div>
+                    <div class="w-full md:w-auto">
+                        <div class="relative">
+                            <input type="text" id="searchInput" placeholder="Search results..." 
+                                   class="w-full md:w-64 px-4 py-2 rounded-lg bg-indigo-500 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                            <i class="fas fa-search absolute right-3 top-3 text-indigo-200"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <span class="bg-indigo-500 px-3 py-1 rounded-full mr-2">Last Updated:</span>
+                    <span class="text-indigo-200">{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</span>
+                </div>
+            </div>
+        </header>
 
-        <div class="dashboard">
-            <div class="stat-card">
-                <h3>Pages Crawled</h3>
-                <div class="value">{format_number(len(results))}</div>
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                            <i class="fas fa-file-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Pages</p>
+                            <h3 class="text-2xl font-bold">{format_number(len(results))}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                            <i class="fas fa-link text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Links</p>
+                            <h3 class="text-2xl font-bold">{format_number(total_internal_links + total_external_links)}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+                            <i class="fas fa-image text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Images</p>
+                            <h3 class="text-2xl font-bold">{format_number(total_images)}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
+                            <i class="fas fa-file-code text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Assets</p>
+                            <h3 class="text-2xl font-bold">{format_number(total_js_files + total_css_files + total_fonts + total_videos + total_audios)}</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <h3>Total Words</h3>
-                <div class="value">{format_number(total_words)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Domains</h3>
-                <div class="value">{format_number(len(domains))}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Total Links</h3>
-                <div class="value">{format_number(total_internal_links + total_external_links)}</div>
-            </div>
-        </div>
 
-        <h2 class="section-title">Resource Statistics</h2>
-        <div class="dashboard">
-            <div class="stat-card">
-                <h3>Images</h3>
-                <div class="value">{format_number(total_images)}</div>
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold mb-4 text-gray-800">Links Distribution</h2>
+                    <div class="chart-container">
+                        <canvas id="linksChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold mb-4 text-gray-800">Content Metrics</h2>
+                    <div class="chart-container">
+                        <canvas id="contentChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <h3>JavaScript Files</h3>
-                <div class="value">{format_number(total_js_files)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>CSS Files</h3>
-                <div class="value">{format_number(total_css_files)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Fonts</h3>
-                <div class="value">{format_number(total_fonts)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Videos</h3>
-                <div class="value">{format_number(total_videos)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Audios</h3>
-                <div class="value">{format_number(total_audios)}</div>
-            </div>
-        </div>
 
-        <h2 class="section-title">Link Statistics</h2>
-        <div class="dashboard">
-            <div class="stat-card">
-                <h3>Internal Links</h3>
-                <div class="value">{format_number(total_internal_links)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>External Links</h3>
-                <div class="value">{format_number(total_external_links)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Nofollow Links</h3>
-                <div class="value">{format_number(total_nofollow_links)}</div>
-            </div>
-            <div class="stat-card">
-                <h3>Internal/External Ratio</h3>
-                <div class="value">{total_internal_links / max(total_external_links, 1):.2f}</div>
-            </div>
-        </div>
-
-        <div class="filters">
-            <div class="filter-group">
-                <label for="searchInput">Search Content</label>
-                <input type="text" id="searchInput" placeholder="Enter keywords...">
-            </div>
-            <div class="filter-group">
-                <label for="domainFilter">Filter by Domain</label>
-                <select id="domainFilter">
-                    <option value="">All Domains</option>''')
+            <!-- Filter Controls -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">Crawled Pages ({len(results)})</h2>
+                    <div class="flex space-x-2">
+                        <select id="domainFilter" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                            <option value="">All Domains</option>''')
 
         # Add domain options
         for domain in sorted(domains):
             count = domains[domain]
-            html_file.write(f'<option value="{domain}">{domain} ({count})</option>')
+            html_file.write(f'<option value="{escape(domain)}">{escape(domain)} ({format_number(count)})</option>')
 
         html_file.write('''
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="depthFilter">Filter by Depth</label>
-                <select id="depthFilter">
-                    <option value="">All Depths</option>''')
+                        </select>
+                        <select id="depthFilter" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                            <option value="">All Depths</option>''')
 
         # Add depth options
         for depth in sorted(depths):
             html_file.write(f'<option value="{depth}">Depth {depth}</option>')
 
         html_file.write('''
-                </select>
-            </div>
-        </div>
+                        </select>
+                        <button id="filterButton" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                            <i class="fas fa-filter mr-2"></i> Filter
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results List -->
+                <div id="resultsContainer" class="space-y-4">''')
 
-        <div class="results-container">''')
-
-        # Add result cards
+        # Add result items
         for result in results:
-            url = result.get('url', 'N/A')
-            domain = urlparse(url).netloc
+            url = escape(result.get('url', 'N/A'))
+            domain = escape(urlparse(url).netloc)
             depth = result.get('depth', 'N/A')
-            title = result.get('title', 'No Title')
+            title = escape(result.get('title', 'No Title'))
             word_count = int(result.get('word_count', 0))
             image_count = int(result.get('image_count', 0))
             internal_links = int(result.get('internal_link_count', 0))
             external_links = int(result.get('external_link_count', 0))
+            url_length = int(result.get('url_length', 0))
+            description = escape(result.get('meta_description', ''))
+            status = 'Active'  # Default status, could be dynamic based on response code
 
             html_file.write(f'''
-            <div class="result-card" data-domain="{domain}" data-depth="{depth}">
-                <div class="card-header">
-                    <span class="tag">Depth {depth}</span>
-                    <h2 class="title">{title}</h2>
-                    <a href="{url}" target="_blank" class="url">{url}</a>
-                </div>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <span class="meta-info">Words</span>
-                        <span class="value">{format_number(word_count)}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">Images</span>
-                        <span class="value">{format_number(image_count)}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">Internal Links</span>
-                        <span class="value">{format_number(internal_links)}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">External Links</span>
-                        <span class="value">{format_number(external_links)}</span>
-                    </div>
-                </div>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <span class="meta-info">JS Files</span>
-                        <span class="value">{format_number(int(result.get('js_files_count', 0)))}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">CSS Files</span>
-                        <span class="value">{format_number(int(result.get('css_files_count', 0)))}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">URL Length</span>
-                        <span class="value">{format_number(int(result.get('url_length', 0)))}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">Path Depth</span>
-                        <span class="value">{format_number(int(result.get('url_path_depth', 0)))}</span>
-                    </div>
-                </div>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <span class="meta-info">Nofollow Links</span>
-                        <span class="value">{format_number(int(result.get('nofollow_link_count', 0)))}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">Empty Anchors</span>
-                        <span class="value">{format_number(int(result.get('empty_anchor_text_count', 0)))}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">Generic Anchors</span>
-                        <span class="value">{format_number(int(result.get('generic_anchor_text_count', 0)))}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="meta-info">Keyword Anchors</span>
-                        <span class="value">{format_number(int(result.get('keyword_rich_anchor_text_count', 0)))}</span>
-                    </div>
-                </div>''')
+                    <div class="result-item border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition" data-domain="{domain}" data-depth="{depth}">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-semibold text-indigo-600">{title}</h3>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">{status}</span>
+                        </div>
+                        <a href="{url}" target="_blank" class="text-sm text-gray-500 block mb-2 truncate">{url}</a>
+                        <p class="text-gray-600 description-text mb-3">
+                            {description if description else 'No description available'}
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 text-sm">
+                            <div class="bg-gray-100 px-3 py-1 rounded">
+                                <span class="font-medium">Words:</span> {format_number(word_count)}
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded">
+                                <span class="font-medium">Images:</span> {format_number(image_count)}
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded">
+                                <span class="font-medium">Int. Links:</span> {format_number(internal_links)}
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded">
+                                <span class="font-medium">Ext. Links:</span> {format_number(external_links)}
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded">
+                                <span class="font-medium">URL Length:</span> {format_number(url_length)}
+                            </div>
+                        </div>
+                    </div>''')
 
-            if result.get('meta_description'):
-                html_file.write(f'''
-                <div class="meta-info">
-                    <strong>Description:</strong> {result['meta_description']}
-                </div>''')
-
-            if result.get('meta_keywords'):
-                html_file.write(f'''
-                <div class="meta-info">
-                    <strong>Keywords:</strong> {result['meta_keywords']}
-                </div>''')
-
-            html_file.write('\n            </div>')
-
-        # Close containers and add JavaScript
         html_file.write('''
-        </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">1</a>
+                        <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <div class="flex items-center">
+                            <i class="fas fa-spider text-xl mr-2"></i>
+                            <span class="font-bold">Crawler Dashboard</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Analyze and visualize web crawler results</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-6 pt-6 text-sm text-gray-400">
+                    <p>© {datetime.now().year} Crawler Results Dashboard. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        function filterResults() {
-            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        // Links Distribution Chart
+        const linksCtx = document.getElementById('linksChart').getContext('2d');
+        const linksChart = new Chart(linksCtx, {{
+            type: 'doughnut',
+            data: {{
+                labels: ['Internal Links', 'External Links', 'Nofollow Links', 'Empty Anchors', 'Keyword Anchors'],
+                datasets: [{{
+                    data: [
+                        {total_internal_links},
+                        {total_external_links},
+                        {total_nofollow_links},
+                        {total_empty_anchors},
+                        {total_keyword_anchors}
+                    ],
+                    backgroundColor: [
+                        '#4F46E5',
+                        '#10B981',
+                        '#F59E0B',
+                        '#EF4444',
+                        '#8B5CF6'
+                    ],
+                    borderWidth: 0
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {{
+                    legend: {{
+                        position: 'right',
+                    }},
+                    tooltip: {{
+                        callbacks: {{
+                            label: function(context) {{
+                                return `${{context.label}}: ${{context.raw.toLocaleString()}}`;
+                            }}
+                        }}
+                    }}
+                }}
+            }}
+        }});
+
+        // Content Metrics Chart
+        const contentCtx = document.getElementById('contentChart').getContext('2d');
+        const contentChart = new Chart(contentCtx, {{
+            type: 'bar',
+            data: {{
+                labels: ['Words', 'Images', 'JS Files', 'CSS Files'],
+                datasets: [{{
+                    label: 'Average per Page',
+                    data: [
+                        {averages.get('avg_word_count', 0):.0f},
+                        {averages.get('avg_image_count', 0):.0f},
+                        {averages.get('avg_js_files_count', 0):.0f},
+                        {averages.get('avg_css_files_count', 0):.0f}
+                    ],
+                    backgroundColor: '#4F46E5',
+                    borderRadius: 4
+                }}, {{
+                    label: 'Maximum',
+                    data: [
+                        {averages.get('max_word_count', 0)},
+                        {averages.get('max_image_count', 0)},
+                        {averages.get('max_js_files_count', 0)},
+                        {averages.get('max_css_files_count', 0)}
+                    ],
+                    backgroundColor: '#8B5CF6',
+                    borderRadius: 4
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {{
+                    y: {{
+                        beginAtZero: true,
+                        ticks: {{
+                            callback: function(value) {{
+                                return value.toLocaleString();
+                            }}
+                        }}
+                    }}
+                }},
+                plugins: {{
+                    tooltip: {{
+                        callbacks: {{
+                            label: function(context) {{
+                                return `${{context.dataset.label}}: ${{context.raw.toLocaleString()}}`;
+                            }}
+                        }}
+                    }}
+                }}
+            }}
+        }});
+
+        // Filter functionality
+        function filterResults() {{
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const domainFilter = document.getElementById('domainFilter').value;
             const depthFilter = document.getElementById('depthFilter').value;
-            const cards = document.getElementsByClassName('result-card');
+            const items = document.querySelectorAll('.result-item');
 
-            Array.from(cards).forEach(card => {
-                const content = card.textContent.toLowerCase();
-                const domain = card.getAttribute('data-domain');
-                const depth = card.getAttribute('data-depth');
+            items.forEach(item => {{
+                const textContent = item.textContent.toLowerCase();
+                const domain = item.getAttribute('data-domain');
+                const depth = item.getAttribute('data-depth');
 
-                const matchesSearch = content.includes(searchInput);
-                const matchesDomain = !domainFilter || domain === domainFilter;
-                const matchesDepth = !depthFilter || depth === depthFilter;
+                const matchesSearch = searchTerm === '' || textContent.includes(searchTerm);
+                const matchesDomain = domainFilter === '' || domain === domainFilter;
+                const matchesDepth = depthFilter === '' || depth === depthFilter;
 
-                if (matchesSearch && matchesDomain && matchesDepth) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+                if (matchesSearch && matchesDomain && matchesDepth) {{
+                    item.style.display = 'block';
+                }} else {{
+                    item.style.display = 'none';
+                }}
+            }});
+        }}
 
         document.getElementById('searchInput').addEventListener('input', filterResults);
-        document.getElementById('domainFilter').addEventListener('change', filterResults);
-        document.getElementById('depthFilter').addEventListener('change', filterResults);
+        document.getElementById('filterButton').addEventListener('click', filterResults);
+
+        // Toggle description text
+        document.querySelectorAll('.description-text').forEach(el => {{
+            el.addEventListener('click', function() {{
+                this.classList.toggle('-webkit-line-clamp-3');
+                this.classList.toggle('line-clamp-none');
+            }});
+        }});
     </script>
 </body>
-</html>
-''')
+</html>''')
 
 if __name__ == "__main__":
     update_html()
