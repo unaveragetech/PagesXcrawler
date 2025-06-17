@@ -48,7 +48,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 pandas pyyaml matplotlib PyPDF2
+        pip install requests beautifulsoup4 pandas pyyaml matplotlib PyPDF2 reportlab
         pip install --upgrade html5lib lxml
 
     - name: Parse inputs
@@ -67,7 +67,7 @@ jobs:
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
 
-          add_comment() {
+          post_comment() {
             curl -X POST \
               -H "Authorization: token ${{ secrets.MY_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
@@ -85,15 +85,9 @@ jobs:
               rotate_agent=10
 
               if [ ! -z "$options" ]; then
-                  if [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]]; then
-                      max_pages="${BASH_REMATCH[1]}"
-                  fi
-                  if [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]]; then
-                      timeout="${BASH_REMATCH[1]}"
-                  fi
-                  if [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]]; then
-                      rotate_agent="${BASH_REMATCH[1]}"
-                  fi
+                  [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]] && max_pages="${BASH_REMATCH[1]}"
+                  [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]] && timeout="${BASH_REMATCH[1]}"
+                  [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]] && rotate_agent="${BASH_REMATCH[1]}"
               fi
 
               {
@@ -105,40 +99,46 @@ jobs:
                 echo "ISSUE_NUMBER=$issue_number"
               } >> "$GITHUB_ENV"
 
-              config_msg="📋 Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\n\`\`\`"
-              add_comment "$config_msg"
+              config_msg="📋 Crawl Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: $rotate_agent\n\`\`\`"
+              post_comment "$config_msg"
           else
-              error_msg="❌ Error: Invalid issue title format.\n\nPlease use this format:\n\`\`\`\ncrawl: URL DEPTH [OPTIONS]\n\`\`\`\n\nExamples:\n\`\`\`\ncrawl: https://example.com 3\ncrawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5\n\`\`\`"
-              add_comment "$error_msg"
+              error_msg="❌ Invalid issue title format.\n\nUse:\n\`\`\`\ncrawl: URL DEPTH [--max-pages N] [--timeout N] [--rotate-agent-after N]\n\`\`\`\nExample:\n\`\`\`\ncrawl: https://example.com 3 --max-pages 50 --timeout 15\n\`\`\`"
+              post_comment "$error_msg"
               exit 1
           fi
-        fi
 
     - name: Run crawler
       run: |
-        echo "Running crawler with configuration:"
-        echo "URL: ${{ env.URL }}"
-        echo "Depth: ${{ env.DEPTH }}"
-        echo "Max Pages: ${{ env.MAX_PAGES }}"
-        echo "Timeout: ${{ env.TIMEOUT }}"
-        echo "Rotate Agent: ${{ env.ROTATE_AGENT }}"
-
+        echo "Starting crawl on: ${{ env.URL }}"
         python crawler.py "${{ env.URL }}" "${{ env.DEPTH }}" \
           --max-pages "${{ env.MAX_PAGES }}" \
           --timeout "${{ env.TIMEOUT }}" \
           --rotate-agent-after "${{ env.ROTATE_AGENT }}"
 
-    - name: Generate visualizations
+    - name: Generate visualizations and report
       run: |
-        python scripts/generate_visualizations.py
-        python scripts/update_html.py
+        {
+          python scripts/generate_visualizations.py
+          python scripts/update_html.py
 
-        timestamp=$(date +"%Y%m%d_%H%M%S")
-        mkdir -p data/archive
-        cp data/results.csv "data/archive/results_${timestamp}.csv"
-        cp data/results.json "data/archive/results_${timestamp}.json"
+          timestamp=$(date +"%Y%m%d_%H%M%S")
+          mkdir -p data/archive
+          cp data/results.csv "data/archive/results_${timestamp}.csv"
+          cp data/results.json "data/archive/results_${timestamp}.json"
+        } || {
+          echo "❌ Visualization step failed."
+          if [ "${{ env.ISSUE_NUMBER }}" != "0" ]; then
+            errlog=$(tail -n 50 /home/runner/work/${{ github.repository }}/PagesXcrawler/scripts/generate_visualizations.py 2>&1 | sed 's/"/\\"/g')
+            curl -X POST \
+              -H "Authorization: token ${{ secrets.MY_PAT }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}/comments" \
+              -d "{\"body\":\"⚠️ Error during visualization:\n\`\`\`log\n$errlog\n\`\`\`\"}"
+          fi
+          exit 1
+        }
 
-    - name: Archive data
+    - name: Archive crawl data
       uses: actions/upload-artifact@v4
       with:
         name: crawl-data-${{ env.ISSUE_NUMBER }}-${{ github.run_id }}
@@ -155,26 +155,25 @@ jobs:
         pages_crawled=$(wc -l < data/results.csv)
         echo "$timestamp,${{ env.URL }},${{ env.DEPTH }},${{ env.MAX_PAGES }},$pages_crawled,completed" >> data/history/crawl_history.csv
 
-    - name: Commit and push changes
+    - name: Commit and push results
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add data/* visualizations/* index.html
-        git commit -m "Update crawl results and visualizations [run #${{ github.run_id }}]"
+        git commit -m "🔄 Update crawl data [run #${{ github.run_id }}]"
         git push
 
-    - name: Update issue status
+    - name: Post crawl summary to issue
       if: env.ISSUE_NUMBER != '0'
       run: |
         pages_crawled=$(wc -l < data/results.csv)
-
-        completion_msg="✅ Crawl completed!\n\n📊 Results Summary:\n- Pages Crawled: $pages_crawled\n- Depth Reached: ${{ env.DEPTH }}\n- Max Pages: ${{ env.MAX_PAGES }}\n\n🔍 View results:\n- [Interactive Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)\n- [Generated PDF Report](https://github.com/${{ github.repository }}/blob/main/visualizations/report_${{ github.run_id }}.pdf)\n\nCompleted at: $(date)"
+        summary="✅ Crawl completed!\n\n**Results**:\n- Pages Crawled: $pages_crawled\n- Depth: ${{ env.DEPTH }}\n- Max Pages: ${{ env.MAX_PAGES }}\n\n🔗 [Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n📄 [CSV](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n🧾 [PDF](https://github.com/${{ github.repository }}/blob/main/visualizations/report_${{ github.run_id }}.pdf)\n\n_Completed at: $(date)_"
 
         curl -X POST \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}/comments" \
-          -d "{\"body\":\"$completion_msg\"}"
+          -d "{\"body\":\"$summary\"}"
 
         curl -X PATCH \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
