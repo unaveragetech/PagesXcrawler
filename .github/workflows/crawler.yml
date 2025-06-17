@@ -76,36 +76,37 @@ jobs:
           }
 
           if [[ "$issue_title" =~ ^crawl:[[:space:]]*(https?://[^[:space:]]+)[[:space:]]+([0-9]+)(.*)$ ]]; then
-              url="${BASH_REMATCH[1]}"
-              depth="${BASH_REMATCH[2]}"
-              options="${BASH_REMATCH[3]}"
+            url="${BASH_REMATCH[1]}"
+            depth="${BASH_REMATCH[2]}"
+            options="${BASH_REMATCH[3]}"
 
-              max_pages=100
-              timeout=10
-              rotate_agent=10
+            max_pages=100
+            timeout=10
+            rotate_agent=10
 
-              if [ ! -z "$options" ]; then
-                  [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]] && max_pages="${BASH_REMATCH[1]}"
-                  [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]] && timeout="${BASH_REMATCH[1]}"
-                  [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]] && rotate_agent="${BASH_REMATCH[1]}"
-              fi
+            if [ ! -z "$options" ]; then
+              [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]] && max_pages="${BASH_REMATCH[1]}"
+              [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]] && timeout="${BASH_REMATCH[1]}"
+              [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]] && rotate_agent="${BASH_REMATCH[1]}"
+            fi
 
-              {
-                echo "URL=$url"
-                echo "DEPTH=$depth"
-                echo "MAX_PAGES=$max_pages"
-                echo "TIMEOUT=$timeout"
-                echo "ROTATE_AGENT=$rotate_agent"
-                echo "ISSUE_NUMBER=$issue_number"
-              } >> "$GITHUB_ENV"
+            {
+              echo "URL=$url"
+              echo "DEPTH=$depth"
+              echo "MAX_PAGES=$max_pages"
+              echo "TIMEOUT=$timeout"
+              echo "ROTATE_AGENT=$rotate_agent"
+              echo "ISSUE_NUMBER=$issue_number"
+            } >> "$GITHUB_ENV"
 
-              config_msg="📋 Crawl Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: $rotate_agent\n\`\`\`"
-              post_comment "$config_msg"
+            config_msg="📋 Crawl Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: $rotate_agent\n\`\`\`"
+            post_comment "$config_msg"
           else
-              error_msg="❌ Invalid issue title format.\n\nUse:\n\`\`\`\ncrawl: URL DEPTH [--max-pages N] [--timeout N] [--rotate-agent-after N]\n\`\`\`\nExample:\n\`\`\`\ncrawl: https://example.com 3 --max-pages 50 --timeout 15\n\`\`\`"
-              post_comment "$error_msg"
-              exit 1
+            error_msg="❌ Invalid issue title format.\n\nUse:\n\`\`\`\ncrawl: URL DEPTH [--max-pages N] [--timeout N] [--rotate-agent-after N]\n\`\`\`\nExample:\n\`\`\`\ncrawl: https://example.com 3 --max-pages 50 --timeout 15\n\`\`\`"
+            post_comment "$error_msg"
+            exit 1
           fi
+        fi
 
     - name: Run crawler
       run: |
