@@ -43,7 +43,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 pandas pyyaml
+        pip install requests beautifulsoup4 pandas pyyaml matplotlib PyPDF2
+        pip install --upgrade html5lib lxml  # Additional parsing libraries
 
     - name: Parse inputs
       id: parse-inputs
@@ -132,43 +133,52 @@ jobs:
           --timeout "${{ env.TIMEOUT }}" \
           --rotate-agent-after "${{ env.ROTATE_AGENT }}"
 
-    - name: Update visualization
+    - name: Generate visualizations
       run: |
+        # Generate charts and PDF reports
+        python scripts/generate_visualizations.py
+        
+        # Update HTML dashboard
         python scripts/update_html.py
-        # Generate a timestamped version of the data
+        
+        # Create timestamped archives
         timestamp=$(date +"%Y%m%d_%H%M%S")
-        cp data/results.csv "data/results_${timestamp}.csv"
-        cp data/results.json "data/results_${timestamp}.json"
+        mkdir -p data/archive
+        cp data/results.csv "data/archive/results_${timestamp}.csv"
+        cp data/results.json "data/archive/results_${timestamp}.json"
 
     - name: Archive data
       uses: actions/upload-artifact@v3
       with:
         name: crawl-data-${{ env.ISSUE_NUMBER }}-${{ github.run_id }}
         path: |
-          data/results.csv
-          data/results.json
-          data/results_*.csv
-          data/results_*.json
+          data/results.*
+          data/archive/
+          visualizations/
+          index.html
 
-    - name: Update issue status
+    - name: Update crawl history
       run: |
         mkdir -p data/history
         timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-        echo "$timestamp,${{ env.URL }},${{ env.DEPTH }},${{ env.MAX_PAGES }},completed" >> data/history/crawl_history.csv
+        pages_crawled=$(wc -l < data/results.csv)
+        echo "$timestamp,${{ env.URL }},${{ env.DEPTH }},${{ env.MAX_PAGES }},$pages_crawled,completed" >> data/history/crawl_history.csv
 
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add data/* index.html
-        git commit -m "Update data and visualization [run #${{ github.run_id }}]"
+        git add data/* visualizations/* index.html
+        git commit -m "Update crawl results and visualizations [run #${{ github.run_id }}]"
         git push
 
     - name: Update issue status
       if: env.ISSUE_NUMBER != '0'
       run: |
+        pages_crawled=$(wc -l < data/results.csv)
+        
         # Add completion comment
-        completion_msg="✅ Crawl completed!\n\n📊 View results:\n- [Interactive Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n- [Raw CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [Raw JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)\n\n🔍 Crawl Details:\n- Pages Crawled: $(wc -l < data/results.csv)\n- Completed at: $(date)"
+        completion_msg="✅ Crawl completed!\n\n📊 Results Summary:\n- Pages Crawled: $pages_crawled\n- Depth Reached: ${{ env.DEPTH }}\n- Max Pages: ${{ env.MAX_PAGES }}\n\n🔍 View results:\n- [Interactive Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)\n- [Generated PDF Report](https://github.com/${{ github.repository }}/blob/main/visualizations/report_${{ github.run_id }}.pdf)\n\nCompleted at: $(date)"
 
         curl -X POST \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
