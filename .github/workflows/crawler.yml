@@ -3,88 +3,119 @@ name: Web Crawler
 on:
   issues:
     types: [opened, edited]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL to crawl'
+        required: true
+      depth:
+        description: 'Crawl depth'
+        required: true
+        default: '2'
+      max_pages:
+        description: 'Maximum pages to crawl'
+        required: false
+        default: '100'
+      timeout:
+        description: 'Request timeout in seconds'
+        required: false
+        default: '10'
+      rotate_agent:
+        description: 'Rotate user agent after N requests'
+        required: false
+        default: '10'
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.title, 'crawl:')
-
+    if: contains(github.event.issue.title, 'crawl:') || github.event_name == 'workflow_dispatch'
+    
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         token: ${{ secrets.MY_PAT }}
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.8'
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4
+        pip install requests beautifulsoup4 pandas pyyaml
 
-    - name: Parse issue title
+    - name: Parse inputs
+      id: parse-inputs
       run: |
-        issue_title="${{ github.event.issue.title }}"
-        issue_number="${{ github.event.issue.number }}"
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          {
+            echo "URL=${{ inputs.url }}"
+            echo "DEPTH=${{ inputs.depth }}"
+            echo "MAX_PAGES=${{ inputs.max_pages }}"
+            echo "TIMEOUT=${{ inputs.timeout }}"
+            echo "ROTATE_AGENT=${{ inputs.rotate_agent }}"
+            echo "ISSUE_NUMBER=0"
+          } >> "$GITHUB_ENV"
+        else
+          issue_title="${{ github.event.issue.title }}"
+          issue_number="${{ github.event.issue.number }}"
 
-        # Function to add comment to the issue
-        add_comment() {
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.MY_PAT }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/issues/$issue_number/comments" \
-            -d "{\"body\":\"$1\"}"
-        }
+          # Function to add comment to the issue
+          add_comment() {
+            curl -X POST \
+              -H "Authorization: token ${{ secrets.MY_PAT }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${{ github.repository }}/issues/$issue_number/comments" \
+              -d "{\"body\":\"$1\"}"
+          }
 
-        # Match the new format: crawl: URL DEPTH [OPTIONS]
-        if [[ "$issue_title" =~ ^crawl:[[:space:]]*(https?://[^[:space:]]+)[[:space:]]+([0-9]+)(.*)$ ]]; then
-            url="${BASH_REMATCH[1]}"
-            depth="${BASH_REMATCH[2]}"
-            options="${BASH_REMATCH[3]}"
+          # Match the format: crawl: URL DEPTH [OPTIONS]
+          if [[ "$issue_title" =~ ^crawl:[[:space:]]*(https?://[^[:space:]]+)[[:space:]]+([0-9]+)(.*)$ ]]; then
+              url="${BASH_REMATCH[1]}"
+              depth="${BASH_REMATCH[2]}"
+              options="${BASH_REMATCH[3]}"
 
-            # Set default values
-            max_pages=100
-            timeout=10
-            rotate_agent=10
+              # Set default values
+              max_pages=100
+              timeout=10
+              rotate_agent=10
 
-            # Parse options if they exist
-            if [ ! -z "$options" ]; then
-                # Check for --max-pages
-                if [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]]; then
-                    max_pages="${BASH_REMATCH[1]}"
-                fi
+              # Parse options if they exist
+              if [ ! -z "$options" ]; then
+                  # Check for --max-pages
+                  if [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]]; then
+                      max_pages="${BASH_REMATCH[1]}"
+                  fi
 
-                # Check for --timeout
-                if [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]]; then
-                    timeout="${BASH_REMATCH[1]}"
-                fi
+                  # Check for --timeout
+                  if [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]]; then
+                      timeout="${BASH_REMATCH[1]}"
+                  fi
 
-                # Check for --rotate-agent-after
-                if [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]]; then
-                    rotate_agent="${BASH_REMATCH[1]}"
-                fi
-            fi
+                  # Check for --rotate-agent-after
+                  if [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]]; then
+                      rotate_agent="${BASH_REMATCH[1]}"
+                  fi
+              fi
 
-            # Export all variables
-            {
+              {
                 echo "URL=$url"
                 echo "DEPTH=$depth"
                 echo "MAX_PAGES=$max_pages"
                 echo "TIMEOUT=$timeout"
                 echo "ROTATE_AGENT=$rotate_agent"
-                echo "ISSUE_TITLE=$issue_title"
                 echo "ISSUE_NUMBER=$issue_number"
-            } >> "$GITHUB_ENV"
+              } >> "$GITHUB_ENV"
 
-            # Add configuration comment with proper escaping
-            config_msg="📋 Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\n\`\`\`"
-            add_comment "$config_msg"
-        else
-            error_msg="❌ Error: Invalid issue title format.\n\nPlease use this format:\n\`\`\`\ncrawl: URL DEPTH [OPTIONS]\n\`\`\`\n\nExamples:\n\`\`\`\ncrawl: https://example.com 3\ncrawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5\n\`\`\`"
-            add_comment "$error_msg"
-            exit 1
+              # Add configuration comment
+              config_msg="📋 Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\n\`\`\`"
+              add_comment "$config_msg"
+          else
+              error_msg="❌ Error: Invalid issue title format.\n\nPlease use this format:\n\`\`\`\ncrawl: URL DEPTH [OPTIONS]\n\`\`\`\n\nExamples:\n\`\`\`\ncrawl: https://example.com 3\ncrawl: https://example.com 2 --max-pages 50 --timeout 15 --rotate-agent-after 5\n\`\`\`"
+              add_comment "$error_msg"
+              exit 1
+          fi
         fi
 
     - name: Run crawler
@@ -102,24 +133,42 @@ jobs:
           --rotate-agent-after "${{ env.ROTATE_AGENT }}"
 
     - name: Update visualization
-      run: python scripts/update_html.py
+      run: |
+        python scripts/update_html.py
+        # Generate a timestamped version of the data
+        timestamp=$(date +"%Y%m%d_%H%M%S")
+        cp data/results.csv "data/results_${timestamp}.csv"
+        cp data/results.json "data/results_${timestamp}.json"
+
+    - name: Archive data
+      uses: actions/upload-artifact@v3
+      with:
+        name: crawl-data-${{ env.ISSUE_NUMBER }}-${{ github.run_id }}
+        path: |
+          data/results.csv
+          data/results.json
+          data/results_*.csv
+          data/results_*.json
 
     - name: Update issue status
       run: |
-        echo "${{ env.ISSUE_TITLE }},${{ env.ISSUE_NUMBER }},completed" >> data/issues_status.csv
+        mkdir -p data/history
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        echo "$timestamp,${{ env.URL }},${{ env.DEPTH }},${{ env.MAX_PAGES }},completed" >> data/history/crawl_history.csv
 
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add data/* index.html
-        git commit -m "Update data and visualization from issue #${{ env.ISSUE_NUMBER }}"
+        git commit -m "Update data and visualization [run #${{ github.run_id }}]"
         git push
 
-    - name: Close issue
+    - name: Update issue status
+      if: env.ISSUE_NUMBER != '0'
       run: |
         # Add completion comment
-        completion_msg="✅ Crawl completed! View results:\n- [Dashboard](https://unaveragetech.github.io/PagesXcrawler/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)"
+        completion_msg="✅ Crawl completed!\n\n📊 View results:\n- [Interactive Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n- [Raw CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [Raw JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)\n\n🔍 Crawl Details:\n- Pages Crawled: $(wc -l < data/results.csv)\n- Completed at: $(date)"
 
         curl -X POST \
           -H "Authorization: token ${{ secrets.MY_PAT }}" \
