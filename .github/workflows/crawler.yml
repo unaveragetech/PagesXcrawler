@@ -29,9 +29,14 @@ jobs:
   crawl:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.title, 'crawl:') || github.event_name == 'workflow_dispatch'
-    
+
+    permissions:
+      contents: write
+      issues: write
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
         token: ${{ secrets.MY_PAT }}
 
@@ -44,7 +49,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4 pandas pyyaml matplotlib PyPDF2
-        pip install --upgrade html5lib lxml  # Additional parsing libraries
+        pip install --upgrade html5lib lxml
 
     - name: Parse inputs
       id: parse-inputs
@@ -62,7 +67,6 @@ jobs:
           issue_title="${{ github.event.issue.title }}"
           issue_number="${{ github.event.issue.number }}"
 
-          # Function to add comment to the issue
           add_comment() {
             curl -X POST \
               -H "Authorization: token ${{ secrets.MY_PAT }}" \
@@ -71,30 +75,22 @@ jobs:
               -d "{\"body\":\"$1\"}"
           }
 
-          # Match the format: crawl: URL DEPTH [OPTIONS]
           if [[ "$issue_title" =~ ^crawl:[[:space:]]*(https?://[^[:space:]]+)[[:space:]]+([0-9]+)(.*)$ ]]; then
               url="${BASH_REMATCH[1]}"
               depth="${BASH_REMATCH[2]}"
               options="${BASH_REMATCH[3]}"
 
-              # Set default values
               max_pages=100
               timeout=10
               rotate_agent=10
 
-              # Parse options if they exist
               if [ ! -z "$options" ]; then
-                  # Check for --max-pages
                   if [[ "$options" =~ --max-pages[[:space:]]+([0-9]+) ]]; then
                       max_pages="${BASH_REMATCH[1]}"
                   fi
-
-                  # Check for --timeout
                   if [[ "$options" =~ --timeout[[:space:]]+([0-9]+) ]]; then
                       timeout="${BASH_REMATCH[1]}"
                   fi
-
-                  # Check for --rotate-agent-after
                   if [[ "$options" =~ --rotate-agent-after[[:space:]]+([0-9]+) ]]; then
                       rotate_agent="${BASH_REMATCH[1]}"
                   fi
@@ -109,7 +105,6 @@ jobs:
                 echo "ISSUE_NUMBER=$issue_number"
               } >> "$GITHUB_ENV"
 
-              # Add configuration comment
               config_msg="📋 Configuration:\n\`\`\`\nURL: $url\nDepth: $depth\nMax Pages: $max_pages\nTimeout: ${timeout}s\nRotate Agent: Every $rotate_agent requests\n\`\`\`"
               add_comment "$config_msg"
           else
@@ -135,20 +130,16 @@ jobs:
 
     - name: Generate visualizations
       run: |
-        # Generate charts and PDF reports
         python scripts/generate_visualizations.py
-        
-        # Update HTML dashboard
         python scripts/update_html.py
-        
-        # Create timestamped archives
+
         timestamp=$(date +"%Y%m%d_%H%M%S")
         mkdir -p data/archive
         cp data/results.csv "data/archive/results_${timestamp}.csv"
         cp data/results.json "data/archive/results_${timestamp}.json"
 
     - name: Archive data
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: crawl-data-${{ env.ISSUE_NUMBER }}-${{ github.run_id }}
         path: |
@@ -176,8 +167,7 @@ jobs:
       if: env.ISSUE_NUMBER != '0'
       run: |
         pages_crawled=$(wc -l < data/results.csv)
-        
-        # Add completion comment
+
         completion_msg="✅ Crawl completed!\n\n📊 Results Summary:\n- Pages Crawled: $pages_crawled\n- Depth Reached: ${{ env.DEPTH }}\n- Max Pages: ${{ env.MAX_PAGES }}\n\n🔍 View results:\n- [Interactive Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n- [CSV Data](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n- [JSON Data](https://github.com/${{ github.repository }}/blob/main/data/results.json)\n- [Generated PDF Report](https://github.com/${{ github.repository }}/blob/main/visualizations/report_${{ github.run_id }}.pdf)\n\nCompleted at: $(date)"
 
         curl -X POST \
