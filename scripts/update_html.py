@@ -46,8 +46,10 @@ def calculate_averages(results):
 
 def update_html():
     """Generate the HTML dashboard with crawl results"""
-    json_path = 'data/results.json'
-    csv_path = 'data/results.csv'
+    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    DATA_DIR = os.path.join(BASE_DIR, 'data')
+    json_path = os.path.join(DATA_DIR, 'results.json')
+    csv_path = os.path.join(DATA_DIR, 'results.csv')
 
     results = []
 
@@ -112,11 +114,12 @@ def update_html():
     # Calculate averages
     averages = calculate_averages(results)
 
-    # Write HTML content
-    with open('index.html', 'w', encoding='utf-8') as html_file:
+    # Write HTML content to project root index.html
+    INDEX_PATH = os.path.join(BASE_DIR, 'index.html')
+    with open(INDEX_PATH, 'w', encoding='utf-8') as html_file:
         html_file.write(f'''<!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crawler Results Dashboard</title>
@@ -310,7 +313,7 @@ def update_html():
                         </div>
                     </div>''')
 
-        html_file.write('''
+        html_file.write(f'''
                 </div>
 
                 <!-- Pagination -->

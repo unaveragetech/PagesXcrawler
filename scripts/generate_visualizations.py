@@ -1,7 +1,10 @@
 import os
 import json
 import csv
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import update_html
 from collections import defaultdict
 from urllib.parse import urlparse
 from datetime import datetime
@@ -12,8 +15,9 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 
 # Directories
-DATA_DIR = "data"
-VIS_DIR = "visualizations"
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+VIS_DIR = os.path.join(BASE_DIR, "visualizations")
 ARCHIVE_DIR = os.path.join(DATA_DIR, "archive")
 os.makedirs(VIS_DIR, exist_ok=True)
 os.makedirs(ARCHIVE_DIR, exist_ok=True)
@@ -79,7 +83,7 @@ def generate_charts(results):
     domain_chart = os.path.join(VIS_DIR, "domains_chart.png")
     plt.savefig(domain_chart)
     plt.close()
-    chart_paths["domains_chart"] = domain_chart
+    chart_paths["domains_chart"] = os.path.relpath(domain_chart, BASE_DIR).replace('\\', '/')
 
     # Chart: Word Count Histogram
     plt.figure(figsize=(10, 6))
@@ -91,7 +95,7 @@ def generate_charts(results):
     word_chart = os.path.join(VIS_DIR, "words_chart.png")
     plt.savefig(word_chart)
     plt.close()
-    chart_paths["words_chart"] = word_chart
+    chart_paths["words_chart"] = os.path.relpath(word_chart, BASE_DIR).replace('\\', '/')
 
     # Chart: Average Link Counts
     plt.figure(figsize=(8, 6))
@@ -103,7 +107,7 @@ def generate_charts(results):
     link_chart = os.path.join(VIS_DIR, "links_chart.png")
     plt.savefig(link_chart)
     plt.close()
-    chart_paths["links_chart"] = link_chart
+    chart_paths["links_chart"] = os.path.relpath(link_chart, BASE_DIR).replace('\\', '/')
 
     return chart_paths
 
@@ -134,7 +138,7 @@ def generate_pdf_report(chart_paths, run_id):
 
 def update_html_with_visualizations(chart_paths):
     """Insert charts into the index.html dashboard."""
-    html_path = "index.html"
+    html_path = os.path.join(BASE_DIR, "index.html")
     if not os.path.exists(html_path):
         print("No HTML dashboard to update.")
         return
@@ -169,29 +173,35 @@ def update_html_with_visualizations(chart_paths):
         content = content.replace("<!-- Filter Controls -->", html_block + "\n<!-- Filter Controls -->")
         with open(html_path, "w", encoding="utf-8") as f:
             f.write(content)
-        print("✅ HTML dashboard updated.")
+        print("HTML dashboard updated.")
     else:
-        print("⚠️ Could not insert visualizations. Marker not found.")
+        print("Could not insert visualizations. Marker not found.")
 
 def main():
     run_id = os.getenv("GITHUB_RUN_ID", "local")
-    print("📥 Loading crawl data...")
+    print("Running updater to generate base HTML...")
+    try:
+        update_html.update_html()
+    except Exception as e:
+        print(f"Updater failed: {e}")
+
+    print("Loading crawl data...")
     data = load_data()
 
     if not data:
-        print("❌ No crawl data found. Exiting.")
+        print("No crawl data found. Exiting.")
         return
 
-    print("📊 Generating charts...")
+    print("Generating charts...")
     charts = generate_charts(data)
 
-    print("📝 Creating PDF report...")
+    print("Creating PDF report...")
     report = generate_pdf_report(charts, run_id)
 
-    print("🌐 Updating HTML dashboard...")
+    print("Updating HTML dashboard...")
     update_html_with_visualizations(charts)
 
-    print(f"✅ Done! PDF saved to: {report}")
+    print(f"Done! PDF saved to: {report}")
 
 if __name__ == "__main__":
     main()
