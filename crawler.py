@@ -328,9 +328,9 @@ def save_results(results):
         json.dump(results, json_file, indent=4, ensure_ascii=False)
 
     csv_path = 'data/results.csv'
-    if results:
-        fieldnames = results[0].keys()
-        with open(csv_path, 'w', newline='', encoding='utf-8') as csv_file:
+    with open(csv_path, 'w', newline='', encoding='utf-8') as csv_file:
+        if results:
+            fieldnames = results[0].keys()
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(results)
