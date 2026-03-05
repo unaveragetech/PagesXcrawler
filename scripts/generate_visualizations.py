@@ -1,6 +1,7 @@
 import os
 import json
 import csv
+import re
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -147,12 +148,11 @@ def update_html_with_visualizations(chart_paths):
         content = f.read()
 
     # Remove any existing visualization section to avoid duplicates on repeated runs
-    import re as _re
-    content = _re.sub(
+    content = re.sub(
         r'<!-- Visualizations Section -->.*?<!-- End Visualizations Section -->',
         '',
         content,
-        flags=_re.DOTALL
+        flags=re.DOTALL
     )
 
     # Build new visualization block

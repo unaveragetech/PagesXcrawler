@@ -1,6 +1,7 @@
 import json
 import os
 import csv
+import ast
 from collections import defaultdict
 from urllib.parse import urlparse
 from html import escape
@@ -86,7 +87,7 @@ def load_results(json_path, csv_path):
                         for key in ['h1_tags', 'h2_tags', 'link_texts']:
                             if isinstance(row.get(key), str):
                                 try:
-                                    row[key] = eval(row[key]) if row[key] else []
+                                    row[key] = ast.literal_eval(row[key]) if row[key] else []
                                 except Exception:
                                     row[key] = []
                         results.append(row)
