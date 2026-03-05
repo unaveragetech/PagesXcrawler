@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PagesXcrawler – Past Crawls &amp; How To Use</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        pre { background:#1e293b; color:#e2e8f0; border-radius:0.5rem; padding:1rem; overflow-x:auto; }
+        code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:0.85rem; }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div class="min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-spider text-2xl"></i>
+                    <h1 class="text-2xl font-bold">PagesXcrawler – Past Crawls</h1>
+                </div>
+                <nav class="flex gap-3 flex-wrap justify-center">
+                    <a href="index.html"
+                       class="flex items-center gap-1 bg-indigo-500 hover:bg-indigo-400 px-3 py-1.5 rounded-lg text-sm font-medium transition">
+                        <i class="fas fa-chart-bar"></i> Results Dashboard
+                    </a>
+                    <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new"
+                       target="_blank"
+                       class="flex items-center gap-1 bg-indigo-500 hover:bg-indigo-400 px-3 py-1.5 rounded-lg text-sm font-medium transition">
+                        <i class="fas fa-plus"></i> New Crawl
+                    </a>
+                </nav>
+            </div>
+            <div class="mt-3 text-sm text-indigo-200">
+                Last updated: 2026-03-05 15:57:54 &nbsp;·&nbsp; 75 recorded crawl(s)
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-10">
+
+        <!-- ── How To Use ───────────────────────────────────────────── -->
+        <section class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-book-open text-indigo-500 mr-2"></i>How to Use PagesXcrawler
+            </h2>
+            <p class="text-gray-600 mb-4">
+                PagesXcrawler is a GitHub-powered web crawler.  Every crawl is triggered by
+                a GitHub Issue or the Actions workflow dispatch UI, and results are published
+                automatically to this GitHub Pages site.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+                <!-- Method 1 -->
+                <div class="border border-indigo-100 rounded-xl p-5 bg-indigo-50">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-2">
+                        <i class="fas fa-ticket-alt mr-1"></i> Method 1 – GitHub Issue
+                    </h3>
+                    <ol class="list-decimal list-inside text-gray-700 space-y-1 text-sm">
+                        <li>Go to the
+                            <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new"
+                               target="_blank" class="text-indigo-600 underline">Issues tab</a>
+                            and click <strong>New issue</strong>.
+                        </li>
+                        <li>Set the <strong>title</strong> using the format below and submit.</li>
+                        <li>The bot will comment with progress and close the issue when done.</li>
+                    </ol>
+                    <pre class="mt-3"><code>crawl: https://example.com 3
+crawl: https://example.com 2 --max-pages 50 --timeout 15</code></pre>
+                </div>
+
+                <!-- Method 2 -->
+                <div class="border border-green-100 rounded-xl p-5 bg-green-50">
+                    <h3 class="text-lg font-semibold text-green-700 mb-2">
+                        <i class="fas fa-play-circle mr-1"></i> Method 2 – Workflow Dispatch
+                    </h3>
+                    <ol class="list-decimal list-inside text-gray-700 space-y-1 text-sm">
+                        <li>Go to
+                            <a href="https://github.com/unaveragetech/PagesXcrawler/actions/workflows/crawler.yml"
+                               target="_blank" class="text-green-600 underline">Actions → Web Crawler</a>.
+                        </li>
+                        <li>Click <strong>Run workflow</strong> and fill in the fields.</li>
+                        <li>The results dashboard will update automatically after the run.</li>
+                    </ol>
+                    <pre class="mt-3"><code># fields available:
+URL          – e.g. https://example.com
+DEPTH        – e.g. 3
+MAX_PAGES    – e.g. 100   (default)
+TIMEOUT      – e.g. 10    (seconds, default)
+ROTATE_AGENT – e.g. 10   (requests before agent rotation)</code></pre>
+                </div>
+            </div>
+
+            <!-- Parameters table -->
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Command-Line / Issue Parameters</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 border border-gray-200 font-semibold">Parameter</th>
+                            <th class="px-4 py-2 border border-gray-200 font-semibold">Required</th>
+                            <th class="px-4 py-2 border border-gray-200 font-semibold">Default</th>
+                            <th class="px-4 py-2 border border-gray-200 font-semibold">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 border border-gray-200 font-mono">url</td>
+                            <td class="px-4 py-2 border border-gray-200">✅</td>
+                            <td class="px-4 py-2 border border-gray-200">—</td>
+                            <td class="px-4 py-2 border border-gray-200">The URL to crawl (must start with http:// or https://)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 border border-gray-200 font-mono">depth</td>
+                            <td class="px-4 py-2 border border-gray-200">✅</td>
+                            <td class="px-4 py-2 border border-gray-200">—</td>
+                            <td class="px-4 py-2 border border-gray-200">Number of link levels to follow (1–5 recommended)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 border border-gray-200 font-mono">--max-pages</td>
+                            <td class="px-4 py-2 border border-gray-200">❌</td>
+                            <td class="px-4 py-2 border border-gray-200">100</td>
+                            <td class="px-4 py-2 border border-gray-200">Maximum pages to crawl</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 border border-gray-200 font-mono">--timeout</td>
+                            <td class="px-4 py-2 border border-gray-200">❌</td>
+                            <td class="px-4 py-2 border border-gray-200">10</td>
+                            <td class="px-4 py-2 border border-gray-200">Per-request timeout in seconds</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 border border-gray-200 font-mono">--rotate-agent-after</td>
+                            <td class="px-4 py-2 border border-gray-200">❌</td>
+                            <td class="px-4 py-2 border border-gray-200">10</td>
+                            <td class="px-4 py-2 border border-gray-200">Requests between user-agent rotations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ── Past Crawls Table ─────────────────────────────────────── -->
+        <section class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                <h2 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-history text-indigo-500 mr-2"></i>Past Crawls (75)
+                </h2>
+                <input type="text" id="historySearch" placeholder="Search…"
+                       class="px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 w-full sm:w-56">
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border-collapse" id="historyTable">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-600 uppercase text-xs">
+                            <th class="px-4 py-3 border border-gray-200">#</th>
+                            <th class="px-4 py-3 border border-gray-200">Timestamp</th>
+                            <th class="px-4 py-3 border border-gray-200">URL</th>
+                            <th class="px-4 py-3 border border-gray-200 text-center">Depth</th>
+                            <th class="px-4 py-3 border border-gray-200 text-center">Max Pages</th>
+                            <th class="px-4 py-3 border border-gray-200 text-center">Pages Crawled</th>
+                            <th class="px-4 py-3 border border-gray-200 text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">1</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com">https://ddosecrets.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">166</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">2</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://chat.deepseek.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://chat.deepseek.com">https://chat.deepseek.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">164</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">3</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.2b2t.org" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.2b2t.org">https://www.2b2t.org</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">161</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">4</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.2b2t.org" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.2b2t.org">https://www.2b2t.org</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">160</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">5</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com">https://github.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">159</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">6</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://chat.deepseek.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://chat.deepseek.com">https://chat.deepseek.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">158</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">7</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://chat.deepseek.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://chat.deepseek.com">https://chat.deepseek.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">157</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">8</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://chat.deepseek.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://chat.deepseek.com">https://chat.deepseek.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">156</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">9</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com">https://ddosecrets.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">155</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">10</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com">https://ddosecrets.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">154</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">11</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech">https://github.com/unaveragetech</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">153</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">12</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://example.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://example.com">https://example.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">13</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://example.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://example.com">https://example.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">14</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(2)">https://ddosecrets.com:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">15</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://valleywisehealth.org:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://valleywisehealth.org:depth(3)">https://valleywisehealth.org:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">16</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(10)">https://ddosecrets.com:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">17</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(2)">https://ddosecrets.com:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">18</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)">https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">19</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(2)">https://ddosecrets.com:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">20</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)">https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">21</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(2)">https://ddosecrets.com:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">22</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com/:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com/:depth(3)">https://minewind.com/:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">23</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(2)">https://ddosecrets.com:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">24</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(1)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(1)">https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(1)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">1</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">25</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(2)">https://ddosecrets.com:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">26</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)">https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">27</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(5)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(5)">https://coolercrew.com/treasure_hunt/SyracuseWinterfest:depth(5)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">5</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">28</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com:depth(30)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com:depth(30)">https://ddosecrets.com:depth(30)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">30</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">29</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.fandom.com/wiki/Essence:depth(6)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.fandom.com/wiki/Essence:depth(6)">https://minewind.fandom.com/wiki/Essence:depth(6)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">6</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">30</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com/:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com/:depth(3)">https://minewind.com/:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">31</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com/:depth(5)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com/:depth(5)">https://minewind.com/:depth(5)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">5</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">32</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com/:depth(5)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com/:depth(5)">https://minewind.com/:depth(5)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">5</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">33</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://4anime.gg/home:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://4anime.gg/home:depth(3)">https://4anime.gg/home:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">34</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://4anime.gg/home:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://4anime.gg/home:depth(3)">https://4anime.gg/home:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">35</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://4anime.gg/home:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://4anime.gg/home:depth(10)">https://4anime.gg/home:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">36</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.google.com/:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.google.com/:depth(3)">https://www.google.com/:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">37</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://sketch.io/sketchpad/:depth(5)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://sketch.io/sketchpad/:depth(5)">https://sketch.io/sketchpad/:depth(5)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">5</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">38</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://optical.toys/:depth(4)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://optical.toys/:depth(4)">https://optical.toys/:depth(4)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">39</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://puginarug.com:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://puginarug.com:depth(3)">https://puginarug.com:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">40</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech/PagesXcrawler:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech/PagesXcrawler:depth(2)">https://github.com/unaveragetech/PagesXcrawler:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">41</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.youtube.com:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.youtube.com:depth(10)">https://www.youtube.com:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">42</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.youtube.com:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.youtube.com:depth(3)">https://www.youtube.com:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">43</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(1)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(1)">https://github.com/unaveragetech:depth(1)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">1</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">44</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(2)">https://github.com/unaveragetech:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">45</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(3)">https://github.com/unaveragetech:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">46</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(2)">https://github.com/unaveragetech:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">47</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(10)">https://github.com/unaveragetech:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">48</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(2)">https://github.com/unaveragetech:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">49</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(4)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(4)">https://github.com/unaveragetech:depth(4)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">50</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://github.com/unaveragetech:depth(4)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://github.com/unaveragetech:depth(4)">https://github.com/unaveragetech:depth(4)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">51</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://clicktheredbutton.com:depth(4)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://clicktheredbutton.com:depth(4)">https://clicktheredbutton.com:depth(4)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">52</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://meteorclient.com:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://meteorclient.com:depth(10)">https://meteorclient.com:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">53</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.netflix.com:depth(4)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.netflix.com:depth(4)">https://www.netflix.com:depth(4)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">54</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://meteorclient.com:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://meteorclient.com:depth(10)">https://meteorclient.com:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">55</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.netflix.com:depth(4)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.netflix.com:depth(4)">https://www.netflix.com:depth(4)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">56</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com:depth(5)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com:depth(5)">https://minewind.com:depth(5)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">5</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">57</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.youtube.com/watch?v=SX3x9pVSf-w:depth(10)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.youtube.com/watch?v=SX3x9pVSf-w:depth(10)">https://www.youtube.com/watch?v=SX3x9pVSf-w:depth(10)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">58</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://puginarug.com:depth(3)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://puginarug.com:depth(3)">https://puginarug.com:depth(3)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">59</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.youtube.com/watch?v=JqZrKtzZk7U:depth(2)" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.youtube.com/watch?v=JqZrKtzZk7U:depth(2)">https://www.youtube.com/watch?v=JqZrKtzZk7U:depth(2)</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">60</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.google.com:3" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.google.com:3">https://www.google.com:3</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">61</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com:1" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com:1">https://minewind.com:1</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">1</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">62</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://optical.toys:4" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://optical.toys:4">https://optical.toys:4</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">63</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com:4" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com:4">https://minewind.com:4</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">64</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com:2" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com:2">https://minewind.com:2</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">65</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.google.com:3" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.google.com:3">https://www.google.com:3</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">66</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com:10" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com:10">https://minewind.com:10</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">67</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://minewind.com:5" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://minewind.com:5">https://minewind.com:5</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">5</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">68</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.youtube.com:3" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.youtube.com:3">https://www.youtube.com:3</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">69</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.netflix.com:4" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.netflix.com:4">https://www.netflix.com:4</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">4</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">70</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.netflix.com:2" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.netflix.com:2">https://www.netflix.com:2</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">71</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://chatgpt.com:2" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://chatgpt.com:2">https://chatgpt.com:2</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">72</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap"></td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://www.youtube.com:2" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://www.youtube.com:2">https://www.youtube.com:2</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"></td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">73</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap">2026-02-02 08:56:14</td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com">https://ddosecrets.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">2</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">150</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">49</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">74</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap">2026-02-02 08:41:26</td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com">https://ddosecrets.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">10</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">150</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">49</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 history-row">
+                            <td class="px-4 py-2 border border-gray-200 text-gray-400">75</td>
+                            <td class="px-4 py-2 border border-gray-200 whitespace-nowrap">2025-06-17 09:47:50</td>
+                            <td class="px-4 py-2 border border-gray-200 max-w-xs">
+                                <a href="https://ddosecrets.com" target="_blank"
+                                   class="text-indigo-600 hover:underline truncate block max-w-xs"
+                                   title="https://ddosecrets.com">https://ddosecrets.com</a>
+                            </td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">3</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">50</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center">51</td>
+                            <td class="px-4 py-2 border border-gray-200 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">✓ completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-3 text-xs text-gray-400">Rows are shown newest-first.</p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-4">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-spider text-xl"></i>
+                        <span class="font-bold">PagesXcrawler</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-1">Automated web crawling with GitHub Actions</p>
+                </div>
+                <div class="flex gap-4 items-center">
+                    <a href="index.html" class="text-gray-400 hover:text-white text-sm">
+                        <i class="fas fa-chart-bar mr-1"></i>Dashboard
+                    </a>
+                    <a href="https://github.com/unaveragetech/PagesXcrawler" target="_blank"
+                       class="text-gray-400 hover:text-white">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-sm text-gray-400">
+                <p>© 2026 PagesXcrawler. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const searchInput = document.getElementById('historySearch');
+    searchInput.addEventListener('input', function() {
+        const q = this.value.toLowerCase();
+        document.querySelectorAll('.history-row').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+</script>
+</body>
+</html>

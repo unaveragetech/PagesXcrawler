@@ -44,6 +44,58 @@ def calculate_averages(results):
     
     return averages
 
+def status_badge(status_code):
+    """Return HTML badge for HTTP status code"""
+    code = int(status_code) if status_code else 0
+    if 200 <= code < 300:
+        return f'<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ {code}</span>'
+    elif 300 <= code < 400:
+        return f'<span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">↪ {code}</span>'
+    elif 400 <= code < 500:
+        return f'<span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">✗ {code}</span>'
+    elif 500 <= code < 600:
+        return f'<span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">⚠ {code}</span>'
+    else:
+        return f'<span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">Active</span>'
+
+def load_results(json_path, csv_path):
+    """Load crawl results, preferring JSON data and falling back to CSV for any missing URLs."""
+    results = []
+    seen_urls = set()
+
+    # Load from JSON first (richer data)
+    if os.path.exists(json_path):
+        try:
+            with open(json_path, 'r', encoding='utf-8') as json_file:
+                data = json.load(json_file)
+                if isinstance(data, list):
+                    for row in data:
+                        if isinstance(row, dict) and row.get('url') and row['url'] not in seen_urls:
+                            results.append(row)
+                            seen_urls.add(row['url'])
+        except Exception as e:
+            print(f"Warning: failed to load JSON results: {e}")
+
+    # Load from CSV for any URLs not already loaded from JSON
+    if os.path.exists(csv_path):
+        try:
+            with open(csv_path, 'r', encoding='utf-8') as csv_file:
+                reader = csv.DictReader(csv_file)
+                for row in reader:
+                    if row.get('url') and row['url'] not in seen_urls:
+                        for key in ['h1_tags', 'h2_tags', 'link_texts']:
+                            if isinstance(row.get(key), str):
+                                try:
+                                    row[key] = eval(row[key]) if row[key] else []
+                                except Exception:
+                                    row[key] = []
+                        results.append(row)
+                        seen_urls.add(row['url'])
+        except Exception as e:
+            print(f"Warning: failed to load CSV results: {e}")
+
+    return results
+
 def update_html():
     """Generate the HTML dashboard with crawl results"""
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -51,22 +103,7 @@ def update_html():
     json_path = os.path.join(DATA_DIR, 'results.json')
     csv_path = os.path.join(DATA_DIR, 'results.csv')
 
-    results = []
-
-    # Load data from JSON if available
-    if os.path.exists(json_path):
-        with open(json_path, 'r', encoding='utf-8') as json_file:
-            results.extend(json.load(json_file))
-
-    # Load data from CSV if available
-    if os.path.exists(csv_path):
-        with open(csv_path, 'r', encoding='utf-8') as csv_file:
-            reader = csv.DictReader(csv_file)
-            for row in reader:
-                for key in ['h1_tags', 'h2_tags', 'link_texts']:
-                    if isinstance(row.get(key), str):
-                        row[key] = eval(row[key]) if row[key] else []
-                results.append(row)
+    results = load_results(json_path, csv_path)
 
     # Process data for visualization
     domains = defaultdict(int)
@@ -119,10 +156,10 @@ def update_html():
     with open(INDEX_PATH, 'w', encoding='utf-8') as html_file:
         html_file.write(f'''<!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crawler Results Dashboard</title>
+    <title>PagesXcrawler – Results Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -135,6 +172,10 @@ def update_html():
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            cursor: pointer;
+        }}
+        .description-text.expanded {{
+            display: block;
         }}
         .chart-container {{
             height: 300px;
@@ -144,6 +185,7 @@ def update_html():
                 height: 200px;
             }}
         }}
+        .result-item {{ transition: background-color 0.15s; }}
     </style>
 </head>
 <body class="bg-gray-50">
@@ -151,20 +193,29 @@ def update_html():
         <!-- Header -->
         <header class="bg-indigo-600 text-white shadow-lg">
             <div class="container mx-auto px-4 py-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="flex items-center mb-4 md:mb-0">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center">
                         <i class="fas fa-spider text-2xl mr-3"></i>
-                        <h1 class="text-2xl font-bold">Crawler Results Dashboard</h1>
+                        <h1 class="text-2xl font-bold">PagesXcrawler – Results Dashboard</h1>
                     </div>
-                    <div class="w-full md:w-auto">
+                    <nav class="flex items-center gap-3 flex-wrap justify-center">
+                        <a href="past_crawls.html"
+                           class="flex items-center gap-1 bg-indigo-500 hover:bg-indigo-400 px-3 py-1.5 rounded-lg text-sm font-medium transition">
+                            <i class="fas fa-history"></i> Past Crawls
+                        </a>
+                        <a href="https://github.com/unaveragetech/PagesXcrawler/issues/new"
+                           target="_blank"
+                           class="flex items-center gap-1 bg-indigo-500 hover:bg-indigo-400 px-3 py-1.5 rounded-lg text-sm font-medium transition">
+                            <i class="fas fa-plus"></i> New Crawl
+                        </a>
                         <div class="relative">
-                            <input type="text" id="searchInput" placeholder="Search results..." 
-                                   class="w-full md:w-64 px-4 py-2 rounded-lg bg-indigo-500 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-                            <i class="fas fa-search absolute right-3 top-3 text-indigo-200"></i>
+                            <input type="text" id="searchInput" placeholder="Search results…"
+                                   class="w-48 md:w-64 px-4 py-2 rounded-lg bg-indigo-500 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                            <i class="fas fa-search absolute right-3 top-2.5 text-indigo-200"></i>
                         </div>
-                    </div>
+                    </nav>
                 </div>
-                <div class="mt-4 flex items-center text-sm">
+                <div class="mt-3 flex items-center text-sm">
                     <span class="bg-indigo-500 px-3 py-1 rounded-full mr-2">Last Updated:</span>
                     <span class="text-indigo-200">{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</span>
                 </div>
@@ -173,49 +224,72 @@ def update_html():
 
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-8">
+
             <!-- Summary Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-                            <i class="fas fa-file-alt text-xl"></i>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+                <div class="metric-card bg-white rounded-xl shadow-md p-4 transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-blue-100 text-blue-600">
+                            <i class="fas fa-file-alt"></i>
                         </div>
                         <div>
-                            <p class="text-gray-500 text-sm">Total Pages</p>
-                            <h3 class="text-2xl font-bold">{format_number(len(results))}</h3>
+                            <p class="text-gray-500 text-xs">Pages</p>
+                            <h3 class="text-xl font-bold">{format_number(len(results))}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
-                            <i class="fas fa-link text-xl"></i>
+                <div class="metric-card bg-white rounded-xl shadow-md p-4 transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-green-100 text-green-600">
+                            <i class="fas fa-link"></i>
                         </div>
                         <div>
-                            <p class="text-gray-500 text-sm">Total Links</p>
-                            <h3 class="text-2xl font-bold">{format_number(total_internal_links + total_external_links)}</h3>
+                            <p class="text-gray-500 text-xs">Links</p>
+                            <h3 class="text-xl font-bold">{format_number(total_internal_links + total_external_links)}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
-                            <i class="fas fa-image text-xl"></i>
+                <div class="metric-card bg-white rounded-xl shadow-md p-4 transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-purple-100 text-purple-600">
+                            <i class="fas fa-image"></i>
                         </div>
                         <div>
-                            <p class="text-gray-500 text-sm">Total Images</p>
-                            <h3 class="text-2xl font-bold">{format_number(total_images)}</h3>
+                            <p class="text-gray-500 text-xs">Images</p>
+                            <h3 class="text-xl font-bold">{format_number(total_images)}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="metric-card bg-white rounded-xl shadow-md p-6 transition-all duration-300">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
-                            <i class="fas fa-file-code text-xl"></i>
+                <div class="metric-card bg-white rounded-xl shadow-md p-4 transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-yellow-100 text-yellow-600">
+                            <i class="fas fa-code"></i>
                         </div>
                         <div>
-                            <p class="text-gray-500 text-sm">Total Assets</p>
-                            <h3 class="text-2xl font-bold">{format_number(total_js_files + total_css_files + total_fonts + total_videos + total_audios)}</h3>
+                            <p class="text-gray-500 text-xs">JS Files</p>
+                            <h3 class="text-xl font-bold">{format_number(total_js_files)}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card bg-white rounded-xl shadow-md p-4 transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-pink-100 text-pink-600">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs">CSS Files</p>
+                            <h3 class="text-xl font-bold">{format_number(total_css_files)}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card bg-white rounded-xl shadow-md p-4 transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-orange-100 text-orange-600">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs">Media</p>
+                            <h3 class="text-xl font-bold">{format_number(total_videos + total_audios + total_fonts)}</h3>
                         </div>
                     </div>
                 </div>
@@ -230,7 +304,7 @@ def update_html():
                     </div>
                 </div>
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-lg font-semibold mb-4 text-gray-800">Content Metrics</h2>
+                    <h2 class="text-lg font-semibold mb-4 text-gray-800">Content Metrics (avg vs max per page)</h2>
                     <div class="chart-container">
                         <canvas id="contentChart"></canvas>
                     </div>
@@ -239,9 +313,9 @@ def update_html():
 
             <!-- Filter Controls -->
             <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">Crawled Pages ({len(results)})</h2>
-                    <div class="flex space-x-2">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                    <h2 class="text-xl font-bold text-gray-800">Crawled Pages ({len(results)})</h2>
+                    <div class="flex flex-wrap gap-2">
                         <select id="domainFilter" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300">
                             <option value="">All Domains</option>''')
 
@@ -266,49 +340,70 @@ def update_html():
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Results List -->
                 <div id="resultsContainer" class="space-y-4">''')
 
         # Add result items
         for result in results:
-            url = escape(result.get('url', 'N/A'))
-            domain = escape(urlparse(url).netloc)
+            raw_url = result.get('url', 'N/A')
+            url = escape(raw_url)
+            domain = escape(urlparse(raw_url).netloc)
             depth = result.get('depth', 'N/A')
-            title = escape(result.get('title', 'No Title'))
+            title = escape(result.get('title', '') or 'No Title')
             word_count = int(result.get('word_count', 0))
             image_count = int(result.get('image_count', 0))
+            js_count = int(result.get('js_files_count', 0))
+            css_count = int(result.get('css_files_count', 0))
             internal_links = int(result.get('internal_link_count', 0))
             external_links = int(result.get('external_link_count', 0))
-            url_length = int(result.get('url_length', 0))
-            description = escape(result.get('meta_description', ''))
-            status = 'Active'  # Default status, could be dynamic based on response code
+            url_length = int(result.get('url_length', len(raw_url)))
+            description = escape(result.get('meta_description', '') or '')
+            status_code = result.get('status_code', '')
+            badge = status_badge(status_code)
+            depth_label = f'Depth {depth}' if depth != 'N/A' else 'N/A'
 
             html_file.write(f'''
-                    <div class="result-item border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition" data-domain="{domain}" data-depth="{depth}">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-semibold text-indigo-600">{title}</h3>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">{status}</span>
+                    <div class="result-item border border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-domain="{domain}" data-depth="{depth}">
+                        <div class="flex justify-between items-start mb-1 gap-2">
+                            <h3 class="font-semibold text-indigo-600 flex-1 min-w-0 truncate">{title}</h3>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded">{depth_label}</span>
+                                {badge}
+                            </div>
                         </div>
-                        <a href="{url}" target="_blank" class="text-sm text-gray-500 block mb-2 truncate">{url}</a>
-                        <p class="text-gray-600 description-text mb-3">
-                            {description if description else 'No description available'}
+                        <a href="{url}" target="_blank" class="text-sm text-gray-500 block mb-2 truncate hover:text-indigo-600">{url}</a>
+                        <p class="text-gray-600 description-text text-sm mb-3">
+                            {description if description else '<span class="text-gray-400 italic">No description available</span>'}
                         </p>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 text-sm">
-                            <div class="bg-gray-100 px-3 py-1 rounded">
-                                <span class="font-medium">Words:</span> {format_number(word_count)}
+                        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2 text-xs">
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">Words</div>
+                                <div class="font-semibold">{format_number(word_count)}</div>
                             </div>
-                            <div class="bg-gray-100 px-3 py-1 rounded">
-                                <span class="font-medium">Images:</span> {format_number(image_count)}
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">Images</div>
+                                <div class="font-semibold">{format_number(image_count)}</div>
                             </div>
-                            <div class="bg-gray-100 px-3 py-1 rounded">
-                                <span class="font-medium">Int. Links:</span> {format_number(internal_links)}
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">JS</div>
+                                <div class="font-semibold">{format_number(js_count)}</div>
                             </div>
-                            <div class="bg-gray-100 px-3 py-1 rounded">
-                                <span class="font-medium">Ext. Links:</span> {format_number(external_links)}
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">CSS</div>
+                                <div class="font-semibold">{format_number(css_count)}</div>
                             </div>
-                            <div class="bg-gray-100 px-3 py-1 rounded">
-                                <span class="font-medium">URL Length:</span> {format_number(url_length)}
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">Int. Links</div>
+                                <div class="font-semibold">{format_number(internal_links)}</div>
+                            </div>
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">Ext. Links</div>
+                                <div class="font-semibold">{format_number(external_links)}</div>
+                            </div>
+                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
+                                <div class="text-gray-500">URL Len</div>
+                                <div class="font-semibold">{format_number(url_length)}</div>
                             </div>
                         </div>
                     </div>''')
@@ -316,40 +411,32 @@ def update_html():
         html_file.write(f'''
                 </div>
 
-                <!-- Pagination -->
-                <div class="mt-6 flex justify-center">
-                    <nav class="inline-flex rounded-md shadow">
-                        <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">1</a>
-                        <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    </nav>
-                </div>
+                <div class="mt-4 text-sm text-gray-500" id="filterCount"></div>
             </div>
         </main>
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-8">
+        <footer class="bg-gray-800 text-white py-8 mt-4">
             <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <div class="flex items-center">
-                            <i class="fas fa-spider text-xl mr-2"></i>
-                            <span class="font-bold">Crawler Dashboard</span>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-spider text-xl"></i>
+                            <span class="font-bold">PagesXcrawler</span>
                         </div>
                         <p class="text-gray-400 text-sm mt-1">Analyze and visualize web crawler results</p>
                     </div>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white">
+                    <div class="flex gap-4 items-center">
+                        <a href="past_crawls.html" class="text-gray-400 hover:text-white text-sm">
+                            <i class="fas fa-history mr-1"></i>Past Crawls
+                        </a>
+                        <a href="https://github.com/unaveragetech/PagesXcrawler" target="_blank" class="text-gray-400 hover:text-white">
                             <i class="fab fa-github text-xl"></i>
                         </a>
                     </div>
                 </div>
                 <div class="border-t border-gray-700 mt-6 pt-6 text-sm text-gray-400">
-                    <p>© {datetime.now().year} Crawler Results Dashboard. All rights reserved.</p>
+                    <p>© {datetime.now().year} PagesXcrawler. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -459,6 +546,7 @@ def update_html():
             const domainFilter = document.getElementById('domainFilter').value;
             const depthFilter = document.getElementById('depthFilter').value;
             const items = document.querySelectorAll('.result-item');
+            let visible = 0;
 
             items.forEach(item => {{
                 const textContent = item.textContent.toLowerCase();
@@ -471,20 +559,29 @@ def update_html():
 
                 if (matchesSearch && matchesDomain && matchesDepth) {{
                     item.style.display = 'block';
+                    visible++;
                 }} else {{
                     item.style.display = 'none';
                 }}
             }});
+
+            const countEl = document.getElementById('filterCount');
+            if (countEl) {{
+                countEl.textContent = visible < items.length
+                    ? `Showing ${{visible}} of ${{items.length}} pages`
+                    : '';
+            }}
         }}
 
         document.getElementById('searchInput').addEventListener('input', filterResults);
         document.getElementById('filterButton').addEventListener('click', filterResults);
+        document.getElementById('domainFilter').addEventListener('change', filterResults);
+        document.getElementById('depthFilter').addEventListener('change', filterResults);
 
-        // Toggle description text
+        // Toggle description text expansion on click
         document.querySelectorAll('.description-text').forEach(el => {{
             el.addEventListener('click', function() {{
-                this.classList.toggle('-webkit-line-clamp-3');
-                this.classList.toggle('line-clamp-none');
+                this.classList.toggle('expanded');
             }});
         }});
     </script>
