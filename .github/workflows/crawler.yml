@@ -120,7 +120,7 @@ jobs:
       run: |
         {
           python scripts/generate_visualizations.py
-          python scripts/update_html.py
+          python scripts/generate_history.py
 
           timestamp=$(date +"%Y%m%d_%H%M%S")
           mkdir -p data/archive
@@ -148,6 +148,7 @@ jobs:
           data/archive/
           visualizations/
           index.html
+          past_crawls.html
 
     - name: Update crawl history
       run: |
@@ -160,7 +161,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add data/* visualizations/* index.html
+        git add data/* visualizations/* index.html past_crawls.html
         git commit -m "🔄 Update crawl data [run #${{ github.run_id }}]"
         git push
 

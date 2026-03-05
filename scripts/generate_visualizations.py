@@ -1,6 +1,7 @@
 import os
 import json
 import csv
+import re
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -137,7 +138,7 @@ def generate_pdf_report(chart_paths, run_id):
     return report_path
 
 def update_html_with_visualizations(chart_paths):
-    """Insert charts into the index.html dashboard."""
+    """Insert charts into the index.html dashboard, replacing any previous visualization section."""
     html_path = os.path.join(BASE_DIR, "index.html")
     if not os.path.exists(html_path):
         print("No HTML dashboard to update.")
@@ -146,9 +147,16 @@ def update_html_with_visualizations(chart_paths):
     with open(html_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Inject visualizations above the filter controls
-    html_block = f"""
-<!-- Visualizations Section -->
+    # Remove any existing visualization section to avoid duplicates on repeated runs
+    content = re.sub(
+        r'<!-- Visualizations Section -->.*?<!-- End Visualizations Section -->',
+        '',
+        content,
+        flags=re.DOTALL
+    )
+
+    # Build new visualization block
+    html_block = f"""<!-- Visualizations Section -->
 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
   <h2 class="text-xl font-bold text-gray-800 mb-6">📊 Data Visualizations</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -173,9 +181,9 @@ def update_html_with_visualizations(chart_paths):
         content = content.replace("<!-- Filter Controls -->", html_block + "\n<!-- Filter Controls -->")
         with open(html_path, "w", encoding="utf-8") as f:
             f.write(content)
-        print("HTML dashboard updated.")
+        print("HTML dashboard updated with visualizations.")
     else:
-        print("Could not insert visualizations. Marker not found.")
+        print("Could not insert visualizations: '<!-- Filter Controls -->' marker not found.")
 
 def main():
     run_id = os.getenv("GITHUB_RUN_ID", "local")
