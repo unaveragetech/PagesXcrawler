@@ -24,32 +24,27 @@ os.makedirs(VIS_DIR, exist_ok=True)
 os.makedirs(ARCHIVE_DIR, exist_ok=True)
 
 def load_data():
-    """Load and unify crawl data from JSON and CSV."""
-    combined = []
-    seen_urls = set()
-
+    """Load crawl data from JSON (primary source) or CSV (fallback if JSON unavailable)."""
     json_file = os.path.join(DATA_DIR, "results.json")
     csv_file = os.path.join(DATA_DIR, "results.csv")
 
-    # Load JSON
+    # Load from JSON as the authoritative source
     if os.path.exists(json_file):
-        with open(json_file, "r", encoding="utf-8") as f:
-            try:
-                for row in json.load(f):
-                    if isinstance(row, dict) and row.get("url") not in seen_urls:
-                        combined.append(row)
-                        seen_urls.add(row["url"])
-            except Exception as e:
-                print(f"Failed to load JSON: {e}")
+        try:
+            with open(json_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return [row for row in data if isinstance(row, dict) and row.get("url")]
+        except Exception as e:
+            print(f"Failed to load JSON: {e}")
 
-    # Load CSV
+    # Fall back to CSV only when JSON is unavailable or failed to load
+    combined = []
     if os.path.exists(csv_file):
         with open(csv_file, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if row.get("url") and row["url"] not in seen_urls:
+                if row.get("url"):
                     combined.append(row)
-                    seen_urls.add(row["url"])
 
     return combined
 

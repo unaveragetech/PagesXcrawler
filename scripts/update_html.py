@@ -60,30 +60,25 @@ def status_badge(status_code):
         return f'<span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">Active</span>'
 
 def load_results(json_path, csv_path):
-    """Load crawl results, preferring JSON data and falling back to CSV for any missing URLs."""
-    results = []
-    seen_urls = set()
-
-    # Load from JSON first (richer data)
+    """Load crawl results from JSON (primary source) or CSV (fallback if JSON unavailable)."""
+    # Load from JSON as the authoritative source
     if os.path.exists(json_path):
         try:
             with open(json_path, 'r', encoding='utf-8') as json_file:
                 data = json.load(json_file)
                 if isinstance(data, list):
-                    for row in data:
-                        if isinstance(row, dict) and row.get('url') and row['url'] not in seen_urls:
-                            results.append(row)
-                            seen_urls.add(row['url'])
+                    return [row for row in data if isinstance(row, dict) and row.get('url')]
         except Exception as e:
             print(f"Warning: failed to load JSON results: {e}")
 
-    # Load from CSV for any URLs not already loaded from JSON
+    # Fall back to CSV only when JSON is unavailable or failed to load
+    results = []
     if os.path.exists(csv_path):
         try:
             with open(csv_path, 'r', encoding='utf-8') as csv_file:
                 reader = csv.DictReader(csv_file)
                 for row in reader:
-                    if row.get('url') and row['url'] not in seen_urls:
+                    if row.get('url'):
                         for key in ['h1_tags', 'h2_tags', 'link_texts']:
                             if isinstance(row.get(key), str):
                                 try:
@@ -91,7 +86,6 @@ def load_results(json_path, csv_path):
                                 except Exception:
                                     row[key] = []
                         results.append(row)
-                        seen_urls.add(row['url'])
         except Exception as e:
             print(f"Warning: failed to load CSV results: {e}")
 
