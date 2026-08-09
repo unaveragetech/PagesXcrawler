@@ -1,15 +1,1 @@
-[
-    {
-        "url": "https://2000.shodan.io/#/",
-        "title": "Shodan 2000",
-        "status_code": 200,
-        "depth": 0,
-        "internal_link_count": 0,
-        "external_link_count": 0,
-        "image_count": 0,
-        "js_files_count": 2,
-        "css_files_count": 1,
-        "content_size": 757,
-        "crawl_timestamp": "2026-07-14T18:32:36.257651"
-    }
-]
+[]

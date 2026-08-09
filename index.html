@@ -61,7 +61,7 @@
                 </div>
                 <div class="mt-3 flex items-center text-sm">
                     <span class="bg-indigo-500 px-3 py-1 rounded-full mr-2">Last Updated:</span>
-                    <span class="text-indigo-200">2026-08-09 13:43:48</span>
+                    <span class="text-indigo-200">2026-08-09 13:51:52</span>
                 </div>
             </div>
         </header>
@@ -78,7 +78,7 @@
                         </div>
                         <div>
                             <p class="text-gray-500 text-xs">Pages</p>
-                            <h3 class="text-xl font-bold">1</h3>
+                            <h3 class="text-xl font-bold">0</h3>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                         </div>
                         <div>
                             <p class="text-gray-500 text-xs">JS Files</p>
-                            <h3 class="text-xl font-bold">2</h3>
+                            <h3 class="text-xl font-bold">0</h3>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                         </div>
                         <div>
                             <p class="text-gray-500 text-xs">CSS Files</p>
-                            <h3 class="text-xl font-bold">1</h3>
+                            <h3 class="text-xl font-bold">0</h3>
                         </div>
                     </div>
                 </div>
@@ -155,36 +155,16 @@
                 </div>
             </div>
 
-            <!-- Visualizations Section -->
-<div class="bg-white rounded-xl shadow-md p-6 mb-8">
-  <h2 class="text-xl font-bold text-gray-800 mb-6">📊 Data Visualizations</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <h3 class="text-lg font-semibold mb-2">Pages by Domain</h3>
-      <img src="visualizations/domains_chart.png" alt="Domains Chart" class="w-full rounded-lg">
-    </div>
-    <div>
-      <h3 class="text-lg font-semibold mb-2">Word Count Distribution</h3>
-      <img src="visualizations/words_chart.png" alt="Words Chart" class="w-full rounded-lg">
-    </div>
-    <div class="md:col-span-2">
-      <h3 class="text-lg font-semibold mb-2">Average Links per Page</h3>
-      <img src="visualizations/links_chart.png" alt="Links Chart" class="w-full rounded-lg">
-    </div>
-  </div>
-</div>
-<!-- End Visualizations Section -->
-
-<!-- Filter Controls -->
+            <!-- Filter Controls -->
             <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                    <h2 class="text-xl font-bold text-gray-800">Crawled Pages (1)</h2>
+                    <h2 class="text-xl font-bold text-gray-800">Crawled Pages (0)</h2>
                     <div class="flex flex-wrap gap-2">
                         <select id="domainFilter" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-                            <option value="">All Domains</option><option value="2000.shodan.io">2000.shodan.io (1)</option>
+                            <option value="">All Domains</option>
                         </select>
                         <select id="depthFilter" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-                            <option value="">All Depths</option><option value="0">Depth 0</option>
+                            <option value="">All Depths</option>
                         </select>
                         <button id="filterButton" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
                             <i class="fas fa-filter mr-2"></i> Filter
@@ -194,49 +174,6 @@
 
                 <!-- Results List -->
                 <div id="resultsContainer" class="space-y-4">
-                    <div class="result-item border border-gray-200 rounded-lg p-4 hover:bg-gray-50" data-domain="2000.shodan.io" data-depth="0">
-                        <div class="flex justify-between items-start mb-1 gap-2">
-                            <h3 class="font-semibold text-indigo-600 flex-1 min-w-0 truncate">Shodan 2000</h3>
-                            <div class="flex items-center gap-2 flex-shrink-0">
-                                <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded">Depth 0</span>
-                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ 200</span>
-                            </div>
-                        </div>
-                        <a href="https://2000.shodan.io/#/" target="_blank" class="text-sm text-gray-500 block mb-2 truncate hover:text-indigo-600">https://2000.shodan.io/#/</a>
-                        <p class="text-gray-600 description-text text-sm mb-3">
-                            <span class="text-gray-400 italic">No description available</span>
-                        </p>
-                        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2 text-xs">
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">Words</div>
-                                <div class="font-semibold">18</div>
-                            </div>
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">Images</div>
-                                <div class="font-semibold">0</div>
-                            </div>
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">JS</div>
-                                <div class="font-semibold">2</div>
-                            </div>
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">CSS</div>
-                                <div class="font-semibold">1</div>
-                            </div>
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">Int. Links</div>
-                                <div class="font-semibold">0</div>
-                            </div>
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">Ext. Links</div>
-                                <div class="font-semibold">0</div>
-                            </div>
-                            <div class="bg-gray-100 px-2 py-1 rounded text-center">
-                                <div class="text-gray-500">URL Len</div>
-                                <div class="font-semibold">25</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="mt-4 text-sm text-gray-500" id="filterCount"></div>
@@ -324,20 +261,20 @@
                 datasets: [{
                     label: 'Average per Page',
                     data: [
-                        18,
                         0,
-                        2,
-                        1
+                        0,
+                        0,
+                        0
                     ],
                     backgroundColor: '#4F46E5',
                     borderRadius: 4
                 }, {
                     label: 'Maximum',
                     data: [
-                        18,
                         0,
-                        2,
-                        1
+                        0,
+                        0,
+                        0
                     ],
                     backgroundColor: '#8B5CF6',
                     borderRadius: 4
