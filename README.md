@@ -1,6 +1,8 @@
 # 🕷️ PagesXcrawler
 
 > A GitHub-powered web crawler: submit a URL via a GitHub Issue and get a live, interactive results dashboard hosted on GitHub Pages.
+>
+> https://gitdiagram.com/unaveragetech/pagesxcrawler
 
 ![Deployments](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/deployments.json)
 ![Actions](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/unaveragetech/PagesXcrawler/main/data/actions.json)
