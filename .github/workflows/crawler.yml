@@ -53,23 +53,33 @@ jobs:
 
     - name: Parse inputs
       id: parse-inputs
+      env:
+        GH_PAT: ${{ secrets.MY_PAT }}
+        EVENT_NAME_IN: ${{ github.event_name }}
+        ISSUE_TITLE_IN: ${{ github.event.issue.title }}
+        ISSUE_NUMBER_IN: ${{ github.event.issue.number }}
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_DEPTH: ${{ inputs.depth }}
+        INPUT_MAX_PAGES: ${{ inputs.max_pages }}
+        INPUT_TIMEOUT: ${{ inputs.timeout }}
+        INPUT_ROTATE_AGENT: ${{ inputs.rotate_agent }}
       run: |
-        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+        if [ "$EVENT_NAME_IN" == "workflow_dispatch" ]; then
           {
-            echo "URL=${{ inputs.url }}"
-            echo "DEPTH=${{ inputs.depth }}"
-            echo "MAX_PAGES=${{ inputs.max_pages }}"
-            echo "TIMEOUT=${{ inputs.timeout }}"
-            echo "ROTATE_AGENT=${{ inputs.rotate_agent }}"
+            echo "URL=$INPUT_URL"
+            echo "DEPTH=$INPUT_DEPTH"
+            echo "MAX_PAGES=$INPUT_MAX_PAGES"
+            echo "TIMEOUT=$INPUT_TIMEOUT"
+            echo "ROTATE_AGENT=$INPUT_ROTATE_AGENT"
             echo "ISSUE_NUMBER=0"
           } >> "$GITHUB_ENV"
         else
-          issue_title="${{ github.event.issue.title }}"
-          issue_number="${{ github.event.issue.number }}"
+          issue_title="$ISSUE_TITLE_IN"
+          issue_number="$ISSUE_NUMBER_IN"
 
           post_comment() {
             curl -X POST \
-              -H "Authorization: token ${{ secrets.MY_PAT }}" \
+              -H "Authorization: token $GH_PAT" \
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/repos/${{ github.repository }}/issues/$issue_number/comments" \
               -d "{\"body\":\"$1\"}"
@@ -110,13 +120,15 @@ jobs:
 
     - name: Run crawler
       run: |
-        echo "Starting crawl on: ${{ env.URL }}"
-        python crawler.py "${{ env.URL }}" "${{ env.DEPTH }}" \
-          --max-pages "${{ env.MAX_PAGES }}" \
-          --timeout "${{ env.TIMEOUT }}" \
-          --rotate-agent-after "${{ env.ROTATE_AGENT }}"
+        echo "Starting crawl on: $URL"
+        python crawler.py "$URL" "$DEPTH" \
+          --max-pages "$MAX_PAGES" \
+          --timeout "$TIMEOUT" \
+          --rotate-agent-after "$ROTATE_AGENT"
 
     - name: Generate visualizations and report
+      env:
+        GH_PAT: ${{ secrets.MY_PAT }}
       run: |
         {
           python scripts/generate_visualizations.py
@@ -128,12 +140,12 @@ jobs:
           cp data/results.json "data/archive/results_${timestamp}.json"
         } || {
           echo "❌ Visualization step failed."
-          if [ "${{ env.ISSUE_NUMBER }}" != "0" ]; then
+          if [ "$ISSUE_NUMBER" != "0" ]; then
             errlog=$(tail -n 50 /home/runner/work/${{ github.repository }}/PagesXcrawler/scripts/generate_visualizations.py 2>&1 | sed 's/"/\\"/g')
             curl -X POST \
-              -H "Authorization: token ${{ secrets.MY_PAT }}" \
+              -H "Authorization: token $GH_PAT" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}/comments" \
+              "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments" \
               -d "{\"body\":\"⚠️ Error during visualization:\n\`\`\`log\n$errlog\n\`\`\`\"}"
           fi
           exit 1
@@ -155,7 +167,7 @@ jobs:
         mkdir -p data/history
         timestamp=$(date +"%Y-%m-%d %H:%M:%S")
         pages_crawled=$(wc -l < data/results.csv)
-        echo "$timestamp,${{ env.URL }},${{ env.DEPTH }},${{ env.MAX_PAGES }},$pages_crawled,completed" >> data/history/crawl_history.csv
+        echo "$timestamp,$URL,$DEPTH,$MAX_PAGES,$pages_crawled,completed" >> data/history/crawl_history.csv
 
     - name: Commit and push results
       run: |
@@ -167,18 +179,20 @@ jobs:
 
     - name: Post crawl summary to issue
       if: env.ISSUE_NUMBER != '0'
+      env:
+        GH_PAT: ${{ secrets.MY_PAT }}
       run: |
         pages_crawled=$(wc -l < data/results.csv)
-        summary="✅ Crawl completed!\n\n**Results**:\n- Pages Crawled: $pages_crawled\n- Depth: ${{ env.DEPTH }}\n- Max Pages: ${{ env.MAX_PAGES }}\n\n🔗 [Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n📄 [CSV](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n🧾 [PDF](https://github.com/${{ github.repository }}/blob/main/visualizations/report_${{ github.run_id }}.pdf)\n\n_Completed at: $(date)_"
+        summary="✅ Crawl completed!\n\n**Results**:\n- Pages Crawled: $pages_crawled\n- Depth: $DEPTH\n- Max Pages: $MAX_PAGES\n\n🔗 [Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/)\n📄 [CSV](https://github.com/${{ github.repository }}/blob/main/data/results.csv)\n🧾 [PDF](https://github.com/${{ github.repository }}/blob/main/visualizations/report_${{ github.run_id }}.pdf)\n\n_Completed at: $(date)_"
 
         curl -X POST \
-          -H "Authorization: token ${{ secrets.MY_PAT }}" \
+          -H "Authorization: token $GH_PAT" \
           -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}/comments" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments" \
           -d "{\"body\":\"$summary\"}"
 
         curl -X PATCH \
-          -H "Authorization: token ${{ secrets.MY_PAT }}" \
+          -H "Authorization: token $GH_PAT" \
           -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER" \
           -d '{"state":"closed"}'
